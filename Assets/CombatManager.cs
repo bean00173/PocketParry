@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
 {
@@ -28,24 +29,28 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public GameObject lIndicator, rIndicator, tIndicator;
 
-    public TextMeshProUGUI scoreText;
+    public StanceIndicator enemyStance;
+    public TextMeshProUGUI enemyName;
     int score;
+
+    private EnemyBehaviour currentEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentEnemy = this.GetComponentInChildren<EnemyBehaviour>();
+        enemyStance.SetupBar(currentEnemy.enemyStats.health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!attacking)
-        {
-            StartCoroutine(TestAttack());
-        }
+        //if (!attacking)
+        //{
+        //    StartCoroutine(TestAttack());
+        //}
 
-        scoreText.text = score.ToString();
+        enemyName.text = currentEnemy.enemyStats.name;
     }
 
 
@@ -75,12 +80,16 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
 
         if (CheckValidParry(input))
         {
-            score++;
+            Debug.Log("Parried!");
+
+            currentEnemy.Parried();
+
+            UpdateScore();
             detector.material.color = Color.green;
         }
         else
         {
-            score--;
+            //score--;
         }
     }
 
@@ -125,34 +134,40 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         return false;
     }
 
-    private IEnumerator TestAttack() // RUDIMENTARY ATTACK CODE ---> WILL BE REPLACED WITH ENEMY BEHAVIOURS
+    private void UpdateScore()
     {
-        attacking = true;
-        detector.material.color = Color.red;
-
-        AtkType atkType = Random.value > .66 ? AtkType.left : Random.value > .5 ? AtkType.right : AtkType.top;
-        switch (atkType)
-        {
-            case AtkType.left: lIndicator.SetActive(true); break;
-            case AtkType.right: rIndicator.SetActive(true); break;
-            case AtkType.top: tIndicator.SetActive(true); break;
-        }
-
-        yield return new WaitForSeconds(1.0f * Random.value);
-
-        ParryStart(atkType);
-
-        yield return new WaitForSeconds(1.0f);
-
-        ParryEnd();
-
-        detector.material.color = Color.red;
-
-        lIndicator.SetActive(false);
-        rIndicator.SetActive(false);
-        tIndicator.SetActive(false);
-
-        attacking = false;
+        currentEnemy.parryCount++;
+        enemyStance.UpdateStanceBar(currentEnemy.parryCount);
     }
+
+    //private IEnumerator TestAttack() // RUDIMENTARY ATTACK CODE ---> WILL BE REPLACED WITH ENEMY BEHAVIOURS
+    //{
+    //    attacking = true;
+    //    detector.material.color = Color.red;
+
+    //    AtkType atkType = Random.value > .66 ? AtkType.left : Random.value > .5 ? AtkType.right : AtkType.top;
+    //    switch (atkType)
+    //    {
+    //        case AtkType.left: lIndicator.SetActive(true); break;
+    //        case AtkType.right: rIndicator.SetActive(true); break;
+    //        case AtkType.top: tIndicator.SetActive(true); break;
+    //    }
+
+    //    yield return new WaitForSeconds(1.0f * Random.value);
+
+    //    ParryStart(atkType);
+
+    //    yield return new WaitForSeconds(1.0f);
+
+    //    ParryEnd();
+
+    //    detector.material.color = Color.red;
+
+    //    lIndicator.SetActive(false);
+    //    rIndicator.SetActive(false);
+    //    tIndicator.SetActive(false);
+
+    //    attacking = false;
+    //}
 
 }
