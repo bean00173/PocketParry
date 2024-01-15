@@ -373,10 +373,11 @@ MonoBehaviour:
   enemyStats:
     health: 5
     name: Daisuke Watanabe
-    comboChance: 0
-    comboLength: 0
+    comboChance: 1
+    comboLength: 3
     damage: 0
     atkSpeed: 1
+    potentialAttacks: 00000000
   parryCount: 0
 --- !u!1 &157261296
 GameObject:

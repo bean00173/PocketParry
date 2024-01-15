@@ -82,10 +82,10 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             Debug.Log("Parried!");
 
-            currentEnemy.Parried();
-
             UpdateScore();
-            detector.material.color = Color.green;
+            //detector.material.color = Color.green;
+
+            currentEnemy.Parried();
         }
         else
         {

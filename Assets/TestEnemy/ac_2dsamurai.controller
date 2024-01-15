@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: DoAttack
+    m_ConditionEvent: leftAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5924449074972491766}
@@ -90,7 +90,7 @@ AnimatorController:
   m_Name: ac_2dsamurai
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: DoAttack
+  - m_Name: leftAttack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -129,9 +129,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7887324
+  m_TransitionDuration: 0.50709456
+  m_TransitionOffset: 1.7027241
+  m_ExitTime: 0.56689936
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

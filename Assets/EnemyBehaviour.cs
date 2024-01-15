@@ -8,10 +8,12 @@ public class Enemy
     [Range(0f, 10f)]
     public int health;
     public string name;
+    [Range(0, 1f)]
     public float comboChance;
     public float comboLength;
     public float damage;
     public float atkSpeed;
+    public CombatManager.AtkType[] potentialAttacks;
 }
 
 public class EnemyBehaviour : MonoBehaviour
@@ -23,6 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
     bool canAttack;
 
     Animator ac;
+    private bool combo;
+    private int comboStatus;
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +42,25 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (canAttack)
         {
-            ac.SetTrigger("DoAttack");
-            StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+            CombatManager.AtkType attack = enemyStats.potentialAttacks[Random.Range(0, enemyStats.potentialAttacks.Length)];
+            ac.SetTrigger($"{attack}Attack");
+
+            if(combo == true && comboStatus < enemyStats.comboLength)
+            {
+                comboStatus++;
+                StartCoroutine(AtkTimer(1.0f));
+            }
+            else if(Random.value > 1 - enemyStats.comboChance)
+            {
+                combo = true;
+                comboStatus++;
+                StartCoroutine(AtkTimer(1.0f));
+            }
+            else
+            {
+                combo = false;
+                StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+            }
         }
     }
 
@@ -63,8 +84,22 @@ public class EnemyBehaviour : MonoBehaviour
     public void Parried()
     {
         ac.SetTrigger("Parried");
-        StopAllCoroutines();
-        StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+
+        if(parryCount >= enemyStats.health)
+        {
+            Debug.Log("Enemy Defeated!");
+            StopAllCoroutines();
+            canAttack = false;
+        }
+        else if(combo == true && comboStatus < enemyStats.comboLength)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+        }
     }
 
 }
