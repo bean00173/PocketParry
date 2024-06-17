@@ -1,8 +1,5 @@
 <h1 align="center"> Pocket Parry </h1>
 
-![Title_Background]()
-
-
 <!-- Description -->
 
 ## Features
