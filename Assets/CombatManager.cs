@@ -5,21 +5,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
+[RequireComponent(typeof(PlayerInput))]
+public class CombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
 {
     public enum AtkType
     {
-        left,
-        right,
-        top
-    }
-    private enum DraggedDirection
-    {
         Up,
+        LeftUp,
+        RightUp,
         Down,
+        LeftDown,
+        RightDown,
         Right,
         Left
     }
+
+    PlayerInput playerInput;
 
     bool parryable;
     AtkType currentAtkType;
@@ -39,6 +40,8 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
     void Start()
     {
         currentEnemy = this.GetComponentInChildren<EnemyBehaviour>();
+        playerInput = this.GetComponentInChildren<PlayerInput>();
+        playerInput.inputHandled.AddListener(HandleInput);
         enemyStance.SetupBar(currentEnemy.enemyStats.health);
     }
 
@@ -53,31 +56,8 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         enemyName.text = currentEnemy.enemyStats.name;
     }
 
-
-    public void ParryStart(AtkType attackType)
+    private void HandleInput(DraggedDirection input)
     {
-        detector.material.color = Color.yellow;
-
-        parryable = true;
-        currentAtkType = attackType;
-        Debug.Log("Parry Now!");
-    }
-
-    public void ParryEnd()
-    {
-        parryable = false;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        Debug.Log("TAP");
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
-        DraggedDirection input = GetDragDirection(dragVectorDirection);
-
         if (CheckValidParry(input))
         {
             Debug.Log("Parried!");
@@ -93,26 +73,18 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void ParryStart(AtkType attackType)
     {
-        
+        detector.material.color = Color.yellow;
+
+        parryable = true;
+        currentAtkType = attackType;
+        Debug.Log("Parry Now!");
     }
 
-    private DraggedDirection GetDragDirection(Vector3 dragVector)
+    public void ParryEnd()
     {
-        float positiveX = Mathf.Abs(dragVector.x);
-        float positiveY = Mathf.Abs(dragVector.y);
-        DraggedDirection draggedDir;
-        if (positiveX > positiveY)
-        {
-            draggedDir = (dragVector.x > 0) ? DraggedDirection.Right : DraggedDirection.Left;
-        }
-        else
-        {
-            draggedDir = (dragVector.y > 0) ? DraggedDirection.Up : DraggedDirection.Down;
-        }
-        Debug.Log(draggedDir);
-        return draggedDir;
+        parryable = false;
     }
 
     private bool CheckValidParry(DraggedDirection playerDrag)
@@ -123,15 +95,16 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         }
         else
         {
-            switch (currentAtkType)
-            {
-                case AtkType.left: if (playerDrag == DraggedDirection.Left) return true; break;
-                case AtkType.right: if (playerDrag == DraggedDirection.Right) return true; break;
-                case AtkType.top: if (playerDrag == DraggedDirection.Up) return true; break;
-            }
+            //switch (currentAtkType)
+            //{
+            //    case AtkType.left: if (playerDrag == DraggedDirection.Left) return true; break;
+            //    case AtkType.right: if (playerDrag == DraggedDirection.Right) return true; break;
+            //    case AtkType.top: if (playerDrag == DraggedDirection.Up) return true; break;
+            //}
+
+            return currentAtkType.ToString() == playerDrag.ToString() ? true : false;
         }
 
-        return false;
     }
 
     private void UpdateScore()
@@ -139,6 +112,55 @@ public class CombatManager : MonoBehaviour, IDragHandler, IEndDragHandler
         currentEnemy.parryCount++;
         enemyStance.UpdateStanceBar(currentEnemy.parryCount);
     }
+
+    //public void OnDrag(PointerEventData eventData)
+    //{
+    //    Debug.Log("TAP");
+    //}
+
+    //public void OnEndDrag(PointerEventData eventData)
+    //{
+    //    Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
+    //    DraggedDirection input = GetDragDirection(dragVectorDirection);
+
+    //    if (CheckValidParry(input))
+    //    {
+    //        Debug.Log("Parried!");
+
+    //        UpdateScore();
+    //        //detector.material.color = Color.green;
+
+    //        currentEnemy.Parried();
+    //    }
+    //    else
+    //    {
+    //        //score--;
+    //    }
+    //}
+
+    //public void OnPointerUp(PointerEventData eventData)
+    //{
+
+    //}
+
+    //private DraggedDirection GetDragDirection(Vector3 dragVector)
+    //{
+    //    float positiveX = Mathf.Abs(dragVector.x);
+    //    float positiveY = Mathf.Abs(dragVector.y);
+    //    DraggedDirection draggedDir;
+    //    if (positiveX > positiveY)
+    //    {
+    //        draggedDir = (dragVector.x > 0) ? DraggedDirection.Right : DraggedDirection.Left;
+    //    }
+    //    else
+    //    {
+    //        draggedDir = (dragVector.y > 0) ? DraggedDirection.Up : DraggedDirection.Down;
+    //    }
+    //    Debug.Log(draggedDir);
+    //    return draggedDir;
+    //}
+
+
 
     //private IEnumerator TestAttack() // RUDIMENTARY ATTACK CODE ---> WILL BE REPLACED WITH ENEMY BEHAVIOURS
     //{

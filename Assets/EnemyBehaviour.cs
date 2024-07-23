@@ -60,13 +60,18 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 combo = false;
                 StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+
+
+                AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+                AnimationClip clip = clipInfo[0].clip;
+                float atkTime = clip.events[0].time;
             }
         }
     }
 
     public void ParryStart()
     {
-        cm.ParryStart(CombatManager.AtkType.left);
+        cm.ParryStart(CombatManager.AtkType.Left);
     }
 
     public void ParryEnd()
@@ -90,6 +95,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Enemy Defeated!");
             StopAllCoroutines();
             canAttack = false;
+            ParryEnd();
         }
         else if(combo == true && comboStatus < enemyStats.comboLength)
         {
