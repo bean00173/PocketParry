@@ -62,9 +62,9 @@ public class EnemyBehaviour : MonoBehaviour
                 StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
 
 
-                AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
-                AnimationClip clip = clipInfo[0].clip;
-                float atkTime = clip.events[0].time;
+                //AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+                //AnimationClip clip = clipInfo[0].clip;
+                //float atkTime = clip.events[0].time;
             }
         }
     }
