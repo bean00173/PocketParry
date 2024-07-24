@@ -95,7 +95,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
         if (gradient > 2 || gradient < -2) input = CheckTop(eventData) ? DraggedDirection.Up : DraggedDirection.Down;
         else if (gradient < 2 && gradient > .5) input = CheckRightSide(eventData) ? DraggedDirection.RightUp : DraggedDirection.LeftDown;
         else if (gradient < .5 && gradient > -.5) input = CheckRightSide(eventData) ? DraggedDirection.Right : DraggedDirection.Left;
-        else if (gradient < -2 && gradient > -.5) input = CheckRightSide(eventData) ? DraggedDirection.RightDown : DraggedDirection.LeftUp;
+        else if (gradient > -2 && gradient < -.5) input = CheckRightSide(eventData) ? DraggedDirection.RightDown : DraggedDirection.LeftUp;
 
         Debug.Log(gradient);
 
