@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class TestAnimations : MonoBehaviour
 {
     Animator ac;
-    Toggle comboToggle;
+    public Toggle comboToggle;
     bool combo;
+
+    int comboId;
+    Attack currentAttack;
     
     // Start is called before the first frame update
     void Start()
@@ -18,12 +21,24 @@ public class TestAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        combo = comboToggle.isOn;    
+        combo = comboToggle.isOn;
+        ac.SetBool("Combo", combo);
     }
 
-    public void PlayAttackAnimation(int number)
+    public void PlayAttackAnimation(int num)
     {
-        ac.SetFloat("AttackNumber", number);
+        AttackType type = (AttackType)num;
+        currentAttack = TestAttackData.instance.GetAttackData(type);
+        ac.SetFloat("AttackNumber", currentAttack.id);
+        if (combo)
+        {
+            comboId = currentAttack.comboId;
+        }
         ac.SetTrigger("Attack");
+    }
+
+    public void ComboTransition()
+    {
+        ac.SetFloat("AttackNumber", comboId);
     }
 }

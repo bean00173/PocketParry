@@ -1,0 +1,30 @@
+{
+  "attackList":
+  [
+    {
+      "type": "Farmer_TL",
+	  "id": 0,
+	  "comboId": 1
+    },
+    {
+      "type": "Farmer_BR",
+	  "id": 1,
+	  "comboId": 0
+    },
+    {
+      "type": "Farmer_TR",
+	  "id": 2,
+	  "comboId": 3
+    },
+    {
+      "type": "Farmer_BL",
+	  "id": 3,
+	  "comboId": 2
+    },
+    {
+      "type": "Farmer_T",
+	  "id": 4,
+	  "comboId": 4
+    }
+  ]
+}
