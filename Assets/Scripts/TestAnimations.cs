@@ -28,11 +28,11 @@ public class TestAnimations : MonoBehaviour
     public void PlayAttackAnimation(int num)
     {
         AttackType type = (AttackType)num;
-        currentAttack = TestAttackData.instance.GetAttackData(type);
+        //currentAttack = TestAttackData.instance.GetAttackData(type);
         ac.SetFloat("AttackNumber", currentAttack.id);
         if (combo)
         {
-            comboId = currentAttack.comboId;
+            comboId = currentAttack.comboId; 
         }
         ac.SetTrigger("Attack");
     }

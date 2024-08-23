@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class Attack
 {
-    public string type;
+    public AttackType type;
     public int id;
     public int comboId;
 }
@@ -48,19 +48,19 @@ public class TestAttackData : MonoBehaviour
         
     }
 
-    public Attack GetAttackData(AttackType type)
-    {
-        AttackList attacksInJson = JsonUtility.FromJson<AttackList>(jsonFile.text);
+    //public Attack GetAttackData(AttackType type)
+    //{
+    //    AttackList attacksInJson = JsonUtility.FromJson<AttackList>(jsonFile.text);
 
-        foreach (Attack attack in attacksInJson.attackList)
-        {
-            AttackType jsonType = (AttackType)Enum.Parse(typeof(AttackType), attack.type);
-            if(jsonType == type)
-            {
-                return attack;
-            }
-        }
+    //    foreach (Attack attack in attacksInJson.attackList)
+    //    {
+    //        AttackType jsonType = (AttackType)Enum.Parse(typeof(AttackType), attack.type);
+    //        if(jsonType == type)
+    //        {
+    //            return attack;
+    //        }
+    //    }
 
-        return null;
-    }
+    //    return null;
+    //}
 }
