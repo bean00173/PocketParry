@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DirectionIndicator : MonoBehaviour
 {
     public PlayerInput input;
-    public DraggedDirection direction;
+    public ParryDirection direction;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,7 @@ public class DirectionIndicator : MonoBehaviour
         
     }
 
-    private void StartColourChange(DraggedDirection dir)
+    private void StartColourChange(ParryDirection dir)
     {
         if(direction == dir) StartCoroutine(DoColourChange());
     }

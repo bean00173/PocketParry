@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public enum DraggedDirection
+public enum ParryDirection
 {
     Up,
     LeftUp,
@@ -20,8 +20,15 @@ public enum DraggedDirection
 public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
 {
 
-    [HideInInspector] public UnityEvent<DraggedDirection> inputHandled = new UnityEvent<DraggedDirection>();
-    DraggedDirection input;
+    [HideInInspector] public UnityEvent<ParryDirection> inputHandled = new UnityEvent<ParryDirection>();
+    ParryDirection input;
+
+    public static PlayerInput Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -32,10 +39,10 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         float gradient = (eventData.position.y - eventData.pressPosition.y) / (eventData.position.x - eventData.pressPosition.x);
 
-        if (gradient > 2 || gradient < -2) input = CheckTop(eventData) ? DraggedDirection.Up : DraggedDirection.Down;
-        else if (gradient < 2 && gradient > .5) input = CheckRightSide(eventData) ? DraggedDirection.RightUp : DraggedDirection.LeftDown;
-        else if (gradient < .5 && gradient > -.5) input = CheckRightSide(eventData) ? DraggedDirection.Right : DraggedDirection.Left;
-        else if (gradient < -.5 && gradient > -2) input = CheckRightSide(eventData) ? DraggedDirection.RightDown : DraggedDirection.LeftUp;
+        if (gradient > 2 || gradient < -2) input = CheckTop(eventData) ? ParryDirection.Up : ParryDirection.Down;
+        else if (gradient < 2 && gradient > .5) input = CheckRightSide(eventData) ? ParryDirection.RightUp : ParryDirection.LeftDown;
+        else if (gradient < .5 && gradient > -.5) input = CheckRightSide(eventData) ? ParryDirection.Right : ParryDirection.Left;
+        else if (gradient < -.5 && gradient > -2) input = CheckRightSide(eventData) ? ParryDirection.RightDown : ParryDirection.LeftUp;
 
         Debug.Log(gradient);
 

@@ -56,7 +56,7 @@ public class CombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
         enemyName.text = currentEnemy.enemyStats.name;
     }
 
-    private void HandleInput(DraggedDirection input)
+    private void HandleInput(ParryDirection input)
     {
         if (CheckValidParry(input))
         {
@@ -87,7 +87,7 @@ public class CombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
         parryable = false;
     }
 
-    private bool CheckValidParry(DraggedDirection playerDrag)
+    private bool CheckValidParry(ParryDirection playerDrag)
     {
         if (!parryable)
         {
