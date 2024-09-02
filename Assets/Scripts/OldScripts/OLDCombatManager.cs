@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerInput))]
-public class CombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
+public class OLDCombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
 {
     public enum AtkType
     {
@@ -34,12 +34,12 @@ public class CombatManager : MonoBehaviour/*, IDragHandler, IEndDragHandler*/
     public TextMeshProUGUI enemyName;
     int score;
 
-    private EnemyBehaviour currentEnemy;
+    private OLDEnemyBehaviour currentEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentEnemy = this.GetComponentInChildren<EnemyBehaviour>();
+        currentEnemy = this.GetComponentInChildren<OLDEnemyBehaviour>();
         playerInput = this.GetComponentInChildren<PlayerInput>();
         playerInput.inputHandled.AddListener(HandleInput);
         enemyStance.SetupBar(currentEnemy.enemyStats.health);

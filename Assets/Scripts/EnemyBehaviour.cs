@@ -1,111 +1,94 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class Enemy
-{
-    [Range(0f, 10f)]
-    public int health;
-    public string name;
-    [Range(0, 1f)]
-    public float comboChance;
-    public float comboLength;
-    public float damage;
-    public float atkSpeed;
-    public CombatManager.AtkType[] potentialAttacks;
-}
+using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [HideInInspector] public CombatManager cm;
-    public Enemy enemyStats;
-
-    public float parryCount;
-    bool canAttack;
-
     Animator ac;
-    private bool combo;
-    private int comboStatus;
+    bool vulnerable;
+    bool parry;
+
+    float elapsedTime;
+
+    float parryStart, parryEnd;
+
+    public Slider slider;
+    public Button parryButton;
+
+    AttackInfo currentClipInfo;
+
+    public AttackInformation attackInformation;
 
     // Start is called before the first frame update
     void Start()
     {
-        cm = GetComponentInParent<CombatManager>();
         ac = this.GetComponent<Animator>();
-
-        StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+        PlayerInput.Instance.inputHandled.AddListener(Parry);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canAttack)
+        
+    }
+
+    public void PlayAttack(int num)
+    {
+        ac.SetFloat("AttackNumber", num);
+        ac.SetTrigger("Attack");
+    }
+
+    public void Vulnerable()
+    {
+        vulnerable = true;
+        parryStart = GetCurrentAnimatorTime();
+        
+        foreach(AttackInfo info in attackInformation.attackInfo)
         {
-            CombatManager.AtkType attack = enemyStats.potentialAttacks[Random.Range(0, enemyStats.potentialAttacks.Length)];
-            ac.SetTrigger($"{attack}Attack");
-
-            if(combo == true && comboStatus < enemyStats.comboLength)
+            AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo[0].clip.name == info.clip.name)
             {
-                comboStatus++;
-                StartCoroutine(AtkTimer(1.0f));
+                Debug.Log("huh");
+                currentClipInfo = info;
             }
-            else if(Random.value > 1 - enemyStats.comboChance)
-            {
-                combo = true;
-                comboStatus++;
-                StartCoroutine(AtkTimer(1.0f));
-            }
-            else
-            {
-                combo = false;
-                StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
-
-
-                //AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
-                //AnimationClip clip = clipInfo[0].clip;
-                //float atkTime = clip.events[0].time;
-            }
+            
         }
+
     }
 
-    public void ParryStart()
+    public void InVulnerable()
     {
-        cm.ParryStart(CombatManager.AtkType.Left);
+        vulnerable = false;
+        parryEnd = GetCurrentAnimatorTime();
+
+        slider.minValue = parryStart;
+        slider.maxValue = parryEnd;
+        slider.value = elapsedTime;
     }
 
-    public void ParryEnd()
+    public float GetCurrentAnimatorTime()
     {
-        cm.ParryEnd();
+        return ac.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
 
-    private IEnumerator AtkTimer(float time)
+    public void Parry(ParryDirection dir)
     {
-        canAttack = false;
-        yield return new WaitForSeconds(time);
-        canAttack = true;
-    }
-
-    public void Parried()
-    {
-        ac.SetTrigger("Parried");
-
-        if(parryCount >= enemyStats.health)
+        if (vulnerable && CheckInputMatch(dir))
         {
-            Debug.Log("Enemy Defeated!");
-            StopAllCoroutines();
-            canAttack = false;
-            ParryEnd();
-        }
-        else if(combo == true && comboStatus < enemyStats.comboLength)
-        {
-            canAttack = true;
+            Debug.Log("Parried");
+            elapsedTime = GetCurrentAnimatorTime();
+            vulnerable = false;
         }
         else
         {
-            StopAllCoroutines();
-            StartCoroutine(AtkTimer(5.0f / enemyStats.atkSpeed));
+            elapsedTime = 0;
         }
     }
 
+    private bool CheckInputMatch(ParryDirection dir)
+    {
+        return dir == currentClipInfo.parryDirection;
+
+    }
 }
