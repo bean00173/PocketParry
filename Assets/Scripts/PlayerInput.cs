@@ -44,9 +44,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
         else if (gradient < .5 && gradient > -.5) input = CheckRightSide(eventData) ? ParryDirection.Right : ParryDirection.Left;
         else if (gradient < -.5 && gradient > -2) input = CheckRightSide(eventData) ? ParryDirection.RightDown : ParryDirection.LeftUp;
 
-        Debug.Log(gradient);
-
-        Debug.Log(input);
+        Debug.Log($"Player Swiped : {input}");
         inputHandled.Invoke(input);
     }
 

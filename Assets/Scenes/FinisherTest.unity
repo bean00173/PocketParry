@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 1603943096}
   - component: {fileID: 1603943095}
   - component: {fileID: 1603943097}
+  - component: {fileID: 1603943098}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -485,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -526,15 +527,30 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_ChildAlignment: 4
+  m_Spacing: 4.71
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1603943098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603943093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39fe152c6a3bca42b92a3c4d03171e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLength: 4
+  maxLength: 8
+  arrowPrefab: {fileID: 3802713728844313001, guid: ae300e3dd7152c946b36a0f2db875cee, type: 3}
 --- !u!1 &1950283697
 GameObject:
   m_ObjectHideFlags: 0
