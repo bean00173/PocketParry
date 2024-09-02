@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FinisherArrow : MonoBehaviour
 {
-    public ArrowDirection direction;
+    public ParryDirection direction;
     private Image image;
 
     // Start is called before the first frame update

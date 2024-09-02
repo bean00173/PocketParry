@@ -3,15 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public enum ArrowDirection
-{
-    Up,
-    Down,
-    Left,
-    Right
-}
-
 public class FinisherManager : MonoBehaviour
 {
     public float minLength, maxLength;
@@ -20,17 +11,33 @@ public class FinisherManager : MonoBehaviour
     public GameObject arrowPrefab;
 
     FinisherArrow lastArrow;
-    ArrowDirection arrowDirection;
-
     int arrowIndex;
-
     bool complete;
 
     // Start is called before the first frame update
     void Start()
     {
-        length = Random.Range(minLength, maxLength);
         PlayerInput.Instance.inputHandled.AddListener(InputCheck);
+        GenerateFinisherPuzzle();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (arrowIndex >= this.transform.childCount )
+        {
+            lastArrow = null;
+            //complete = false;
+            arrowIndex = 0;
+            ResetUI();
+            GenerateFinisherPuzzle();
+        }
+    }
+
+    private void GenerateFinisherPuzzle()
+    {
+        length = Random.Range(minLength, maxLength);
 
         for (int i = 0; i < length; i++)
         {
@@ -40,56 +47,39 @@ public class FinisherManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void InputCheck(ParryDirection dir)
     {
-        if (!complete)
+        if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
         {
-            if (arrowIndex >= this.transform.childCount)
-            {
-                complete = true;
-            }
-            else if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
-            {
-                this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.green;
-                arrowIndex++;
-            }
-            else
-            {
-                this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.red;
-            }
+            this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.green;
+            arrowIndex++;
+            Debug.Log(arrowIndex);
         }
         else
         {
-            Debug.Log("Finisher Over");
+            this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.red;
         }
     }
 
-    private ArrowDirection SelectDirection(FinisherArrow newArrow)
+    private ParryDirection SelectDirection(FinisherArrow newArrow)
     {
         if(lastArrow == null)
         {
-            lastArrow = newArrow;
-            int x = Random.Range(0, 3);
-            switch (x)
-            {
-                case 0: return ArrowDirection.Up;
-                case 1: return ArrowDirection.Down;
-                case 2: return ArrowDirection.Left;
-                case 3: return ArrowDirection.Right;
+            List<ParryDirection> directionArray = new List<ParryDirection>(8);
 
+            foreach (ParryDirection direction in System.Enum.GetValues(typeof(ParryDirection)))
+            {
+                directionArray.Add(direction);
             }
+
+            lastArrow = newArrow;
+            return directionArray[Random.Range(0, 8)];
         }
         else
         {
-            List<ArrowDirection> directionArray = new List<ArrowDirection>(7);
+            List<ParryDirection> directionArray = new List<ParryDirection>(15);
 
-            foreach(ArrowDirection direction in System.Enum.GetValues(typeof(ArrowDirection)))
+            foreach(ParryDirection direction in System.Enum.GetValues(typeof(ParryDirection)))
             {
                 if(lastArrow.direction == direction)
                 {
@@ -105,11 +95,16 @@ public class FinisherManager : MonoBehaviour
             }
 
             lastArrow = newArrow;
-            return directionArray[Random.Range(0, 7)];
+            return directionArray[Random.Range(0, 15)];
             
         }
+    }
 
-
-        return default;
+    private void ResetUI()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
