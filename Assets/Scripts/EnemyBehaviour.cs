@@ -115,12 +115,25 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void InVulnerable() // animation event driven method for end of parry period
     {
-        vulnerable = false; // set vulnerable bool
-        parryEnd = GetCurrentAnimatorTime(); // set end time var
+        if (!vulnerable)
+        {
+            parryEnd = GetCurrentAnimatorTime(); // set end time var
 
-        slider.minValue = parryStart; // set slider values for UI
-        slider.maxValue = parryEnd;
-        slider.value = elapsedTime;
+            slider.minValue = parryStart; // set slider values for UI
+            slider.maxValue = parryEnd;
+            slider.value = elapsedTime;
+        }
+        else
+        {
+            vulnerable = false; // set vulnerable bool
+
+            Debug.Log("Hit");
+
+            slider.minValue = 0;
+            slider.maxValue = 1;
+            slider.value = 0;
+        }
+        
     }
 
     public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
