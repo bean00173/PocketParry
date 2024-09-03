@@ -3,39 +3,99 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class Enemy
+{
+    [Range(0f, 10f)]
+    public int health;
+    public string name;
+    [Range(0, 1f)]
+    public float comboChance;
+    public int comboLengthMin;
+    public int comboLengthMax;
+    public float damage;
+    public float atkSpeed;
+}
+
+public enum EnemyState
+{
+    Idle,
+    Attacking,
+    Dead
+
+}
+
 public class EnemyBehaviour : MonoBehaviour
 {
-    Animator ac;
-    bool vulnerable;
-    bool parry;
-
+    bool vulnerable; 
     float elapsedTime;
-
     float parryStart, parryEnd;
 
     public Slider slider;
-    public Button parryButton;
+    public AttackInformation attackInformation;
+    public Enemy enemyStats;
 
     AttackInfo currentClipInfo;
+    Animator ac;
 
-    public AttackInformation attackInformation;
+    int comboProgress;
+    int comboLength;
+    bool canAttack;
+    bool doCombo;
 
     // Start is called before the first frame update
     void Start()
     {
         ac = this.GetComponent<Animator>();
         PlayerInput.Instance.inputHandled.AddListener(Parry);
+
+        Invoke(nameof(AttackReady), 2.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canAttack)
+        {
+            canAttack = false;
+
+            doCombo = DoChanceCalculation(this.enemyStats.comboChance);
+            ac.SetBool("Combo", doCombo);
+            PlayAttack(0);
+
+            if (!doCombo)
+            {
+                Invoke(nameof(AttackReady), 5.0f / enemyStats.atkSpeed);
+            }
+            else
+            {
+                comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax);
+            }
+
+
+        }
+
+        if (comboProgress >= comboLength)
+        {
+            ac.SetBool("Combo", false);
+            Invoke(nameof(AttackReady), 5.0f / enemyStats.atkSpeed);
+        }
+
+        Debug.Log($"Combo Progress : {comboProgress} / {comboLength}");
+    }
+
+    private void AttackReady()
+    {
+        canAttack = true;
+        doCombo = false;
+        comboLength = 0;
+        comboProgress = 0;
     }
 
     public void PlayAttack(int num)
     {
         ac.SetFloat("AttackNumber", num);
+        ac.SetFloat("TransitionNumber", num);
         ac.SetTrigger("Attack");
     }
 
@@ -91,4 +151,58 @@ public class EnemyBehaviour : MonoBehaviour
         return dir == currentClipInfo.parryDirection;
 
     }
+
+    private IEnumerator CooldownTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
+
+    private bool DoChanceCalculation(float chance)
+    {
+        return Random.value <= chance;
+    }
+
+    private int SelectAttack()
+    {
+        List<AttackInfo> potentialAttacks = new List<AttackInfo>();
+
+        foreach(AttackInfo attack in attackInformation.attackInfo)
+        {
+            if (doCombo)
+            {
+                if (attack.canCombo) potentialAttacks.Add(attack);
+            }
+            else
+            {
+                potentialAttacks.Add(attack);
+            }
+        }
+
+        return Random.Range(0, potentialAttacks.Count);
+
+    }
+
+    public void UpdateTransitionNumber()
+    {
+        int acNum = (int)ac.GetFloat("TransitionNumber");
+        int acAtkNum = (int)ac.GetFloat("AttackNumber");
+        if (comboProgress > 0) acNum = acAtkNum; ac.SetFloat("TransitionNumber", acNum);
+        comboProgress++;
+    }
+
+    public void UpdateAttackNumber()
+    {
+        int acNum = (int)ac.GetFloat("AttackNumber");
+        if (acNum == 0 || acNum % 2 == 0)
+        {
+            acNum++;
+            ac.SetFloat("AttackNumber", acNum);
+        }
+        else
+        {
+            acNum--;
+            ac.SetFloat("AttackNumber", acNum);
+        }
+    }
+
 }
