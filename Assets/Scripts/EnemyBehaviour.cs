@@ -145,10 +145,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
         {
-            Debug.Log("Parried");
+            
             elapsedTime = GetCurrentAnimatorTime(); // sets parry time
             score += DetermineScoreAmount(); // increment score based on timing performance
-            vulnerable = false; // makes invulnerable            
+            vulnerable = false; // makes invulnerable
         }
         else
         {
@@ -165,6 +165,8 @@ public class EnemyBehaviour : MonoBehaviour
     private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
     {
         float multiplier = (elapsedTime - parryStart) / (parryEnd - parryStart);
+
+        Debug.Log($"Parried at accuracy {multiplier * 100}%. {parryStart}, {elapsedTime}, {parryEnd}");
 
         if (multiplier >= .9f) return 10;
         else if (multiplier >= .75f) return 5;
