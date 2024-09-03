@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public class Enemy
 {
-    [Range(0f, 10f)]
+    [Range(0f, 50f)]
     public int health;
     public string name;
     [Range(0, 1f)]
@@ -32,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
     float parryStart, parryEnd;
 
     public Slider slider; // CHANGE LATER to static instance of UI manager for references rather than inspector
+    public TextMeshProUGUI scoreText;
     public AttackInformation attackInformation;
     public Enemy enemyStats;
 
@@ -42,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
     int comboLength;
     bool canAttack;
     bool doCombo;
+    int score;
 
     public EnemyState currentState { get; private set; }
 
@@ -82,6 +85,8 @@ public class EnemyBehaviour : MonoBehaviour
             ac.SetBool("Combo", false); // update animator
             StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
         }
+
+        scoreText.text = score.ToString(); // updates test ui score text
     }
 
     public void PlayAttack(int num) // plays an attack with the designated number
@@ -129,18 +134,29 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("Parried");
             elapsedTime = GetCurrentAnimatorTime(); // sets parry time
-            vulnerable = false; // makes invulnerable
+            score += DetermineScoreAmount(); // increment score based on timing performance
+            vulnerable = false; // makes invulnerable            
         }
         else
         {
             elapsedTime = 0; // if not a parry make sure slider doesnt update
+            score--; // ANY INPUT THAT IS NOT A PARRY WILL LOSE SCORE - PROVISIONAL TESTING FUNCTION
         }
     }
 
     private bool CheckInputMatch(ParryDirection dir) // utility method to check if input direction matches the required direction in current attack info
     {
         return dir == currentClipInfo.parryDirection; 
+    }
 
+    private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
+    {
+        float multiplier = (elapsedTime - parryStart) / (parryEnd - parryStart);
+
+        if (multiplier >= .9f) return 10;
+        else if (multiplier >= .75f) return 5;
+        else if (multiplier >= .5f) return 2;
+        else return 1;
     }
 
     private IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
