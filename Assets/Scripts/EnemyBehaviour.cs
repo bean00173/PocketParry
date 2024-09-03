@@ -43,13 +43,15 @@ public class EnemyBehaviour : MonoBehaviour
     bool canAttack;
     bool doCombo;
 
+    public EnemyState currentState { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
         ac = this.GetComponent<Animator>();
         PlayerInput.Instance.inputHandled.AddListener(Parry);
 
-        Invoke(nameof(AttackReady), 2.0f);
+        StartCoroutine(CooldownTimer(2.0f));
     }
 
     // Update is called once per frame
@@ -65,20 +67,21 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (!doCombo)
             {
-                Invoke(nameof(AttackReady), 5.0f / enemyStats.atkSpeed);
+                StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed));
             }
             else
             {
                 comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax);
             }
 
-
+            currentState = EnemyState.Attacking;
         }
 
-        if (comboProgress >= comboLength)
+        if (currentState == EnemyState.Attacking && comboProgress == comboLength && comboProgress > 0)
         {
+            Debug.Log($"COMBO DONE, Can Attack? {canAttack}");
             ac.SetBool("Combo", false);
-            Invoke(nameof(AttackReady), 5.0f / enemyStats.atkSpeed);
+            StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed));
         }
 
         Debug.Log($"Combo Progress : {comboProgress} / {comboLength}");
@@ -109,7 +112,6 @@ public class EnemyBehaviour : MonoBehaviour
             AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
             if (clipInfo[0].clip.name == info.clip.name)
             {
-                Debug.Log("huh");
                 currentClipInfo = info;
             }
             
@@ -154,7 +156,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private IEnumerator CooldownTimer(float time)
     {
+        currentState = EnemyState.Idle;
         yield return new WaitForSeconds(time);
+        AttackReady();
     }
 
     private bool DoChanceCalculation(float chance)
