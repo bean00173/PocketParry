@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 [System.Serializable]
@@ -32,7 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
     float elapsedTime;
     float parryStart, parryEnd;
 
-    public Slider slider; // CHANGE LATER to static instance of UI manager for references rather than inspector
+    /* public Slider slider;*/ // CHANGE LATER to static instance of UI manager for references rather than inspector
+    public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
     public AttackInformation attackInformation;
     public Enemy enemyStats;
@@ -45,6 +47,9 @@ public class EnemyBehaviour : MonoBehaviour
     bool canAttack;
     bool doCombo;
     int score;
+
+    [HideInInspector]
+    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
 
     public EnemyState currentState { get; private set; }
 
@@ -65,6 +70,9 @@ public class EnemyBehaviour : MonoBehaviour
             canAttack = false; // prevent from doing so again
 
             doCombo = DoChanceCalculation(this.enemyStats.comboChance); // check if the attack can combo
+
+            //ac.speed = 1 + Random.value; // potential for random changes in how fast the attacks play
+
             ac.SetBool("Combo", doCombo); // update animator 
             PlayAttack(SelectAttack()); // select attack
 
@@ -100,6 +108,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         vulnerable = true; // set vulnerable bool
         parryStart = GetCurrentAnimatorTime(); // set start time var
+
+        onVulnerable.Invoke(parryStart);
         
         foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
         {
@@ -118,20 +128,18 @@ public class EnemyBehaviour : MonoBehaviour
         if (!vulnerable)
         {
             parryEnd = GetCurrentAnimatorTime(); // set end time var
+            score += DetermineScoreAmount(); // increment score based on timing performance
 
-            slider.minValue = parryStart; // set slider values for UI
-            slider.maxValue = parryEnd;
-            slider.value = elapsedTime;
+            onInVulnerable.Invoke(parryEnd); // corresponding event trigger
+
         }
         else
         {
+            parryEnd = GetCurrentAnimatorTime();
             vulnerable = false; // set vulnerable bool
             score--;
-            Debug.Log("Hit");
 
-            slider.minValue = 0;
-            slider.maxValue = 1;
-            slider.value = 0;
+            onHitTaken.Invoke(parryEnd); // corresponding event trigger
         }
         
     }
@@ -145,15 +153,15 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
         {
-            
             elapsedTime = GetCurrentAnimatorTime(); // sets parry time
-            score += DetermineScoreAmount(); // increment score based on timing performance
+            //score += DetermineScoreAmount(); // increment score based on timing performance
             vulnerable = false; // makes invulnerable
+
+            onParrySuccessful.Invoke(elapsedTime);
         }
         else
         {
             elapsedTime = 0; // if not a parry make sure slider doesnt update
-            score--; // ANY INPUT THAT IS NOT A PARRY WILL LOSE SCORE - PROVISIONAL TESTING FUNCTION
         }
     }
 
@@ -164,9 +172,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
     {
-        float multiplier = (elapsedTime - parryStart) / (parryEnd - parryStart);
+        float parryTime = elapsedTime - parryStart;
+        float vulnerableTime = (parryEnd - parryStart) / 2;
+        float multiplier = parryTime / vulnerableTime;
 
-        Debug.Log($"Parried at accuracy {multiplier * 100}%. {parryStart}, {elapsedTime}, {parryEnd}");
+        if (multiplier > 1)
+        {
+            multiplier = 1 - (multiplier - 1);
+        }
 
         if (multiplier >= .9f) return 10;
         else if (multiplier >= .75f) return 5;
@@ -183,6 +196,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void AttackReady() // calls when cooldown is complete
     {
+        //ac.speed = 1;
         canAttack = true; // resets a bunch of variables to prepare for new attacks
         doCombo = false;
         comboLength = 0;

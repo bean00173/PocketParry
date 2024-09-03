@@ -19352,19 +19352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76238eca9f9ee34d93c575a5b3173a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cm: {fileID: 0}
-  enemyStats:
-    health: 5
-    name: Daisuke Watanabe
-    comboChance: 1
-    comboLength: 3
-    damage: 0
-    atkSpeed: 1
-  parryCount: 0
-  canAttack: 0
-  ac: {fileID: 0}
-  combo: 0
-  comboStatus: 0
 --- !u!1001 &87986501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90922,7 +90909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1621101292}
+  timingSlider: {fileID: 1621101293}
   scoreText: {fileID: 1371679735}
   attackInformation: {fileID: 11400000, guid: f5c82031219cc634eaf2ff6af59fc3f4, type: 2}
   enemyStats:
@@ -90933,6 +90920,18 @@ MonoBehaviour:
     comboLengthMax: 2
     damage: 1
     atkSpeed: 1
+  onParrySuccessful:
+    m_PersistentCalls:
+      m_Calls: []
+  onVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  onInVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  onHitTaken:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &407982586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103942,7 +103941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 06317904fa2009b4eb421b3fe0863dbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7648640e85ac94143b398080090d875a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -353662,6 +353661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1621101291}
   - component: {fileID: 1621101292}
+  - component: {fileID: 1621101293}
   m_Layer: 5
   m_Name: TimingSlider
   m_TagString: Untagged
@@ -353716,7 +353716,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -353730,7 +353730,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1869258536}
   m_FillRect: {fileID: 1346653061}
   m_HandleRect: {fileID: 1869258535}
@@ -353742,6 +353742,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1621101293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621101290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf3b77f69ab866408b7bf094be11894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBehaviour: {fileID: 407940204}
 --- !u!1001 &1621382682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -458330,18 +458343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853d050ce355cd74d870145c8bac53d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
-  parryable: 0
-  currentAtkType: 0
-  detector: {fileID: 1116342687}
-  attacking: 0
-  lIndicator: {fileID: 290344950}
-  rIndicator: {fileID: 686628400}
-  tIndicator: {fileID: 1196421104}
-  enemyStance: {fileID: 1983669284}
-  enemyName: {fileID: 1143292437}
-  score: 0
-  currentEnemy: {fileID: 0}
 --- !u!114 &2079475396
 MonoBehaviour:
   m_ObjectHideFlags: 0
