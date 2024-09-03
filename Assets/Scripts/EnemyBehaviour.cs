@@ -126,7 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             vulnerable = false; // set vulnerable bool
-
+            score--;
             Debug.Log("Hit");
 
             slider.minValue = 0;
