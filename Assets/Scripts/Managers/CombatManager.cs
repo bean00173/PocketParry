@@ -8,6 +8,7 @@ public class CombatManager : MonoBehaviour
 {
     public EnemyInformation enemyInfo;
     public CameraBehaviour cameraBehaviour;
+    public StanceIndicator stanceIndicator;
     public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
@@ -30,9 +31,9 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnEnemy(string enemyType)
     {
-        GameObject enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint); 
-        timingSlider.SetCurrentEnemy(enemy.GetComponent<EnemyBehaviour>());
-        cameraBehaviour.UpdateCurrentEnemy(enemy.GetComponent<EnemyBehaviour>());
+        EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>(); 
+        timingSlider.SetCurrentEnemy(enemy);
+        cameraBehaviour.UpdateCurrentEnemy(enemy);
     }
 
     public void SetupGameUI()
