@@ -15,6 +15,7 @@ public class Enemy
     public float comboChance;
     public int comboLengthMin;
     public int comboLengthMax;
+    public float feintChance;
     public float damage;
     public float atkSpeed;
 }
@@ -33,15 +34,6 @@ public class EnemyBehaviour : MonoBehaviour
     float elapsedTime;
     float parryStart, parryEnd;
 
-    //
-
-    public Image detector;
-
-    //
-
-    /* public Slider slider;*/ // CHANGE LATER to static instance of UI manager for references rather than inspector
-    public TimingSlider timingSlider;
-    public TextMeshProUGUI scoreText;
     public AttackInformation attackInformation;
     public Enemy enemyStats;
 
@@ -101,7 +93,7 @@ public class EnemyBehaviour : MonoBehaviour
             StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
         }
 
-        scoreText.text = score.ToString(); // updates test ui score text
+        CombatManager.instance.scoreText.text = score.ToString(); // updates test ui score text
     }
 
     public void PlayAttack(int num) // plays an attack with the designated number
@@ -116,7 +108,7 @@ public class EnemyBehaviour : MonoBehaviour
         vulnerable = true; // set vulnerable bool
         parryStart = GetCurrentAnimatorTime(); // set start time var
 
-        detector.color = Color.green;
+        CombatManager.instance.tempDetector.color = Color.green;
 
         onVulnerable.Invoke(parryStart);
         
@@ -151,7 +143,7 @@ public class EnemyBehaviour : MonoBehaviour
             onHitTaken.Invoke(parryEnd); // corresponding event trigger
         }
 
-        detector.color = Color.red;
+        CombatManager.instance.tempDetector.color = Color.red;
 
     }
 

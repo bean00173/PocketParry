@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimingSlider : MonoBehaviour
 {
-    public EnemyBehaviour enemyBehaviour; // REPLACE WITH COMBAT MANAGER DOWN LINE - will manage spawning of enemies etc.
+    EnemyBehaviour enemyBehaviour; // REPLACE WITH COMBAT MANAGER DOWN LINE - will manage spawning of enemies etc.
     Slider timingSlider;
 
     private float vulnStart;
@@ -17,10 +17,6 @@ public class TimingSlider : MonoBehaviour
     {
         timingSlider = this.GetComponent<Slider>();
 
-        enemyBehaviour.onHitTaken.AddListener(hitTaken);
-        enemyBehaviour.onParrySuccessful.AddListener(parrySuccessful);
-        enemyBehaviour.onVulnerable.AddListener(vulnerableStart);
-        enemyBehaviour.onInVulnerable.AddListener(vulnerableEnd);
     }
 
     // Update is called once per frame
@@ -45,25 +41,35 @@ public class TimingSlider : MonoBehaviour
         }
     }
 
-    private void vulnerableStart(float time)
+    private void VulnerableStart(float time)
     {
         vulnStart = time;
     }
 
-    private void vulnerableEnd(float time)
+    private void VulnerableEnd(float time)
     {
         vulnEnd = time;
         UpdateSlider();
     }
 
-    private void parrySuccessful(float time)
+    private void ParrySuccessful(float time)
     {
         inputTime = time;
     }
 
-    private void hitTaken(float time)
+    private void HitTaken(float time)
     {
         vulnEnd = time;
         UpdateSlider(true);
+    }
+
+    public void SetCurrentEnemy(EnemyBehaviour enemy)
+    {
+        enemyBehaviour = enemy;
+
+        enemyBehaviour.onHitTaken.AddListener(HitTaken);
+        enemyBehaviour.onParrySuccessful.AddListener(ParrySuccessful);
+        enemyBehaviour.onVulnerable.AddListener(VulnerableStart);
+        enemyBehaviour.onInVulnerable.AddListener(VulnerableEnd);
     }
 }
