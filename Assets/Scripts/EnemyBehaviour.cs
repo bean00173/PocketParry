@@ -48,7 +48,8 @@ public class EnemyBehaviour : MonoBehaviour
 
 
     [HideInInspector]
-    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
+    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable; // slider events
+    public UnityEvent<float, ParryDirection> onHitTaken;
 
     public EnemyState currentState { get; private set; }
 
@@ -140,7 +141,7 @@ public class EnemyBehaviour : MonoBehaviour
             vulnerable = false; // set vulnerable bool
             score--;
 
-            onHitTaken.Invoke(parryEnd); // corresponding event trigger
+            onHitTaken.Invoke(parryEnd, currentClipInfo.parryDirection); // corresponding event trigger
         }
 
         CombatManager.instance.tempDetector.color = Color.red;

@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
 {
 
     [HideInInspector] public UnityEvent<ParryDirection, float> inputHandled = new UnityEvent<ParryDirection, float>();
+    [HideInInspector] public UnityEvent inputStarted;
     ParryDirection input;
 
     public static PlayerInput Instance;

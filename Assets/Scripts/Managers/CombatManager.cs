@@ -7,6 +7,7 @@ using TMPro;
 public class CombatManager : MonoBehaviour
 {
     public EnemyInformation enemyInfo;
+    public CameraBehaviour cameraBehaviour;
     public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
@@ -31,6 +32,7 @@ public class CombatManager : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint); 
         timingSlider.SetCurrentEnemy(enemy.GetComponent<EnemyBehaviour>());
+        cameraBehaviour.UpdateCurrentEnemy(enemy.GetComponent<EnemyBehaviour>());
     }
 
     public void SetupGameUI()
