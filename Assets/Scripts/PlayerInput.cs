@@ -36,11 +36,13 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         dragStart = Time.time;
+        inputStarted.Invoke();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-
+        //dragStart = Time.time;
+        //inputStarted.Invoke();
     }
 
     public void OnEndDrag(PointerEventData eventData)

@@ -46,10 +46,12 @@ public class EnemyBehaviour : MonoBehaviour
     bool doCombo;
     int score;
 
+    bool doingInput;
+
 
     [HideInInspector]
-    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable; // slider events
-    public UnityEvent<float, ParryDirection> onHitTaken;
+    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
+    public UnityEvent<ParryDirection> onHitPredict;
 
     public EnemyState currentState { get; private set; }
 
@@ -57,7 +59,8 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         ac = this.GetComponent<Animator>();
-        PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input event
+        PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
+        PlayerInput.Instance.inputStarted.AddListener(InputStarted);
 
         StartCoroutine(CooldownTimer(2.0f));
     }
@@ -123,6 +126,8 @@ public class EnemyBehaviour : MonoBehaviour
             
         }
 
+        Invoke(nameof(CheckInput), .3f);
+
     }
 
     public void InVulnerable() // animation event driven method for end of parry period
@@ -141,7 +146,7 @@ public class EnemyBehaviour : MonoBehaviour
             vulnerable = false; // set vulnerable bool
             score--;
 
-            onHitTaken.Invoke(parryEnd, currentClipInfo.parryDirection); // corresponding event trigger
+            onHitTaken.Invoke(parryEnd); // corresponding event trigger
         }
 
         CombatManager.instance.tempDetector.color = Color.red;
@@ -167,6 +172,20 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             elapsedTime = 0; // if not a parry make sure slider doesnt update
+        }
+    }
+
+    public void InputStarted()
+    {
+        doingInput = true;
+    }
+
+    public void CheckInput()
+    {
+        if (!doingInput)
+        {
+            //vulnerable = false;
+            onHitPredict.Invoke(currentClipInfo.parryDirection);
         }
     }
 
@@ -206,6 +225,7 @@ public class EnemyBehaviour : MonoBehaviour
         doCombo = false;
         comboLength = 0;
         comboProgress = 0;
+        doingInput = false;
     }
 
     private bool DoChanceCalculation(float chance) // utility method for calculating random chance

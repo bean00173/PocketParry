@@ -57,7 +57,7 @@ public class TimingSlider : MonoBehaviour
         inputTime = time;
     }
 
-    private void HitTaken(float time, ParryDirection dir)
+    private void HitTaken(float time)
     {
         vulnEnd = time;
         UpdateSlider(true);

@@ -25,10 +25,10 @@ public class CameraBehaviour : MonoBehaviour
     public void UpdateCurrentEnemy(EnemyBehaviour enemy)
     {
         currentEnemy = enemy;
-        enemy.onHitTaken.AddListener(TakeHit);
+        enemy.onHitPredict.AddListener(TakeHit);
     }
 
-    private void TakeHit(float time, ParryDirection dir)
+    private void TakeHit(ParryDirection dir)
     {
         switch (dir)
         {
