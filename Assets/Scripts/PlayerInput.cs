@@ -20,10 +20,12 @@ public enum ParryDirection
 public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
 {
 
-    [HideInInspector] public UnityEvent<ParryDirection> inputHandled = new UnityEvent<ParryDirection>();
+    [HideInInspector] public UnityEvent<ParryDirection, float> inputHandled = new UnityEvent<ParryDirection, float>();
     ParryDirection input;
 
     public static PlayerInput Instance;
+
+    float dragStart, dragEnd;
 
     private void Awake()
     {
@@ -32,20 +34,30 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
+        dragStart = Time.time;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
 
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        float gradient = (eventData.position.y - eventData.pressPosition.y) / (eventData.position.x - eventData.pressPosition.x);
+        dragEnd = Time.time;
 
+        float gradient = (eventData.position.y - eventData.pressPosition.y) / (eventData.position.x - eventData.pressPosition.x);
+        
         if (gradient > 2 || gradient < -2) input = CheckTop(eventData) ? ParryDirection.Up : ParryDirection.Down;
         else if (gradient < 2 && gradient > .5) input = CheckRightSide(eventData) ? ParryDirection.RightUp : ParryDirection.LeftDown;
         else if (gradient < .5 && gradient > -.5) input = CheckRightSide(eventData) ? ParryDirection.Right : ParryDirection.Left;
         else if (gradient < -.5 && gradient > -2) input = CheckRightSide(eventData) ? ParryDirection.RightDown : ParryDirection.LeftUp;
 
-        Debug.Log($"Player Swiped : {input}");
-        inputHandled.Invoke(input);
+        float timeSinceDragMiddle = ((dragEnd - dragStart) / 2);
+
+        //Debug.Log($"Player Swiped : {input} | Drag Start : {dragStart}, Drag End : {dragEnd}, Average Input Time : {dragEnd - timeSinceDragMiddle}");
+
+        inputHandled.Invoke(input, timeSinceDragMiddle);
     }
 
     private bool CheckRightSide(PointerEventData data)

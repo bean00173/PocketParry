@@ -19,7 +19,7 @@ public class DirectionIndicator : MonoBehaviour
         
     }
 
-    private void StartColourChange(ParryDirection dir)
+    private void StartColourChange(ParryDirection dir, float x)
     {
         if(direction == dir) StartCoroutine(DoColourChange());
     }

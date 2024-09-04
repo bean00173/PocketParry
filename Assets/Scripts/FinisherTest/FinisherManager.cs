@@ -47,7 +47,7 @@ public class FinisherManager : MonoBehaviour
         }
     }
 
-    private void InputCheck(ParryDirection dir)
+    private void InputCheck(ParryDirection dir, float x)
     {
         if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
         {
