@@ -28720,7 +28720,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7083333
+  - time: 0.7916667
     functionName: InVulnerable
     data: 
     objectReferenceParameter: {fileID: 0}

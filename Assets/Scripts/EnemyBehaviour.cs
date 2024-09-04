@@ -33,6 +33,12 @@ public class EnemyBehaviour : MonoBehaviour
     float elapsedTime;
     float parryStart, parryEnd;
 
+    //
+
+    public Image detector;
+
+    //
+
     /* public Slider slider;*/ // CHANGE LATER to static instance of UI manager for references rather than inspector
     public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
@@ -47,6 +53,7 @@ public class EnemyBehaviour : MonoBehaviour
     bool canAttack;
     bool doCombo;
     int score;
+
 
     [HideInInspector]
     public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
@@ -109,6 +116,8 @@ public class EnemyBehaviour : MonoBehaviour
         vulnerable = true; // set vulnerable bool
         parryStart = GetCurrentAnimatorTime(); // set start time var
 
+        detector.color = Color.green;
+
         onVulnerable.Invoke(parryStart);
         
         foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
@@ -141,7 +150,9 @@ public class EnemyBehaviour : MonoBehaviour
 
             onHitTaken.Invoke(parryEnd); // corresponding event trigger
         }
-        
+
+        detector.color = Color.red;
+
     }
 
     public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
@@ -149,11 +160,12 @@ public class EnemyBehaviour : MonoBehaviour
         return ac.GetCurrentAnimatorStateInfo(0).normalizedTime; 
     }
 
-    public void Parry(ParryDirection dir) // method that listens for player inputs
+    public void Parry(ParryDirection dir, float time) // method that listens for player inputs
     {
         if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
         {
-            elapsedTime = GetCurrentAnimatorTime(); // sets parry time
+            Debug.Log($"Elapsed Animator Time : {GetCurrentAnimatorTime()}, Actual Parry Time : {GetCurrentAnimatorTime() - time}");
+            elapsedTime = GetCurrentAnimatorTime() - time; // sets parry time
             //score += DetermineScoreAmount(); // increment score based on timing performance
             vulnerable = false; // makes invulnerable
 
