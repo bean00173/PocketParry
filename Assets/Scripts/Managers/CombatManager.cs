@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -17,10 +18,13 @@ public class CombatManager : MonoBehaviour
 
     public static CombatManager instance;
 
+    CinemachineImpulseSource impulseSource;
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        impulseSource = this.GetComponent<CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +37,7 @@ public class CombatManager : MonoBehaviour
     {
         EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>(); 
         timingSlider.SetCurrentEnemy(enemy);
+        enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
     }
 
@@ -41,5 +46,10 @@ public class CombatManager : MonoBehaviour
         tempDetector.gameObject.SetActive(true);
         timingSlider.gameObject.SetActive(true);
         tempMenuButtons.SetActive(false);
+    }
+
+    public void ParryImpulse(float time)
+    {
+        impulseSource.GenerateImpulseWithForce(.1f);
     }
 }
