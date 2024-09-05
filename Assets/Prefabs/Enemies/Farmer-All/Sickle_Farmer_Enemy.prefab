@@ -48,6 +48,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4973753187310327813, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d181926baf916d42a1ca858c26d650a, type: 2}
+    - target: {fileID: -4098126226732473836, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce8d12fa5390c034ca6d3ec17bf2f336, type: 2}
+    - target: {fileID: -4098126226732473836, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac5257dac7c964d4380ca1d4868e8e88, type: 2}
+    - target: {fileID: -78330414259801100, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d181926baf916d42a1ca858c26d650a, type: 2}
     - target: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       propertyPath: m_Name
       value: Sickle_Farmer_Enemy
@@ -56,6 +72,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3581358695822477774, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce8d12fa5390c034ca6d3ec17bf2f336, type: 2}
+    - target: {fileID: 5843816939160058313, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce8d12fa5390c034ca6d3ec17bf2f336, type: 2}
+    - target: {fileID: 9009147241557508798, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f3712a7fb74bfa4f95c5bf0cfe1ce02, type: 2}
+    - target: {fileID: 9009147241557508798, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1b8c0312bf5e3f499a6bef0e63b5131, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105,9 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 0}
-  timingSlider: {fileID: 0}
-  scoreText: {fileID: 0}
   attackInformation: {fileID: 11400000, guid: b3c52a24efd0a9142926bbf018b67faf, type: 2}
   enemyStats:
     health: 5
@@ -115,6 +144,7 @@ MonoBehaviour:
     comboChance: 0.5
     comboLengthMin: 2
     comboLengthMax: 4
+    feintChance: 0
     damage: 1
     atkSpeed: 1
   onParrySuccessful:
@@ -127,5 +157,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onHitTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  onHitPredict:
     m_PersistentCalls:
       m_Calls: []

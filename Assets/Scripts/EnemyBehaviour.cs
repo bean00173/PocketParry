@@ -126,7 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
             
         }
 
-        Invoke(nameof(CheckInput), .3f);
+        Invoke(nameof(CheckInput), .25f);
 
     }
 
