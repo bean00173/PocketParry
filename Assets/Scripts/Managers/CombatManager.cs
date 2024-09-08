@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
 {
     public EnemyInformation enemyInfo;
     public CameraBehaviour cameraBehaviour;
+    public PlayerArmBehaviour playerArmBehaviour;
     public StanceIndicator stanceIndicator;
     public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
@@ -25,6 +26,7 @@ public class CombatManager : MonoBehaviour
     {
         instance = this;
         impulseSource = this.GetComponent<CinemachineImpulseSource>();
+        PlayerInput.Instance.inputHandled.AddListener(playerArmBehaviour.Parry);
     }
 
     // Update is called once per frame
