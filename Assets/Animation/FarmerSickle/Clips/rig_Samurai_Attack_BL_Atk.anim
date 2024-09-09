@@ -28666,15 +28666,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
-    functionName: Vulnerable
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5833333
-    functionName: InVulnerable
+  - time: 0.375
+    functionName: AttackHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -10,26 +10,22 @@ public class DirectionIndicator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        input.inputHandled.AddListener(StartColourChange);
+        //input.inputHandled.AddListener(StartColourChange);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void StartColourChange(ParryDirection dir, float x)
-    {
-        if(direction == dir) StartCoroutine(DoColourChange());
-    }
-
-    private IEnumerator DoColourChange()
-    {
-        this.GetComponent<Image>().color = Color.green;
-
-        yield return new WaitForSeconds(.1f);
-
-        this.GetComponent<Image>().color = Color.red;
+        if (PlayerInput.Instance.DoingInput)
+        {
+            if(this.direction == PlayerInput.Instance.InputDirection)
+            {
+                this.GetComponent<Image>().color = Color.green;
+            }
+        }
+        else
+        {
+            this.GetComponent<Image>().color = Color.red;
+        }
     }
 }

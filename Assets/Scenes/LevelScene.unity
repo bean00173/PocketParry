@@ -459862,9 +459862,7 @@ MonoBehaviour:
   inputHandled:
     m_PersistentCalls:
       m_Calls: []
-  inputStarted:
-    m_PersistentCalls:
-      m_Calls: []
+  parryTime: 0.5
 --- !u!114 &2079475399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459881,11 +459879,9 @@ MonoBehaviour:
   cameraBehaviour: {fileID: 1530928689}
   playerArmBehaviour: {fileID: 649269540}
   stanceIndicator: {fileID: 0}
-  timingSlider: {fileID: 1621101293}
   scoreText: {fileID: 1371679735}
   spawnPoint: {fileID: 1175026496}
   tempMenuButtons: {fileID: 1248526144}
-  tempDetector: {fileID: 514724733}
 --- !u!114 &2079475400
 MonoBehaviour:
   m_ObjectHideFlags: 0

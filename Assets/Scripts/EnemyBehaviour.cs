@@ -48,10 +48,15 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool doingInput;
 
+    // NEW SYSTEM VARIABLES
 
-    [HideInInspector]
-    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
-    public UnityEvent<ParryDirection> onHitPredict;
+    private bool playerInput;
+
+
+
+
+    [HideInInspector] public UnityEvent onParrySuccessful; // slider events
+    [HideInInspector] public UnityEvent<ParryDirection> onHitTaken; // slider events
 
     public EnemyState currentState { get; private set; }
 
@@ -59,8 +64,8 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         ac = this.GetComponent<Animator>();
-        PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
-        PlayerInput.Instance.inputStarted.AddListener(InputStarted);
+        //PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
+        //PlayerInput.Instance.inputStarted.AddListener(InputStarted);
 
         StartCoroutine(CooldownTimer(2.0f));
     }
@@ -107,112 +112,149 @@ public class EnemyBehaviour : MonoBehaviour
         ac.SetTrigger("Attack");
     }
 
-    public void Vulnerable() // animation event driven method for start of parry period
-    {
-        vulnerable = true; // set vulnerable bool
-        parryStart = GetCurrentAnimatorTime(); // set start time var
+    //public void Vulnerable() // animation event driven method for start of parry period
+    //{
+    //    vulnerable = true; // set vulnerable bool
+    //    parryStart = GetCurrentAnimatorTime(); // set start time var
 
-        CombatManager.instance.tempDetector.color = Color.green;
+    //    CombatManager.instance.tempDetector.color = Color.green;
 
-        onVulnerable.Invoke(parryStart);
+    //    onVulnerable.Invoke(parryStart);
         
-        foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
+    //    foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
+    //    {
+    //        AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+    //        if (clipInfo[0].clip.name == info.clip.name)
+    //        {
+    //            currentClipInfo = info;
+    //        }
+            
+    //    }
+
+    //    Invoke(nameof(CheckInput), .25f);
+
+    //}
+
+    //public void InVulnerable() // animation event driven method for end of parry period
+    //{
+    //    if (!vulnerable)
+    //    {
+    //        parryEnd = GetCurrentAnimatorTime(); // set end time var
+    //        score += DetermineScoreAmount(); // increment score based on timing performance
+
+    //        onInVulnerable.Invoke(parryEnd); // corresponding event trigger
+
+    //    }
+    //    else
+    //    {
+    //        parryEnd = GetCurrentAnimatorTime();
+    //        vulnerable = false; // set vulnerable bool
+    //        score--;
+
+    //        onHitTaken.Invoke(parryEnd); // corresponding event trigger
+    //    }
+
+    //    CombatManager.instance.tempDetector.color = Color.red;
+
+    //}
+
+    public void AttackHit()
+    {
+        foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
         {
             AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
             if (clipInfo[0].clip.name == info.clip.name)
             {
                 currentClipInfo = info;
             }
-            
+
         }
 
-        Invoke(nameof(CheckInput), .25f);
-
-    }
-
-    public void InVulnerable() // animation event driven method for end of parry period
-    {
-        if (!vulnerable)
+        if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
         {
-            parryEnd = GetCurrentAnimatorTime(); // set end time var
-            score += DetermineScoreAmount(); // increment score based on timing performance
-
-            onInVulnerable.Invoke(parryEnd); // corresponding event trigger
-
+            score += CalculateScore(Time.time - PlayerInput.Instance.InputTime);
+            onParrySuccessful.Invoke();
         }
         else
         {
-            parryEnd = GetCurrentAnimatorTime();
-            vulnerable = false; // set vulnerable bool
-            score--;
-
-            onHitTaken.Invoke(parryEnd); // corresponding event trigger
+            onHitTaken.Invoke(currentClipInfo.parryDirection);
         }
-
-        CombatManager.instance.tempDetector.color = Color.red;
-
     }
 
-    public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
+    private int CalculateScore(float time)
     {
-        return ac.GetCurrentAnimatorStateInfo(0).normalizedTime; 
-    }
-
-    public void Parry(ParryDirection dir, float time) // method that listens for player inputs
-    {
-        if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
+        if(time < .15)
         {
-            Debug.Log($"Elapsed Animator Time : {GetCurrentAnimatorTime()}, Actual Parry Time : {GetCurrentAnimatorTime() - time}");
-            elapsedTime = GetCurrentAnimatorTime() - time; // sets parry time
-            //score += DetermineScoreAmount(); // increment score based on timing performance
-            vulnerable = false; // makes invulnerable
-
-            onParrySuccessful.Invoke(elapsedTime);
+            Debug.Log("Nice ;p");
+            return 1;
         }
         else
         {
-            elapsedTime = 0; // if not a parry make sure slider doesnt update
+            Debug.Log("ermm what the sigma");
+            return 0;
         }
     }
 
-    public void InputStarted()
-    {
-        if (vulnerable)
-        {
-            doingInput = true;
-        }
-    }
+    //public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
+    //{
+    //    return ac.GetCurrentAnimatorStateInfo(0).normalizedTime; 
+    //}
 
-    public void CheckInput()
-    {
-        if (!doingInput)
-        {
-            //vulnerable = false;
-            onHitPredict.Invoke(currentClipInfo.parryDirection);
-        }
-    }
+    //public void Parry(ParryDirection dir, float time) // method that listens for player inputs
+    //{
+    //    //if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
+    //    //{
+    //    //    Debug.Log($"Elapsed Animator Time : {GetCurrentAnimatorTime()}, Actual Parry Time : {GetCurrentAnimatorTime() - time}");
+    //    //    elapsedTime = GetCurrentAnimatorTime() - time; // sets parry time
+    //    //    //score += DetermineScoreAmount(); // increment score based on timing performance
+    //    //    vulnerable = false; // makes invulnerable
+
+    //    //    onParrySuccessful.Invoke(elapsedTime);
+    //    //}
+    //    //else
+    //    //{
+    //    //    elapsedTime = 0; // if not a parry make sure slider doesnt update
+    //    //}
+    //}
+
+    //public void InputStarted()
+    //{
+    //    if (vulnerable)
+    //    {
+    //        doingInput = true;
+    //    }
+    //}
+
+    //public void CheckInput()
+    //{
+    //    if (!doingInput)
+    //    {
+    //        //vulnerable = false;
+    //        onHitPredict.Invoke(currentClipInfo.parryDirection);
+    //    }
+    //}
 
     private bool CheckInputMatch(ParryDirection dir) // utility method to check if input direction matches the required direction in current attack info
     {
-        return dir == currentClipInfo.parryDirection; 
+        return dir == currentClipInfo.parryDirection;
     }
 
-    private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
-    {
-        float parryTime = elapsedTime - parryStart;
-        float vulnerableTime = (parryEnd - parryStart) / 2;
-        float multiplier = parryTime / vulnerableTime;
+    //private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
+    //{
+    //    float parryTime = elapsedTime - parryStart;
+    //    float vulnerableTime = (parryEnd - parryStart) / 2;
+    //    float multiplier = parryTime / vulnerableTime;
 
-        if (multiplier > 1)
-        {
-            multiplier = 1 - (multiplier - 1);
-        }
+    //    if (multiplier > 1)
+    //    {
+    //        multiplier = 1 - (multiplier - 1);
+    //    }
 
-        if (multiplier >= .9f) return 10;
-        else if (multiplier >= .75f) return 5;
-        else if (multiplier >= .5f) return 2;
-        else return 1;
-    }
+    //    if (multiplier >= .9f) return 10;
+    //    else if (multiplier >= .75f) return 5;
+    //    else if (multiplier >= .5f) return 2;
+    //    else return 1;
+    //}
 
     private IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
     {
