@@ -54,9 +54,9 @@ public class EnemyBehaviour : MonoBehaviour
 
 
 
-    [HideInInspector]
-    public UnityEvent<float> onParrySuccessful, onVulnerable, onInVulnerable, onHitTaken; // slider events
-    public UnityEvent<ParryDirection> onHitPredict;
+
+    [HideInInspector] public UnityEvent onParrySuccessful; // slider events
+    [HideInInspector] public UnityEvent<ParryDirection> onHitTaken; // slider events
 
     public EnemyState currentState { get; private set; }
 
@@ -170,13 +170,15 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
 
-        if (PlayerInput.Instance.DoingInput)
+        if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
         {
-            if (CheckInputMatch(PlayerInput.Instance.InputDirection))
-            {
-                Debug.Log("PARRIED");
-                onParrySuccessful.Invoke(elapsedTime);
-            }
+            Debug.Log("PARRIED");
+            onParrySuccessful.Invoke();
+        }
+        else
+        {
+            Debug.Log("AKAKAKAKA SPONGEBOB");
+            onHitTaken.Invoke(PlayerInput.Instance.InputDirection);
         }
     }
 

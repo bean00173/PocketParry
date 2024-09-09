@@ -13,6 +13,7 @@ public class CameraBehaviour : MonoBehaviour
     void Start()
     {
         ac = this.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -25,7 +26,7 @@ public class CameraBehaviour : MonoBehaviour
     public void UpdateCurrentEnemy(EnemyBehaviour enemy)
     {
         currentEnemy = enemy;
-        enemy.onHitPredict.AddListener(TakeHit);
+        enemy.onHitTaken.AddListener(TakeHit);
     }
 
     private void TakeHit(ParryDirection dir)

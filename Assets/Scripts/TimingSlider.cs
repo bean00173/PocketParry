@@ -25,51 +25,51 @@ public class TimingSlider : MonoBehaviour
 
     }
 
-    public void UpdateSlider(bool reset = false)
-    {
-        if (reset)
-        {
-            timingSlider.minValue = 0;
-            timingSlider.value = 0;
-            timingSlider.maxValue = 1;
-        }
-        else
-        {
-            timingSlider.minValue = vulnStart;
-            timingSlider.value = inputTime;
-            timingSlider.maxValue = vulnEnd;
-        }
-    }
+    //public void UpdateSlider(bool reset = false)
+    //{
+    //    if (reset)
+    //    {
+    //        timingSlider.minValue = 0;
+    //        timingSlider.value = 0;
+    //        timingSlider.maxValue = 1;
+    //    }
+    //    else
+    //    {
+    //        timingSlider.minValue = vulnStart;
+    //        timingSlider.value = inputTime;
+    //        timingSlider.maxValue = vulnEnd;
+    //    }
+    //}
 
-    private void VulnerableStart(float time)
-    {
-        vulnStart = time;
-    }
+    //private void VulnerableStart(float time)
+    //{
+    //    vulnStart = time;
+    //}
 
-    private void VulnerableEnd(float time)
-    {
-        vulnEnd = time;
-        UpdateSlider();
-    }
+    //private void VulnerableEnd(float time)
+    //{
+    //    vulnEnd = time;
+    //    UpdateSlider();
+    //}
 
-    private void ParrySuccessful(float time)
-    {
-        inputTime = time;
-    }
+    //private void ParrySuccessful(float time)
+    //{
+    //    inputTime = time;
+    //}
 
-    private void HitTaken(float time)
-    {
-        vulnEnd = time;
-        UpdateSlider(true);
-    }
+    //private void HitTaken(float time)
+    //{
+    //    vulnEnd = time;
+    //    UpdateSlider(true);
+    //}
 
-    public void SetCurrentEnemy(EnemyBehaviour enemy)
-    {
-        enemyBehaviour = enemy;
+    //public void SetCurrentEnemy(EnemyBehaviour enemy)
+    //{
+    //    enemyBehaviour = enemy;
 
-        enemyBehaviour.onHitTaken.AddListener(HitTaken);
-        enemyBehaviour.onParrySuccessful.AddListener(ParrySuccessful);
-        enemyBehaviour.onVulnerable.AddListener(VulnerableStart);
-        enemyBehaviour.onInVulnerable.AddListener(VulnerableEnd);
-    }
+    //    enemyBehaviour.onHitTaken.AddListener(HitTaken);
+    //    enemyBehaviour.onParrySuccessful.AddListener(ParrySuccessful);
+    //    enemyBehaviour.onVulnerable.AddListener(VulnerableStart);
+    //    enemyBehaviour.onInVulnerable.AddListener(VulnerableEnd);
+    //}
 }

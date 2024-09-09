@@ -24753,13 +24753,6 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
-    functionName: Vulnerable
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 0.20833333
     functionName: UpdateTransitionNumber
     data: 
@@ -24767,8 +24760,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
-    functionName: InVulnerable
+  - time: 0.375
+    functionName: AttackHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -38,7 +38,7 @@ public class CombatManager : MonoBehaviour
     public void SpawnEnemy(string enemyType)
     {
         EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>(); 
-        timingSlider.SetCurrentEnemy(enemy);
+        //timingSlider.SetCurrentEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
     }
@@ -50,7 +50,7 @@ public class CombatManager : MonoBehaviour
         tempMenuButtons.SetActive(false);
     }
 
-    public void ParryImpulse(float time)
+    public void ParryImpulse()
     {
         impulseSource.GenerateImpulseWithForce(.1f);
     }
