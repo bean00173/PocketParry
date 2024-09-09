@@ -20,7 +20,7 @@ public class PlayerArmBehaviour : MonoBehaviour
         ac.SetFloat("y", y);
     }
 
-    public void Parry(ParryDirection dir, float time)
+    public void Parry(ParryDirection dir)
     {
         switch (dir)
         {

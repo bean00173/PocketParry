@@ -14,6 +14,8 @@ public class FinisherManager : MonoBehaviour
     int arrowIndex;
     bool complete;
 
+    bool inputPassed = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,9 @@ public class FinisherManager : MonoBehaviour
             ResetUI();
             GenerateFinisherPuzzle();
         }
+
+        if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
+        else inputPassed = !PlayerInput.Instance.DoingInput;
     }
 
     private void GenerateFinisherPuzzle()
@@ -47,8 +52,10 @@ public class FinisherManager : MonoBehaviour
         }
     }
 
-    private void InputCheck(ParryDirection dir, float x)
+    private void InputCheck(ParryDirection dir)
     {
+        inputPassed = false;
+
         if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
         {
             this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.green;
