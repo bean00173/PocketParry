@@ -177,7 +177,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void InputStarted()
     {
-        doingInput = true;
+        if (vulnerable)
+        {
+            doingInput = true;
+        }
     }
 
     public void CheckInput()

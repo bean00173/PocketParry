@@ -17,16 +17,18 @@ public enum ParryDirection
     Left
 }
 
-public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
+public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
 
     [HideInInspector] public UnityEvent<ParryDirection, float> inputHandled = new UnityEvent<ParryDirection, float>();
     [HideInInspector] public UnityEvent inputStarted;
+    [HideInInspector] public UnityEvent<ParryDirection> directionPredict;
     ParryDirection input;
 
     public static PlayerInput Instance;
 
     float dragStart, dragEnd;
+
 
     private void Awake()
     {
@@ -35,14 +37,17 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        dragStart = Time.time;
-        inputStarted.Invoke();
+        //dragStart = Time.time;
+        //inputStarted.Invoke();
+
+        Debug.Log(dragStart);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //dragStart = Time.time;
-        //inputStarted.Invoke();
+        Debug.Log("INPUT STARTED");
+        dragStart = Time.time;
+        inputStarted.Invoke();
     }
 
     public void OnEndDrag(PointerEventData eventData)
