@@ -29,6 +29,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     public float parryTime = .5f;
 
     //float dragStart, dragEnd;
+    public float InputTime { get; private set; }
 
     public bool DoingInput { get; private set; }
     public ParryDirection InputDirection { get; private set; }
@@ -69,6 +70,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
 
         InputDirection = CalculateDirection(eventData);
         DoingInput = true;
+        InputTime = Time.time;
         inputHandled.Invoke(InputDirection);
         Invoke(nameof(InputEnd), parryTime);
     }

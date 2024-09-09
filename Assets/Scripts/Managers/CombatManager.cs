@@ -11,11 +11,9 @@ public class CombatManager : MonoBehaviour
     public CameraBehaviour cameraBehaviour;
     public PlayerArmBehaviour playerArmBehaviour;
     public StanceIndicator stanceIndicator;
-    public TimingSlider timingSlider;
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
     public GameObject tempMenuButtons;
-    public Image tempDetector;
 
     public static CombatManager instance;
 
@@ -45,8 +43,6 @@ public class CombatManager : MonoBehaviour
 
     public void SetupGameUI()
     {
-        tempDetector.gameObject.SetActive(true);
-        timingSlider.gameObject.SetActive(true);
         tempMenuButtons.SetActive(false);
     }
 

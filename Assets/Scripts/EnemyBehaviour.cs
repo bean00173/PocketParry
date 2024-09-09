@@ -172,13 +172,26 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
         {
-            Debug.Log("PARRIED");
+            score += CalculateScore(Time.time - PlayerInput.Instance.InputTime);
             onParrySuccessful.Invoke();
         }
         else
         {
-            Debug.Log("AKAKAKAKA SPONGEBOB");
-            onHitTaken.Invoke(PlayerInput.Instance.InputDirection);
+            onHitTaken.Invoke(currentClipInfo.parryDirection);
+        }
+    }
+
+    private int CalculateScore(float time)
+    {
+        if(time < .15)
+        {
+            Debug.Log("Nice ;p");
+            return 1;
+        }
+        else
+        {
+            Debug.Log("ermm what the sigma");
+            return 0;
         }
     }
 
