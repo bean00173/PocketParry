@@ -25,15 +25,18 @@ public class StanceIndicator : MonoBehaviour
     {
         //this.transform.position = enemyHeadBone.position + offset;
 
-        if(time < 1.0f)
-        {
-            this.transform.position = Vector3.Lerp(this.transform.position, enemyHeadBone.position + offset, time / 1.0f);
-            time += Time.deltaTime * followSpeed;
-        }
-        else
-        {
-            this.transform.position = enemyHeadBone.position + offset;
-        }
+        //if(time < 1.0f)
+        //{
+        //    this.transform.position = Vector3.Lerp(this.transform.position, enemyHeadBone.position + offset, time / 1.0f);
+        //    time += Time.deltaTime * followSpeed;
+        //}
+        //else
+        //{
+        //    this.transform.position = enemyHeadBone.position + offset;
+        //}
+
+        this.transform.position = enemyHeadBone.position + offset;
+
         //if(Vector3.Distance(this.transform.position, enemyHeadBone.position + offset) > followMargin)
         //{
         //    float time = 0;
