@@ -16,28 +16,32 @@ public class FinisherManager : MonoBehaviour
 
     bool inputPassed = true;
 
+    bool finisherActive;
+
     // Start is called before the first frame update
     void Start()
     {
         PlayerInput.Instance.inputHandled.AddListener(InputCheck);
-        GenerateFinisherPuzzle();
+        //GenerateFinisherPuzzle();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (arrowIndex >= this.transform.childCount )
+        if (finisherActive)
         {
-            lastArrow = null;
-            //complete = false;
-            arrowIndex = 0;
-            ResetUI();
-            GenerateFinisherPuzzle();
-        }
+            if (arrowIndex >= this.transform.childCount)
+            {
+                lastArrow = null;
+                //complete = false;
+                arrowIndex = 0;
+                ResetUI();
+                GenerateFinisherPuzzle();
+            }
 
-        if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
-        else inputPassed = !PlayerInput.Instance.DoingInput;
+            if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
+            else inputPassed = !PlayerInput.Instance.DoingInput;
+        }   
     }
 
     private void GenerateFinisherPuzzle()

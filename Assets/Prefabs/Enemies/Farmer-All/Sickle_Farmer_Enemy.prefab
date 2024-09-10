@@ -88,7 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72ee1373f860a640aef8474bfe97dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0.0075, z: 0}
+  offset: {x: 0, y: 0.5, z: 0}
+  followSpeed: 2
+  followMargin: 0.5
 --- !u!1001 &5119184520056035745
 PrefabInstance:
   m_ObjectHideFlags: 0

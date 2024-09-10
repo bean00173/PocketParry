@@ -12,10 +12,12 @@ public class StanceIndicator : MonoBehaviour
     public float followSpeed = 2f;
     public float followMargin = 0.5f;
 
+    float time;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.transform.position = enemyHeadBone.position + offset;
     }
 
     // Update is called once per frame
@@ -23,13 +25,22 @@ public class StanceIndicator : MonoBehaviour
     {
         //this.transform.position = enemyHeadBone.position + offset;
 
-        if(Vector3.Distance(this.transform.position, enemyHeadBone.position + offset) > followMargin)
+        if(time < 1.0f)
         {
-            float time = 0;
-            float t = time / followSpeed;
-            this.transform.position = Vector3.Lerp(this.transform.position, enemyHeadBone.position + offset, t);
-            time += Time.deltaTime;
+            this.transform.position = Vector3.Lerp(this.transform.position, enemyHeadBone.position + offset, time / 1.0f);
+            time += Time.deltaTime * followSpeed;
         }
+        else
+        {
+            this.transform.position = enemyHeadBone.position + offset;
+        }
+        //if(Vector3.Distance(this.transform.position, enemyHeadBone.position + offset) > followMargin)
+        //{
+        //    float time = 0;
+        //    float t = time / followSpeed;
+
+        //    time += Time.deltaTime;
+        //}
     }
 
     public void SetupBar(float max, Transform headBone)

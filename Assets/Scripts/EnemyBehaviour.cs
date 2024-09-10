@@ -199,6 +199,7 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = false;
         currentState = EnemyState.Dead;
         ac.Play("DeadTransition");
+        Destroy(stanceIndicator.gameObject);
     }
 
     //public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
