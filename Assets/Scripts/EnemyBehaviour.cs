@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using UnityEngine.Events;
 using TMPro;
 
@@ -35,6 +36,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public StanceIndicator stanceIndicator;
     public Transform headBone;
+    public VisualEffect slashVFX;
+    public float vfxDelay = 1f;
 
     AttackInfo currentClipInfo;
     Animator ac;
@@ -106,7 +109,9 @@ public class EnemyBehaviour : MonoBehaviour
         ac.SetFloat("AttackNumber", num); // set relevant ac params using designated atk number
         ac.SetFloat("TransitionNumber", num);
         ac.SetTrigger("Attack");
+
     }
+
 
     //public void Vulnerable() // animation event driven method for start of parry period
     //{
@@ -116,7 +121,7 @@ public class EnemyBehaviour : MonoBehaviour
     //    CombatManager.instance.tempDetector.color = Color.green;
 
     //    onVulnerable.Invoke(parryStart);
-        
+
     //    foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
     //    {
     //        AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
@@ -124,7 +129,7 @@ public class EnemyBehaviour : MonoBehaviour
     //        {
     //            currentClipInfo = info;
     //        }
-            
+
     //    }
 
     //    Invoke(nameof(CheckInput), .25f);
@@ -156,6 +161,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void AttackHit()
     {
+        slashVFX.Play();
+
         foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
         {
             AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
