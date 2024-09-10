@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
 public class CombatManager : MonoBehaviour
 {
     public EnemyInformation enemyInfo;
+    public Transform worldSpaceCanvas;
     public CameraBehaviour cameraBehaviour;
     public PlayerArmBehaviour playerArmBehaviour;
-    public StanceIndicator stanceIndicator;
+    StanceIndicator stanceIndicator;
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
     public GameObject tempMenuButtons;
@@ -18,6 +20,12 @@ public class CombatManager : MonoBehaviour
     public static CombatManager instance;
 
     CinemachineImpulseSource impulseSource;
+
+    [HideInInspector] public UnityEvent defeated;
+
+    public int score;
+
+    int currentEnemyMax;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +43,11 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnEnemy(string enemyType)
     {
-        EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>(); 
+        EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>();
         //timingSlider.SetCurrentEnemy(enemy);
+        stanceIndicator = enemy.stanceIndicator;
+        currentEnemyMax = enemy.enemyStats.health;
+        defeated.AddListener(enemy.Defeated);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
     }
@@ -49,5 +60,18 @@ public class CombatManager : MonoBehaviour
     public void ParryImpulse()
     {
         impulseSource.GenerateImpulseWithForce(.1f);
+    }
+
+    public void UpdateScore(int x)
+    {
+        score += x;
+        stanceIndicator.UpdateStanceBar(score);
+        scoreText.text = score.ToString();
+
+        if (score >= currentEnemyMax)
+        {
+            Debug.Log("HES TAPPING HES TAPPING");
+            defeated.Invoke();
+        }
     }
 }

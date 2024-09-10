@@ -125,25 +125,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 0}
-  timingSlider: {fileID: 0}
-  scoreText: {fileID: 0}
   attackInformation: {fileID: 11400000, guid: f5c82031219cc634eaf2ff6af59fc3f4, type: 2}
   enemyStats:
-    health: 5
+    health: 10
     name: General Grevious
     comboChance: 0.5
     comboLengthMin: 4
     comboLengthMax: 2
+    feintChance: 0
     damage: 1
     atkSpeed: 1
   onParrySuccessful:
-    m_PersistentCalls:
-      m_Calls: []
-  onVulnerable:
-    m_PersistentCalls:
-      m_Calls: []
-  onInVulnerable:
     m_PersistentCalls:
       m_Calls: []
   onHitTaken:

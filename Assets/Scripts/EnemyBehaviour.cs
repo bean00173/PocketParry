@@ -30,12 +30,11 @@ public enum EnemyState
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    bool vulnerable; 
-    float elapsedTime;
-    float parryStart, parryEnd;
-
     public AttackInformation attackInformation;
     public Enemy enemyStats;
+
+    public StanceIndicator stanceIndicator;
+    public Transform headBone;
 
     AttackInfo currentClipInfo;
     Animator ac;
@@ -52,9 +51,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool playerInput;
 
-
-
-
     [HideInInspector] public UnityEvent onParrySuccessful; // slider events
     [HideInInspector] public UnityEvent<ParryDirection> onHitTaken; // slider events
 
@@ -64,6 +60,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         ac = this.GetComponent<Animator>();
+        stanceIndicator.SetupBar(this.enemyStats.health, headBone);
         //PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
         //PlayerInput.Instance.inputStarted.AddListener(InputStarted);
 
@@ -102,7 +99,6 @@ public class EnemyBehaviour : MonoBehaviour
             StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
         }
 
-        CombatManager.instance.scoreText.text = score.ToString(); // updates test ui score text
     }
 
     public void PlayAttack(int num) // plays an attack with the designated number
@@ -172,7 +168,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
         {
-            score += CalculateScore(Time.time - PlayerInput.Instance.InputTime);
+            CombatManager.instance.UpdateScore(CalculateScore(Time.time - PlayerInput.Instance.InputTime));
+            float x = (float)CombatManager.instance.score / (float)this.enemyStats.health;
+            ac.SetFloat("Composure", 1f - x);
             onParrySuccessful.Invoke();
         }
         else
@@ -193,6 +191,14 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("ermm what the sigma");
             return 0;
         }
+    }
+
+    public void Defeated()
+    {
+        Debug.Log("Defeated");
+        canAttack = false;
+        currentState = EnemyState.Dead;
+        ac.Play("DeadTransition");
     }
 
     //public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
