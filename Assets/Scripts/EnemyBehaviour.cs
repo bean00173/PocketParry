@@ -37,11 +37,12 @@ public class EnemyBehaviour : MonoBehaviour
     public StanceIndicator stanceIndicator;
     public Transform headBone;
     public VisualEffect slashVfx;
-    public GameObject parrySfx;
-    public float vfxDelay = 1f;
+    public GameObject parryVfx;
+    public GameObject blockVfx;
 
     AttackInfo currentClipInfo;
     Animator ac;
+    SoundHandler soundHandler;
 
     int comboProgress;
     int comboLength;
@@ -65,6 +66,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         ac = this.GetComponent<Animator>();
         stanceIndicator.SetupBar(this.enemyStats.health, headBone);
+        soundHandler = this.GetComponent<SoundHandler>();
         //PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
         //PlayerInput.Instance.inputStarted.AddListener(InputStarted);
 
@@ -84,6 +86,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             ac.SetBool("Combo", doCombo); // update animator 
             PlayAttack(SelectAttack()); // select attack
+
 
             if (!doCombo) // if not comboing, automatically begin the cooldown timer
             {
@@ -163,6 +166,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void AttackHit()
     {
         slashVfx.Play();
+        soundHandler.PlayRandomSound("swing");
 
         foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
         {
@@ -176,16 +180,21 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
         {
-            CombatManager.instance.UpdateScore(CalculateScore(Time.time - PlayerInput.Instance.InputTime));
+            int y = CalculateScore(Time.time - PlayerInput.Instance.InputTime);
+            CombatManager.instance.UpdateScore(y);
             float x = (float)CombatManager.instance.score / (float)this.enemyStats.health;
             ac.SetFloat("Composure", 1f - x);
+
             onParrySuccessful.Invoke();
-            Transform fx = Instantiate(parrySfx, slashVfx.transform.parent).transform;
+
+            GameObject fxPrefab = y == 1 ? parryVfx : blockVfx;
+            Transform fx = Instantiate(fxPrefab, slashVfx.transform.parent).transform;
             fx.SetParent(null);
         }
         else
         {
             onHitTaken.Invoke(currentClipInfo.parryDirection);
+            soundHandler.PlayRandomSound("hit");
         }
     }
 

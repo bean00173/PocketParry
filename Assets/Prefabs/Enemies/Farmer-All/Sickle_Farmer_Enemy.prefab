@@ -322,6 +322,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8457387748993324433}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4976544080686104071}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2426029645212575497}
   m_SourcePrefab: {fileID: 100100000, guid: 628caec600a1730438c063c26415ae2e, type: 3}
 --- !u!4 &3791238100553841501 stripped
 Transform:
@@ -384,12 +390,126 @@ MonoBehaviour:
   stanceIndicator: {fileID: 5991693774210723188}
   headBone: {fileID: 7074587518068060475}
   slashVfx: {fileID: 2464007028371133372}
-  parrySfx: {fileID: 2552852810340718283, guid: 87dcc7c5073ef6f469957f4fc2f52a35, type: 3}
-  vfxDelay: 1
+  parryVfx: {fileID: 2552852810340718283, guid: 87dcc7c5073ef6f469957f4fc2f52a35, type: 3}
+  blockVfx: {fileID: 2552852810340718283, guid: eb03cf18f4e1ad14aab1392a06add8ae, type: 3}
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []
   onHitTaken:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!82 &4976544080686104071
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461624875583235312}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -5426862321196786797, guid: 4ad62662d1b72d84ca279f4be6857a66, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2426029645212575497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461624875583235312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d28a9fa7165fb4da7facf001803f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceType: 1
+  source: {fileID: 4976544080686104071}
+  volControl: 0
+  playOnAwake:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &7074587518068060475 stripped

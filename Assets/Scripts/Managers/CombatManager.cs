@@ -83,4 +83,9 @@ public class CombatManager : MonoBehaviour
         Destroy(currentEnemy);
         SpawnEnemy(enemyInfo.enemies[Random.Range(0, enemyInfo.enemies.Count)].enemyType.ToString());
     }
+
+    public bool RandomChance(float probability)
+    {
+        return Random.value <= probability;
+    }
 }
