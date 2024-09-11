@@ -212,6 +212,11 @@ public class EnemyBehaviour : MonoBehaviour
         Destroy(stanceIndicator.gameObject);
     }
 
+    public void ReadyForFinisher()
+    {
+        FinisherManager.Instance.StartFinisher();
+    }
+
     //public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
     //{
     //    return ac.GetCurrentAnimatorStateInfo(0).normalizedTime; 

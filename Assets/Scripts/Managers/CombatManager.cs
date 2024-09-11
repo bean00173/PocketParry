@@ -27,6 +27,8 @@ public class CombatManager : MonoBehaviour
 
     int currentEnemyMax;
 
+    GameObject currentEnemy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,7 @@ public class CombatManager : MonoBehaviour
         defeated.AddListener(enemy.Defeated);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
+        currentEnemy = enemy.gameObject;
     }
 
     public void SetupGameUI()
@@ -73,5 +76,11 @@ public class CombatManager : MonoBehaviour
             Debug.Log("HES TAPPING HES TAPPING");
             defeated.Invoke();
         }
+    }
+
+    public void NewEnemy()
+    {
+        Destroy(currentEnemy);
+        SpawnEnemy(enemyInfo.enemies[Random.Range(0, enemyInfo.enemies.Count)].enemyType.ToString());
     }
 }

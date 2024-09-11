@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 4410987663805316389}
   - component: {fileID: 2804796261468420174}
   - component: {fileID: 7699013629924998065}
+  - component: {fileID: 5070109166244691604}
   m_Layer: 0
   m_Name: vfx_Parry
   m_TagString: Untagged
@@ -163,7 +164,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4945,6 +4946,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5070109166244691604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552852810340718283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd39c5c7c620c94c88206275e7b0053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4009330008751646612
 GameObject:
   m_ObjectHideFlags: 0

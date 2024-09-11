@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class FinisherManager : MonoBehaviour
 {
+    public static FinisherManager Instance;
+
     public float minLength, maxLength;
     private float length;
 
@@ -17,6 +19,11 @@ public class FinisherManager : MonoBehaviour
     bool inputPassed = true;
 
     bool finisherActive;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +43,9 @@ public class FinisherManager : MonoBehaviour
                 //complete = false;
                 arrowIndex = 0;
                 ResetUI();
-                GenerateFinisherPuzzle();
+                //GenerateFinisherPuzzle();
+                finisherActive = false;
+                CombatManager.instance.NewEnemy();
             }
 
             if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
@@ -44,8 +53,16 @@ public class FinisherManager : MonoBehaviour
         }   
     }
 
+    public void StartFinisher()
+    {
+        GenerateFinisherPuzzle();
+        finisherActive = true;
+    }
+
     private void GenerateFinisherPuzzle()
     {
+        this.GetComponent<Image>().color = new Color(this.GetComponent<Image>().color.r, this.GetComponent<Image>().color.g, this.GetComponent<Image>().color.b, .4f);
+
         length = Random.Range(minLength, maxLength);
 
         for (int i = 0; i < length; i++)
@@ -58,17 +75,20 @@ public class FinisherManager : MonoBehaviour
 
     private void InputCheck(ParryDirection dir)
     {
-        inputPassed = false;
+        if (finisherActive)
+        {
+            inputPassed = false;
 
-        if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
-        {
-            this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.green;
-            arrowIndex++;
-            Debug.Log(arrowIndex);
-        }
-        else
-        {
-            this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.red;
+            if (dir.ToString() == this.transform.GetChild(arrowIndex).GetComponent<FinisherArrow>().direction.ToString())
+            {
+                this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.green;
+                arrowIndex++;
+                Debug.Log(arrowIndex);
+            }
+            else
+            {
+                this.transform.GetChild(arrowIndex).GetComponent<Image>().color = Color.red;
+            }
         }
     }
 
@@ -113,6 +133,7 @@ public class FinisherManager : MonoBehaviour
 
     private void ResetUI()
     {
+        this.GetComponent<Image>().color = new Color(this.GetComponent<Image>().color.r, this.GetComponent<Image>().color.g, this.GetComponent<Image>().color.b, 0);
         foreach(Transform child in transform)
         {
             Destroy(child.gameObject);
