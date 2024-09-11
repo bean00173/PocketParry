@@ -383,7 +383,9 @@ MonoBehaviour:
     atkSpeed: 1
   stanceIndicator: {fileID: 5991693774210723188}
   headBone: {fileID: 7074587518068060475}
-  slashVFX: {fileID: 2464007028371133372}
+  slashVfx: {fileID: 2464007028371133372}
+  parrySfx: {fileID: 2552852810340718283, guid: 87dcc7c5073ef6f469957f4fc2f52a35, type: 3}
+  vfxDelay: 1
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []

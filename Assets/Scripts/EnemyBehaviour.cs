@@ -36,7 +36,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public StanceIndicator stanceIndicator;
     public Transform headBone;
-    public VisualEffect slashVFX;
+    public VisualEffect slashVfx;
+    public GameObject parrySfx;
     public float vfxDelay = 1f;
 
     AttackInfo currentClipInfo;
@@ -161,7 +162,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void AttackHit()
     {
-        slashVFX.Play();
+        slashVfx.Play();
 
         foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
         {
@@ -179,6 +180,8 @@ public class EnemyBehaviour : MonoBehaviour
             float x = (float)CombatManager.instance.score / (float)this.enemyStats.health;
             ac.SetFloat("Composure", 1f - x);
             onParrySuccessful.Invoke();
+            Transform fx = Instantiate(parrySfx, slashVfx.transform.parent).transform;
+            fx.SetParent(null);
         }
         else
         {
