@@ -8,6 +8,7 @@ public class EnemyInfo
     public GameObject prefab;
     public EnemyType enemyType;
     public DifficultyClass difficultyClass;
+    public LevelStage appearanceStage;
 }
 
 public enum EnemyType

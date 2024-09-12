@@ -9,14 +9,12 @@ using TMPro;
 [System.Serializable]
 public class Enemy
 {
-    [Range(0f, 50f)]
-    public int health;
+    [Range(0f, 50f)] public int health;
     public string name;
-    [Range(0, 1f)]
-    public float comboChance;
+    [Range(0, 1f)] public float feintChance;
+    [Range(0, 1f)] public float comboChance;
     public int comboLengthMin;
     public int comboLengthMax;
-    public float feintChance;
     public float damage;
     public float atkSpeed;
 }
@@ -44,10 +42,12 @@ public class EnemyBehaviour : MonoBehaviour
     Animator ac;
     SoundHandler soundHandler;
 
+    float composurePercentage;
     int comboProgress;
     int comboLength;
     bool canAttack;
     bool doCombo;
+    bool doFeint;
     int score;
 
     bool doingInput;
@@ -67,8 +67,6 @@ public class EnemyBehaviour : MonoBehaviour
         ac = this.GetComponent<Animator>();
         stanceIndicator.SetupBar(this.enemyStats.health, headBone);
         soundHandler = this.GetComponent<SoundHandler>();
-        //PlayerInput.Instance.inputHandled.AddListener(Parry); // add listener to input events
-        //PlayerInput.Instance.inputStarted.AddListener(InputStarted);
 
         StartCoroutine(CooldownTimer(2.0f));
     }
@@ -78,13 +76,18 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (canAttack) // if the enemy can attack
         {
+
             canAttack = false; // prevent from doing so again
 
             doCombo = DoChanceCalculation(this.enemyStats.comboChance); // check if the attack can combo
-
-            //ac.speed = 1 + Random.value; // potential for random changes in how fast the attacks play
-
+            if (!doCombo)
+            {
+                doFeint = DoChanceCalculation(this.enemyStats.feintChance); // check if the attack can combo
+            }
+            //ac.speed = 1 + Random.value; // potential for random changes in how fast the attacks 
+            ac.SetBool("Feint", doFeint);
             ac.SetBool("Combo", doCombo); // update animator 
+
             PlayAttack(SelectAttack()); // select attack
 
 
@@ -97,6 +100,11 @@ public class EnemyBehaviour : MonoBehaviour
                 comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax); // choose a random combo length between variables min and max
             }
 
+            if (doFeint)
+            {
+                Invoke(nameof(FeintFinished), 1f);
+            }
+
             currentState = EnemyState.Attacking; // update state
         }
 
@@ -104,6 +112,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             ac.SetBool("Combo", false); // update animator
             StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
+        }
+
+        if (doFeint && PlayerInput.Instance.DoingInput)
+        {
+            GetBaited();
         }
 
     }
@@ -116,52 +129,17 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
+    private void GetBaited()
+    {
+        doFeint = false;
 
-    //public void Vulnerable() // animation event driven method for start of parry period
-    //{
-    //    vulnerable = true; // set vulnerable bool
-    //    parryStart = GetCurrentAnimatorTime(); // set start time var
-
-    //    CombatManager.instance.tempDetector.color = Color.green;
-
-    //    onVulnerable.Invoke(parryStart);
-
-    //    foreach(AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
-    //    {
-    //        AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
-    //        if (clipInfo[0].clip.name == info.clip.name)
-    //        {
-    //            currentClipInfo = info;
-    //        }
-
-    //    }
-
-    //    Invoke(nameof(CheckInput), .25f);
-
-    //}
-
-    //public void InVulnerable() // animation event driven method for end of parry period
-    //{
-    //    if (!vulnerable)
-    //    {
-    //        parryEnd = GetCurrentAnimatorTime(); // set end time var
-    //        score += DetermineScoreAmount(); // increment score based on timing performance
-
-    //        onInVulnerable.Invoke(parryEnd); // corresponding event trigger
-
-    //    }
-    //    else
-    //    {
-    //        parryEnd = GetCurrentAnimatorTime();
-    //        vulnerable = false; // set vulnerable bool
-    //        score--;
-
-    //        onHitTaken.Invoke(parryEnd); // corresponding event trigger
-    //    }
-
-    //    CombatManager.instance.tempDetector.color = Color.red;
-
-    //}
+        if(CombatManager.instance.score > 0)
+        {
+            CombatManager.instance.UpdateScore(-1);
+            composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
+            ac.SetFloat("Composure", composurePercentage);
+        }   
+    }
 
     public void AttackHit()
     {
@@ -182,8 +160,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             int y = CalculateScore(Time.time - PlayerInput.Instance.InputTime);
             CombatManager.instance.UpdateScore(y);
-            float x = (float)CombatManager.instance.score / (float)this.enemyStats.health;
-            ac.SetFloat("Composure", 1f - x);
+            composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
+            ac.SetFloat("Composure", composurePercentage);
 
             onParrySuccessful.Invoke();
 
@@ -226,66 +204,16 @@ public class EnemyBehaviour : MonoBehaviour
         FinisherManager.Instance.StartFinisher();
     }
 
-    //public float GetCurrentAnimatorTime() // utility method for returning the current time in the animator
-    //{
-    //    return ac.GetCurrentAnimatorStateInfo(0).normalizedTime; 
-    //}
-
-    //public void Parry(ParryDirection dir, float time) // method that listens for player inputs
-    //{
-    //    //if (vulnerable && CheckInputMatch(dir)) // checks for parry conditionals
-    //    //{
-    //    //    Debug.Log($"Elapsed Animator Time : {GetCurrentAnimatorTime()}, Actual Parry Time : {GetCurrentAnimatorTime() - time}");
-    //    //    elapsedTime = GetCurrentAnimatorTime() - time; // sets parry time
-    //    //    //score += DetermineScoreAmount(); // increment score based on timing performance
-    //    //    vulnerable = false; // makes invulnerable
-
-    //    //    onParrySuccessful.Invoke(elapsedTime);
-    //    //}
-    //    //else
-    //    //{
-    //    //    elapsedTime = 0; // if not a parry make sure slider doesnt update
-    //    //}
-    //}
-
-    //public void InputStarted()
-    //{
-    //    if (vulnerable)
-    //    {
-    //        doingInput = true;
-    //    }
-    //}
-
-    //public void CheckInput()
-    //{
-    //    if (!doingInput)
-    //    {
-    //        //vulnerable = false;
-    //        onHitPredict.Invoke(currentClipInfo.parryDirection);
-    //    }
-    //}
-
     private bool CheckInputMatch(ParryDirection dir) // utility method to check if input direction matches the required direction in current attack info
     {
         return dir == currentClipInfo.parryDirection;
     }
 
-    //private int DetermineScoreAmount() // PROVISIONAL METHOD FOR SCALING SCORE BASED ON TIMING PERFORMANCE
-    //{
-    //    float parryTime = elapsedTime - parryStart;
-    //    float vulnerableTime = (parryEnd - parryStart) / 2;
-    //    float multiplier = parryTime / vulnerableTime;
-
-    //    if (multiplier > 1)
-    //    {
-    //        multiplier = 1 - (multiplier - 1);
-    //    }
-
-    //    if (multiplier >= .9f) return 10;
-    //    else if (multiplier >= .75f) return 5;
-    //    else if (multiplier >= .5f) return 2;
-    //    else return 1;
-    //}
+    private void FeintFinished()
+    {
+        doFeint = false;
+        ac.SetBool("Feint", doFeint);
+    }
 
     private IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
     {
@@ -296,9 +224,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void AttackReady() // calls when cooldown is complete
     {
-        //ac.speed = 1;
-        canAttack = true; // resets a bunch of variables to prepare for new attacks
         doCombo = false;
+        canAttack = true; // resets a bunch of variables to prepare for new attacks
         comboLength = 0;
         comboProgress = 0;
         doingInput = false;
