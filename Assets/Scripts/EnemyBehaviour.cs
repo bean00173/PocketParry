@@ -93,7 +93,6 @@ public class EnemyBehaviour : MonoBehaviour
 
             PlayAttack(SelectAttack()); // select attack
 
-
             if (!doCombo) // if not comboing, automatically begin the cooldown timer
             {
                 StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed));
@@ -126,6 +125,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void PlayAttack(int num) // plays an attack with the designated number
     {
+
+        ac.speed = 1f + (Random.value * (enemyStats.atkSpeed - 1));
+
         ac.SetFloat("AttackNumber", num); // set relevant ac params using designated atk number
         ac.SetFloat("TransitionNumber", num);
         ac.SetTrigger("Attack");
@@ -206,6 +208,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void Defeated()
     {
+        ac.speed = 1;
         Debug.Log("Defeated");
         soundHandler.PlayRandomSound("defeat");
         canAttack = false;

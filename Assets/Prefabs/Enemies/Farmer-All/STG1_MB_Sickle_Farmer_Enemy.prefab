@@ -386,7 +386,7 @@ MonoBehaviour:
     comboLengthMin: 2
     comboLengthMax: 4
     damage: 1
-    atkSpeed: 1.5
+    atkSpeed: 1
   stanceIndicator: {fileID: 5991693774210723188}
   headBone: {fileID: 7074587518068060475}
   slashVfx: {fileID: 2464007028371133372}
