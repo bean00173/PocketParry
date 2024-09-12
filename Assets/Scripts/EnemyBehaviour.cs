@@ -64,6 +64,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.enemyStats.name = SetName();
         ac = this.GetComponent<Animator>();
         stanceIndicator.SetupBar(this.enemyStats.health, headBone);
         soundHandler = this.GetComponent<SoundHandler>();
@@ -193,6 +194,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void Defeated()
     {
         Debug.Log("Defeated");
+        soundHandler.PlayRandomSound("defeat");
         canAttack = false;
         currentState = EnemyState.Dead;
         ac.Play("DeadTransition");
@@ -277,6 +279,17 @@ public class EnemyBehaviour : MonoBehaviour
             acNum--;
             ac.SetFloat("AttackNumber", acNum); // if not move back to the previous attack 
         }
+    }
+
+    private string SetName()
+    {
+        List<string> firstNames = Resources.Load<NameLibrary>("Data/NameLibrary").firstNames;
+        List<string> lastNames = Resources.Load<NameLibrary>("Data/NameLibrary").lastNames;
+
+        string firstName = firstNames[Random.Range(0, firstNames.Count)];
+        string lastName = lastNames[Random.Range(0, lastNames.Count)];
+
+        return $"{firstName} {lastName}";
     }
 
 }

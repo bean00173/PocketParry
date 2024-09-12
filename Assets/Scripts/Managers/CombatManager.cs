@@ -24,6 +24,7 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public UnityEvent defeated;
 
     public int score;
+    private int totalScore;
 
     int currentEnemyMax;
 
@@ -68,8 +69,9 @@ public class CombatManager : MonoBehaviour
     public void UpdateScore(int x)
     {
         score += x;
+        totalScore += x;
         stanceIndicator.UpdateStanceBar(score);
-        scoreText.text = score.ToString();
+        scoreText.text = totalScore.ToString();
 
         if (score >= currentEnemyMax)
         {
@@ -82,6 +84,7 @@ public class CombatManager : MonoBehaviour
     {
         Destroy(currentEnemy);
         SpawnEnemy(enemyInfo.enemies[Random.Range(0, enemyInfo.enemies.Count)].enemyType.ToString());
+        score = 0;
     }
 
     public bool RandomChance(float probability)

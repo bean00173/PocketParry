@@ -12,12 +12,17 @@ public class SoundHandler : MonoBehaviour
     public AudioSource source;
     public bool volControl;
 
+    public bool dontPlayOnAwake;
+
     public UnityEvent playOnAwake = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
     {
-        playOnAwake?.Invoke();
+        if (!dontPlayOnAwake)
+        {
+            playOnAwake?.Invoke();
+        }
         //foreach(SoundClip clip in soundClips)
         //{
         //    soundClipsList.Add(clip);
