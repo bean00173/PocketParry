@@ -115,6 +115,12 @@ public class CombatManager : MonoBehaviour
                 score = 0;
             } 
         }
+        else
+        {
+            Destroy(currentEnemy);
+            SpawnEnemy();
+            score = 0;
+        }
     }
 
     public bool RandomChance(float probability)

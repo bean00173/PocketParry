@@ -68,7 +68,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         this.enemyStats.name = SetName();
         ac = this.GetComponent<Animator>();
-        stanceIndicator.SetupBar(this.enemyStats.health, headBone);
+        stanceIndicator.SetupBar(this.gameObject.name, this.enemyStats.health, this.enemyStats.name, headBone);
         soundHandler = this.GetComponent<SoundHandler>();
 
         StartCoroutine(CooldownTimer(2.0f));

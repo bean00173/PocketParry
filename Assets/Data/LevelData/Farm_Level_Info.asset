@@ -16,7 +16,7 @@ MonoBehaviour:
   - difficultyType: 0
     stage: 0
     enemyTypes: 0000000001000000
-    spawnCount: 1
+    spawnCount: 4
   - difficultyType: 1
     stage: 0
     enemyTypes: 0000000001000000
