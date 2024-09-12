@@ -43,7 +43,7 @@ public class CombatManager : MonoBehaviour
 
         //SpawnEnemy("gay");
 
-        Debug.Log(SelectEnemyToSpawn().name);
+
     }
 
     // Update is called once per frame
@@ -52,10 +52,16 @@ public class CombatManager : MonoBehaviour
         
     }
 
-
-    public void SpawnEnemy(string enemyType)
+    public void PlayGame()
     {
-        EnemyBehaviour enemy = Instantiate(enemyInfo.enemies.Find((x) => x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), enemyType)).prefab, spawnPoint).GetComponent<EnemyBehaviour>();
+        SpawnEnemy();
+        SetupGameUI();
+    }
+
+
+    public void SpawnEnemy()
+    {
+        EnemyBehaviour enemy = Instantiate(SelectEnemyToSpawn(), spawnPoint).GetComponent<EnemyBehaviour>();
         //EnemyBehaviour enemy = Instantiate(SelectEnemyToSpawn(), spawnPoint).GetComponent<EnemyBehaviour>();
         //timingSlider.SetCurrentEnemy(enemy);
         stanceIndicator = enemy.stanceIndicator;
@@ -92,23 +98,28 @@ public class CombatManager : MonoBehaviour
 
     public void NewEnemy()
     {
-        Destroy(currentEnemy);
-        SpawnEnemy(enemyInfo.enemies[Random.Range(0, enemyInfo.enemies.Count)].enemyType.ToString());
-        score = 0;
+        enemiesBeaten++;
+
+        if (enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
+        {
+            levelIndex++;
+            if(levelIndex > levelInfo.selectableEnemies.Count - 1)
+            {
+                Debug.Log("GAME OVER YOU WIN LETS GOOOO");
+            }
+            else
+            {
+                enemiesBeaten = 0;
+                Destroy(currentEnemy);
+                SpawnEnemy();
+                score = 0;
+            } 
+        }
     }
 
     public bool RandomChance(float probability)
     {
         return Random.value <= probability;
-    }
-
-    public void NextStage()
-    {
-        if(enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
-        {
-            levelIndex++;
-            enemiesBeaten = 0;
-        }
     }
 
     private GameObject SelectEnemyToSpawn()
