@@ -313,12 +313,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: f5c82031219cc634eaf2ff6af59fc3f4, type: 2}
   enemyStats:
-    health: 10
+    health: 5
     name: General Grevious
-    feintChance: 0.5
-    comboChance: 0.5
-    comboLengthMin: 4
-    comboLengthMax: 2
+    feintChance: 0
+    comboChance: 0
+    comboLengthMin: 0
+    comboLengthMax: 0
     damage: 1
     atkSpeed: 1
   stanceIndicator: {fileID: 8792734112924218008}
@@ -443,6 +443,7 @@ MonoBehaviour:
   sourceType: 1
   source: {fileID: 4090506948940126034}
   volControl: 0
+  dontPlayOnAwake: 0
   playOnAwake:
     m_PersistentCalls:
       m_Calls: []

@@ -8,6 +8,7 @@ public class SelectableEnemy
     public DifficultyClass difficultyType;
     public LevelStage stage;
     public EnemyType[] enemyTypes;
+    public int spawnCount;
 }
 
 [System.Serializable]

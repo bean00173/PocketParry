@@ -8,6 +8,7 @@ public class AttackInfo
     public AnimationClip clip;
     public ParryDirection parryDirection;
     public bool canCombo;
+    public bool isInstaKill;
 }
 
 [CreateAssetMenu(fileName = "AttackInformation", menuName = "ScriptableObjects/AttackInformation")]

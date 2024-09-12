@@ -16,6 +16,16 @@ MonoBehaviour:
   - prefab: {fileID: 5461624875583235312, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
     enemyType: 1
     difficultyClass: 0
+    appearanceStage: 0
   - prefab: {fileID: 393353412375717385, guid: c87c084c8a849114bafa00c38df402d7, type: 3}
     enemyType: 0
     difficultyClass: 0
+    appearanceStage: 0
+  - prefab: {fileID: 5461624875583235312, guid: 64190ed7ef0725c45ae080f48ccced67, type: 3}
+    enemyType: 1
+    difficultyClass: 1
+    appearanceStage: 0
+  - prefab: {fileID: 393353412375717385, guid: ebbe4eeafd540db4fbae9fe7ea306915, type: 3}
+    enemyType: 0
+    difficultyClass: 1
+    appearanceStage: 0

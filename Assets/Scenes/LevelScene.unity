@@ -52966,7 +52966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &233593650
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52982,9 +52982,9 @@ RectTransform:
   - {fileID: 492567848}
   m_Father: {fileID: 2000250123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 542.5, y: -50}
   m_SizeDelta: {x: 250, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &233593651
@@ -199099,7 +199099,7 @@ GameObject:
   - component: {fileID: 902366292}
   - component: {fileID: 902366291}
   m_Layer: 5
-  m_Name: SickleBTN
+  m_Name: PlayBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199171,26 +199171,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2079475399}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: SpawnEnemy
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Farmer_Sword
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2079475399}
-        m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: SetupGameUI
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Farmer_Sword
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &902366292
@@ -272715,7 +272703,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sickle Farmer
+  m_text: Begin
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -460599,6 +460587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975da4c094b05054384309c4a57c2dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelInfo: {fileID: 11400000, guid: 3a6f5966cf3d34143b4717c4fa17b26e, type: 2}
   enemyInfo: {fileID: 11400000, guid: ff931b971c563d444878c37bbc7229cb, type: 2}
   worldSpaceCanvas: {fileID: 318371790}
   cameraBehaviour: {fileID: 1530928689}
