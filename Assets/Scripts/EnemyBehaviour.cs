@@ -182,6 +182,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             onHitTaken.Invoke(currentClipInfo.parryDirection);
             soundHandler.PlayRandomSound("hit");
+
+            if (currentClipInfo.isInstaKill)
+            {
+                Debug.Log("DEATH OH GOD");
+            }
         }
     }
 

@@ -460599,6 +460599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975da4c094b05054384309c4a57c2dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelInfo: {fileID: 11400000, guid: 3a6f5966cf3d34143b4717c4fa17b26e, type: 2}
   enemyInfo: {fileID: 11400000, guid: ff931b971c563d444878c37bbc7229cb, type: 2}
   worldSpaceCanvas: {fileID: 318371790}
   cameraBehaviour: {fileID: 1530928689}
