@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerArmBehaviour : MonoBehaviour
 {
     Animator ac;
+    SoundHandler soundHandler;
     float x, y;
 
     // Start is called before the first frame update
     void Start()
     {
         ac = this.GetComponent<Animator>();
+        soundHandler = this.GetComponent<SoundHandler>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,7 @@ public class PlayerArmBehaviour : MonoBehaviour
         }
 
         ac.SetTrigger("Parry");
+        soundHandler.PlayRandomSound("player_swing");
     }
 
 }

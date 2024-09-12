@@ -52,6 +52,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool doingInput;
 
+    GameObject lastFx;
+
     // NEW SYSTEM VARIABLES
 
     private bool playerInput;
@@ -166,8 +168,14 @@ public class EnemyBehaviour : MonoBehaviour
 
             onParrySuccessful.Invoke();
 
+            if (lastFx != null)
+            {
+                lastFx.GetComponent<SoundHandler>().FadeOut();
+            }
+
             GameObject fxPrefab = y == 1 ? parryVfx : blockVfx;
             Transform fx = Instantiate(fxPrefab, slashVfx.transform.parent).transform;
+            lastFx = fx.gameObject;
             fx.SetParent(null);
         }
         else

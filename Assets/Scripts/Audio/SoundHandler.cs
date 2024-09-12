@@ -93,6 +93,25 @@ public class SoundHandler : MonoBehaviour
         source.volume = vol;
     }
 
+    public void FadeOut()
+    {
+        StartCoroutine(FadeVolDown());
+    }
+
+    private IEnumerator FadeVolDown()
+    {
+        float time = 0;
+        float duration = 1f;
+
+        while (time < duration)
+        {
+            Debug.Log(source.volume);
+            this.source.volume -= time;
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     private void StopPlaying()
     {
         source.Stop();
