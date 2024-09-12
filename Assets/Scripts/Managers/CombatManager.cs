@@ -18,6 +18,8 @@ public class CombatManager : MonoBehaviour
     public Transform spawnPoint;
     public GameObject tempMenuButtons;
 
+    public GameObject win;
+
     public static CombatManager instance;
 
     CinemachineImpulseSource impulseSource;
@@ -106,6 +108,7 @@ public class CombatManager : MonoBehaviour
             if(levelIndex > levelInfo.selectableEnemies.Count - 1)
             {
                 Debug.Log("GAME OVER YOU WIN LETS GOOOO");
+                GameOver();
             }
             else
             {
@@ -166,5 +169,15 @@ public class CombatManager : MonoBehaviour
         return selectableEnemies[Random.Range(0, selectableEnemies.Count)];
         //GameObject[] stageMatchPrefabs = enemyInfo.enemies.FindAll((x) => x.appearanceStage == (LevelStage)System.Enum.Parse(typeof(LevelStage), levelInfo.selectableEnemies[levelIndex].stage.ToString()));
         //GameObject[] difficultyMatchPrefabs = enemyInfo.enemies.FindAll((x) => x.difficultyClass == (DifficultyClass)System.Enum.Parse(typeof(DifficultyClass), levelInfo.selectableEnemies[levelIndex].difficultyType.ToString()));
+    }
+
+    private void GameOver()
+    {
+        win.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
