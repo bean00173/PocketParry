@@ -61,7 +61,22 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public UnityEvent onParrySuccessful; // slider events
     [HideInInspector] public UnityEvent<ParryDirection> onHitTaken; // slider events
 
-    public EnemyState currentState { get; private set; }
+    private EnemyState currentState;
+    public EnemyState CurrentState
+    { 
+        get 
+        {
+            return currentState; 
+        }
+        private set
+        {
+            if(value == EnemyState.Idle && CurrentState != value)
+            {
+                StartCoroutine(CooldownTimer(2.0f - this.enemyStats.atkSpeed));
+            }
+            currentState = value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +92,8 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CurrentState = ac.GetCurrentAnimatorStateInfo(0).IsName("Idle") ? EnemyState.Idle : EnemyState.Attacking;
+
         if (canAttack) // if the enemy can attack
         {
 
@@ -93,27 +110,28 @@ public class EnemyBehaviour : MonoBehaviour
 
             PlayAttack(SelectAttack()); // select attack
 
-            if (!doCombo) // if not comboing, automatically begin the cooldown timer
-            {
-                StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed));
-            }
-            else
-            {
-                comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax); // choose a random combo length between variables min and max
-            }
+            //if (!doCombo) // if not comboing, automatically begin the cooldown timer
+            //{
+            //    StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed));
+            //}
+            //else
+            //{
+            //    comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax); // choose a random combo length between variables min and max
+            //}
+
+            comboLength = Random.Range(enemyStats.comboLengthMin, enemyStats.comboLengthMax); // choose a random combo length between variables min and max
 
             if (doFeint)
             {
                 Invoke(nameof(FeintFinished), 1f);
             }
 
-            currentState = EnemyState.Attacking; // update state
         }
 
-        if (currentState == EnemyState.Attacking && comboProgress == comboLength && comboProgress > 0) // if the enemy is attacking and the combo has reached its end
+        if (CurrentState == EnemyState.Attacking && comboProgress == comboLength && comboProgress > 0) // if the enemy is attacking and the combo has reached its end
         {
             ac.SetBool("Combo", false); // update animator
-            StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
+            //StartCoroutine(CooldownTimer(5.0f / enemyStats.atkSpeed)); // do cooldown
         }
 
         if (doFeint && PlayerInput.Instance.DoingInput)
@@ -121,6 +139,9 @@ public class EnemyBehaviour : MonoBehaviour
             GetBaited();
         }
 
+        //if (ac.GetCurrentAnimatorStateInfo(0).IsName("Idle")) this.currentState = EnemyState.Idle;
+
+        Debug.Log(CurrentState);
     }
 
     public void PlayAttack(int num) // plays an attack with the designated number
@@ -212,7 +233,7 @@ public class EnemyBehaviour : MonoBehaviour
         Debug.Log("Defeated");
         soundHandler.PlayRandomSound("defeat");
         canAttack = false;
-        currentState = EnemyState.Dead;
+        CurrentState = EnemyState.Dead;
         ac.Play("DeadTransition");
         Destroy(stanceIndicator.gameObject);
     }
@@ -235,7 +256,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
     {
-        currentState = EnemyState.Idle;
+        //currentState = EnemyState.Idle;
         yield return new WaitForSeconds(time); // LOOK AT LATER - Will probably add randomisation
         AttackReady();
     }
