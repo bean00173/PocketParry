@@ -106,7 +106,7 @@ public class SoundHandler : MonoBehaviour
         while (time < duration)
         {
             Debug.Log(source.volume);
-            this.source.volume -= time;
+            this.source.volume -= (time / duration);
             time += Time.deltaTime;
             yield return null;
         }
