@@ -148,7 +148,10 @@ public class MapManager : MonoBehaviour
             }
             //recentering = false;
             //SnappedToTarget(false);
-            closestLevel.CenteredOnScreen(false);
+            if(closestLevel != null)
+            {
+                closestLevel.CenteredOnScreen(false);
+            }
         }
 
     }
@@ -157,25 +160,17 @@ public class MapManager : MonoBehaviour
     {
         playingTrans = true;
 
-        if (/*!self && */closestPos != targetPos && recentering)
-        {
-            levels[currentLevel].CenteredOnScreen(!self);
-            closestLevel.CenteredOnScreen(self);
-            //if (!self)
-            //{
-            //    levels[currentLevel].CenteredOnScreen(true);
-            //    closestLevel.CenteredOnScreen(false);
-            //}
-            //else
-            //{
-            //    levels[currentLevel].CenteredOnScreen(false);
-            //    closestLevel.CenteredOnScreen(true);
-            //}
-
-        }
-        //else if(self && closestPos != targetPos && targetPosition == targetPos)
+        //if (/*!self && */recentering)
         //{
-        //    closestLevel.CenteredOnScreen(!self);
+        //    if(closestPos != targetPos)
+        //    {
+        //        levels[currentLevel].CenteredOnScreen(!self);
+        //        closestLevel.CenteredOnScreen(self);
+        //    }
+        //    else
+        //    {
+        //        levels[currentLevel].CenteredOnScreen(!self);
+        //    }
         //}
         
         
@@ -195,12 +190,40 @@ public class MapManager : MonoBehaviour
                 else mapContent.anchoredPosition = -1 * targetPosition; break;
                 
             }
+            else if(time > duration * .2f)
+            {
+                if (recentering)
+                {
+                    if (closestPos != targetPos)
+                    {
+                        levels[currentLevel].CenteredOnScreen(!self);
+                        closestLevel.CenteredOnScreen(self);
+                    }
+                    else
+                    {
+                        levels[currentLevel].CenteredOnScreen(!self);
+                    }
+                }
+            }
             if(self) mapContent.anchoredPosition = Vector2.Lerp(mapContent.anchoredPosition, targetPosition, (time / duration));
             else mapContent.anchoredPosition = Vector2.Lerp(mapContent.anchoredPosition, -1 * targetPosition, (time / duration));
             time += Time.deltaTime;
 
             yield return null;
         }
+
+        //if (/*!self && */recentering)
+        //{
+        //    if (closestPos != targetPos)
+        //    {
+        //        levels[currentLevel].CenteredOnScreen(!self);
+        //        closestLevel.CenteredOnScreen(self);
+        //    }
+        //    else
+        //    {
+        //        levels[currentLevel].CenteredOnScreen(!self);
+        //    }
+        //}
 
         if (self) recentering = false;
         playingTrans = false;
