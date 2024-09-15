@@ -19,6 +19,7 @@ public class MapManager : MonoBehaviour
     private int currentLevel;
 
     Vector2 closestPos;
+    MapLevel closestLevel;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +77,7 @@ public class MapManager : MonoBehaviour
 
                 if (distanceNew < distanceOld)
                 {
+                    closestLevel = level;
                     closestPos = GetLocalPosition(level);
                 }
             }
@@ -83,10 +85,13 @@ public class MapManager : MonoBehaviour
 
         if(Vector2.Distance(-1 * mapContent.anchoredPosition, closestPos) < 250)
         {
+            Debug.Log(2);
+            closestLevel.CenteredOnScreen(true);
             SnappedToTarget(closestPos == targetPos);
             StartCoroutine(LerpToPos(closestPos, false));
         }
     }
+
 
     private Vector2 GetLocalPosition(MapLevel level)
     {
@@ -129,17 +134,51 @@ public class MapManager : MonoBehaviour
 
     public void CheckProximity()
     {
-        if (Vector2.Distance(mapContent.anchoredPosition, -1 * targetPos) > 25 && !playingTrans)
+        //if (Vector2.Distance(mapContent.anchoredPosition, -1 * closestPos) > 25 && !playingTrans)
+        //{
+        //    closestLevel.CenteredOnScreen(false);
+        //}
+
+        if (Vector2.Distance(mapContent.anchoredPosition, -1 * closestPos /*targetPos */) > 25 && !playingTrans)
         {
-            recentering = false;
-            SnappedToTarget(false);
+            if(closestPos == targetPos)
+            {
+                recentering = false;
+                SnappedToTarget(false);
+            }
+            //recentering = false;
+            //SnappedToTarget(false);
+            closestLevel.CenteredOnScreen(false);
         }
+
     }
 
     private IEnumerator LerpToPos(Vector2 targetPosition, bool self)
     {
-
         playingTrans = true;
+
+        if (/*!self && */closestPos != targetPos && recentering)
+        {
+            levels[currentLevel].CenteredOnScreen(!self);
+            closestLevel.CenteredOnScreen(self);
+            //if (!self)
+            //{
+            //    levels[currentLevel].CenteredOnScreen(true);
+            //    closestLevel.CenteredOnScreen(false);
+            //}
+            //else
+            //{
+            //    levels[currentLevel].CenteredOnScreen(false);
+            //    closestLevel.CenteredOnScreen(true);
+            //}
+
+        }
+        //else if(self && closestPos != targetPos && targetPosition == targetPos)
+        //{
+        //    closestLevel.CenteredOnScreen(!self);
+        //}
+        
+        
 
         float time = 0;
         float duration = 1f;
@@ -163,7 +202,7 @@ public class MapManager : MonoBehaviour
             yield return null;
         }
 
-        if(self) recentering = false;
+        if (self) recentering = false;
         playingTrans = false;
     }
 }
