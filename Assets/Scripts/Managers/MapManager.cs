@@ -15,18 +15,21 @@ public class MapManager : MonoBehaviour
 
     bool recentering;
 
+    private List<MapLevel> levels = new List<MapLevel>();
+    private int currentLevel;
+
+    Vector2 closestPos;
+
     // Start is called before the first frame update
     void Start()
     {
         foreach (Transform child in mapContent.transform)
         {
-            Debug.Log(child.gameObject.name);
-
             try
             {
-                if (child.GetComponent<MapLevel>().isUnlocked)
+                if (child.GetComponent<MapLevel>())
                 {
-                    targetPos = child.GetComponent<RectTransform>().localPosition;
+                    levels.Add(child.GetComponent<MapLevel>());
                 }
             }
             catch (Exception e)
@@ -34,6 +37,8 @@ public class MapManager : MonoBehaviour
                 Debug.Log($"{e.GetType()}, no maplevel component bruzza");
             }
         }
+
+        targetPos = GetLocalPosition(levels[currentLevel]);
     }
 
     // Update is called once per frame
@@ -52,16 +57,41 @@ public class MapManager : MonoBehaviour
 
     private void ReturnToLast()
     {
+
         StartCoroutine(LerpToPos(lastCoordinates, true));
     }
 
-    //public void AutoSnapNearest()
-    //{
-    //    foreach(Transform child in mapContent.transform)
-    //    {
-    //        if(child.GetComponent<MapLevel>());
-    //    }
-    //}
+    public void AutoSnapNearest()
+    {
+        foreach (MapLevel level in levels)
+        {
+            if(closestPos == null)
+            {
+                closestPos = GetLocalPosition(level);
+            }
+            else
+            {
+                float distanceNew = Vector2.Distance(-1 * mapContent.anchoredPosition, GetLocalPosition(level));
+                float distanceOld = Vector2.Distance(-1 * mapContent.anchoredPosition, closestPos);
+
+                if (distanceNew < distanceOld)
+                {
+                    closestPos = GetLocalPosition(level);
+                }
+            }
+        }
+
+        if(Vector2.Distance(-1 * mapContent.anchoredPosition, closestPos) < 250)
+        {
+            SnappedToTarget(closestPos == targetPos);
+            StartCoroutine(LerpToPos(closestPos, false));
+        }
+    }
+
+    private Vector2 GetLocalPosition(MapLevel level)
+    {
+        return level.GetComponent<RectTransform>().localPosition;
+    }
 
     public void RecenterButtonAction()
     {
@@ -69,27 +99,40 @@ public class MapManager : MonoBehaviour
         {
             if (Vector2.Distance(-1 * mapContent.anchoredPosition, targetPos) < 50)
             {
-                ReturnToLast();
-                recenterButton.transform.GetChild(0).gameObject.SetActive(false);
-                recenterButton.transform.GetChild(1).gameObject.SetActive(false);
+                Debug.Log(Vector2.Distance(targetPos, -1 * lastCoordinates));
+                if (Vector2.Distance(targetPos, -1 * lastCoordinates) > 250)
+                {
+                    ReturnToLast();
+                    SnappedToTarget(false);
+                }
+                else
+                {
+                    Debug.Log("GET OUTT!!!!");
+                }
+                //ReturnToLast();
+                //SnappedToTarget(false);
             }
             else
             {
                 ReCenter();
-                recenterButton.transform.GetChild(0).gameObject.SetActive(true);
-                recenterButton.transform.GetChild(1).gameObject.SetActive(true);
+                SnappedToTarget(true);
             }
         }
         
     }
 
+    private void SnappedToTarget(bool snapped)
+    {
+        recenterButton.transform.GetChild(0).gameObject.SetActive(snapped);
+        recenterButton.transform.GetChild(1).gameObject.SetActive(snapped);
+    }
+
     public void CheckProximity()
     {
-        if(Vector2.Distance(mapContent.anchoredPosition, -1 * targetPos) > 25 && !playingTrans)
+        if (Vector2.Distance(mapContent.anchoredPosition, -1 * targetPos) > 25 && !playingTrans)
         {
             recentering = false;
-            recenterButton.transform.GetChild(0).gameObject.SetActive(false);
-            recenterButton.transform.GetChild(1).gameObject.SetActive(false);
+            SnappedToTarget(false);
         }
     }
 
@@ -103,10 +146,8 @@ public class MapManager : MonoBehaviour
 
         while (time < duration)
         {
-            Debug.Log($"{time}, {duration}");
             if(time > duration * .4f)
             {
-                Debug.Log("Good enough girlies!!");
                 if (self)
                 {
                     mapContent.anchoredPosition = targetPosition; 
