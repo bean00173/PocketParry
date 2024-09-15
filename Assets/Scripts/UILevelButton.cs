@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILevelButton : MonoBehaviour
 {
     Animator ac;
+    public bool buttonEnabled;
+    public Animator highlight;
+    //public Animator greyedOut;
+
+    //public UILevelButton otherButton;
     // Start is called before the first frame update
     void Start()
     {
         ac = this.GetComponent<Animator>();
+        highlight.speed = 2f;
     }
 
     // Update is called once per frame
@@ -17,13 +24,49 @@ public class UILevelButton : MonoBehaviour
         
     }
 
-    public void PointerEnter()
+    //public void GreyedOut(string animation)
+    //{
+    //    if (!buttonEnabled)
+    //    {
+    //        greyedOut.Play(animation);
+    //    }
+    //}
+
+    public void ToggleActive()
     {
-        ac.SetBool("Hover", true);
+        if (buttonEnabled)
+        {
+            if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
+            {
+                highlight.Play("FadeOut");
+            }
+            else
+            {
+                highlight.Play("FadeIn");
+            }
+        }
+
+        //if (buttonEnabled)
+        //{
+        //    if (!ac.GetCurrentAnimatorStateInfo(0).IsName("OnClick"))
+        //    {
+        //        ac.Play("OnClick");
+
+        //        if (otherButton.ac.GetCurrentAnimatorStateInfo(0).IsName("OnClick"))
+        //        {
+        //            otherButton.OtherActive();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ac.Play("Disable");
+        //    }
+
+        //}
     }
 
-    public void PointerExit()
-    {
-        ac.SetBool("Hover", false);
-    }
+    //public void OtherActive()
+    //{
+    //    ac.Play("Disable");
+    //}
 }
