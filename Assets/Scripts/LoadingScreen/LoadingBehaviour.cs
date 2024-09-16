@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
 public class LoadingBehaviour : MonoBehaviour
@@ -11,12 +12,19 @@ public class LoadingBehaviour : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI progressText;
 
     public float loadDelay;
+    private bool gameInitialisation;
     //public GameObject tipPanel;
 
     //public List<Sprite> backgrounds = new List<Sprite>();
 
     private void Start()
     {
+        if(LoadingData.sceneToLoad == null)
+        {
+            LoadingData.sceneToLoad = "MainMenu";
+            LoadingData.mode = LoadSceneMode.Single;
+            gameInitialisation = true;
+        }
         //AudioManager.instance.SetState(GameState.Loading);
         //AudioInterrupt(true);
         StartCoroutine(LoadSceneAsync());
@@ -59,7 +67,10 @@ public class LoadingBehaviour : MonoBehaviour
 
             if (operation.progress >= .9f/* && progressBar.GetComponent<Image>().fillAmount >= operation.progress*/) 
             {
-                GameManager.Instance.UpdateCurrentScene(LoadingData.sceneToLoad);
+                if (!gameInitialisation)
+                {
+                    GameManager.Instance.UpdateCurrentScene(LoadingData.sceneToLoad);
+                }
 
                 //continuePrompt.gameObject.SetActive(true);
 

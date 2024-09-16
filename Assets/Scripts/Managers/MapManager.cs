@@ -197,7 +197,20 @@ public class MapManager : MonoBehaviour
                     if (closestPos != targetPos)
                     {
                         levels[currentLevel].CenteredOnScreen(!self);
-                        closestLevel.CenteredOnScreen(self);
+                        if(Vector2.Distance(-1 * targetPosition, closestPos) < 250)
+                        {
+                            if (self)
+                            {
+                                closestLevel.CenteredOnScreen(self);
+                            }
+                        }
+                        else if (!self)
+                        {
+                            closestLevel.CenteredOnScreen(self);
+                        }
+
+                        //closestLevel.CenteredOnScreen(self);
+
                     }
                     else
                     {

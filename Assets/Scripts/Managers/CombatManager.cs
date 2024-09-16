@@ -19,6 +19,7 @@ public class CombatManager : MonoBehaviour
     public GameObject tempMenuButtons;
 
     public GameObject win;
+    public Button exitButton, quitButton;
 
     public static CombatManager instance;
 
@@ -46,6 +47,7 @@ public class CombatManager : MonoBehaviour
         //SpawnEnemy("gay");
 
         this.levelInfo = GameManager.Instance.selectedLevel;
+        GameManager.Instance.UpdateLevelReference(exitButton, quitButton);
     }
 
     // Update is called once per frame
@@ -163,8 +165,4 @@ public class CombatManager : MonoBehaviour
         win.SetActive(true);
     }
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
 }

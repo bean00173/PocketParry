@@ -47,9 +47,20 @@ public class GameManager : MonoBehaviour
         playButton.onClick.AddListener(LoadLevel);
     }
 
+    public void UpdateLevelReference(Button exitBtn, Button quitBtn)
+    {
+        exitBtn.onClick.AddListener(ExitLevel);
+        quitBtn.onClick.AddListener(Quit);
+    }
+
     public void UpdateLevelInformation(LevelInformation info)
     {
         this.selectedLevel = info;
+    }
+
+    private void ExitLevel()
+    {
+        SceneManager.instance.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     private void LoadLevel()
@@ -60,6 +71,11 @@ public class GameManager : MonoBehaviour
     public void UpdateCurrentScene(string name)
     {
         currentScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(name);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     //public void StoreMixerInfo(Transform main)
