@@ -45,7 +45,7 @@ public class CombatManager : MonoBehaviour
 
         //SpawnEnemy("gay");
 
-
+        this.levelInfo = GameManager.Instance.selectedLevel;
     }
 
     // Update is called once per frame
@@ -133,36 +133,23 @@ public class CombatManager : MonoBehaviour
 
     private GameObject SelectEnemyToSpawn()
     {
-        List<GameObject> stageMatchPrefabs = new List<GameObject>();
-        foreach(EnemyInfo enemy in enemyInfo.enemies)
-        {
-            if(enemy.appearanceStage == levelInfo.selectableEnemies[levelIndex].stage)
-            {
-                if (!stageMatchPrefabs.Contains(enemy.prefab))
-                {
-                    stageMatchPrefabs.Add(enemy.prefab);
-                }
-            }
-        }
-
-        List<GameObject> difficultyMatchPrefabs = new List<GameObject>();
-        foreach (EnemyInfo enemy in enemyInfo.enemies)
-        {
-            if (enemy.difficultyClass == levelInfo.selectableEnemies[levelIndex].difficultyType)
-            {
-                if (!difficultyMatchPrefabs.Contains(enemy.prefab))
-                {
-                    difficultyMatchPrefabs.Add(enemy.prefab);
-                }
-            }
-        }
-
         List<GameObject> selectableEnemies = new List<GameObject>();
-        foreach (GameObject prefab in stageMatchPrefabs)
+
+        if (!levelInfo.endless)
         {
-            if (difficultyMatchPrefabs.Contains(prefab))
+            for(int i = 0; i < levelInfo.selectableEnemies[levelIndex].enemyTypes.Length; i++)
             {
-                selectableEnemies.Add(prefab);
+                selectableEnemies.Add(enemyInfo.enemies.Find((x) => (x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), levelInfo.selectableEnemies[levelIndex].enemyTypes[i].ToString()) && (x.difficultyClass == (DifficultyClass)System.Enum.Parse(typeof(DifficultyClass), levelInfo.selectableEnemies[levelIndex].difficultyType.ToString()) && (x.appearanceStage == (LevelStage)System.Enum.Parse(typeof(LevelStage), levelInfo.selectableEnemies[levelIndex].stage.ToString()))))).prefab);
+            }
+        }
+        else
+        {
+            foreach (SelectableEnemy selectable in levelInfo.selectableEnemies)
+            {
+                for (int i = 0; i < selectable.enemyTypes.Length; i++)
+                {
+                    selectableEnemies.Add(enemyInfo.enemies.Find((x) => (x.enemyType == (EnemyType)System.Enum.Parse(typeof(EnemyType), selectable.enemyTypes[i].ToString()) && (x.difficultyClass == (DifficultyClass)System.Enum.Parse(typeof(DifficultyClass), selectable.difficultyType.ToString()) && (x.appearanceStage == (LevelStage)System.Enum.Parse(typeof(LevelStage), selectable.stage.ToString()))))).prefab);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ public class UILevelButton : MonoBehaviour
     Animator ac;
     public bool buttonEnabled;
     public Animator highlight;
+    public LevelInformation levelInformation;
     //public Animator greyedOut;
 
     //public UILevelButton otherButton;
@@ -38,11 +39,14 @@ public class UILevelButton : MonoBehaviour
         {
             if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
             {
+                UIManager.Instance.playBtn.gameObject.SetActive(false);
                 highlight.Play("FadeOut");
             }
             else
             {
+                UIManager.Instance.playBtn.gameObject.SetActive(true);
                 highlight.Play("FadeIn");
+                GameManager.Instance.UpdateLevelInformation(levelInformation);
             }
         }
 

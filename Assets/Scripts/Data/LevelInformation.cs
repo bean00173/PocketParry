@@ -22,5 +22,6 @@ public enum LevelStage
 [CreateAssetMenu(fileName = "LevelInformation", menuName = "ScriptableObjects/LevelInformation")]
 public class LevelInformation : ScriptableObject
 {
+    public bool endless;
     public List<SelectableEnemy> selectableEnemies = new List<SelectableEnemy>();
 }

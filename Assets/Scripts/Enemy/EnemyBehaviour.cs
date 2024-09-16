@@ -72,7 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if(value == EnemyState.Idle && CurrentState != value)
             {
-                StartCoroutine(CooldownTimer(2.0f - this.enemyStats.atkSpeed));
+                StartCoroutine(CooldownTimer(/*2.0f - ((this.enemyStats.atkSpeed - 1) * 2) + 1)*/0));
             }
             currentState = value;
         }

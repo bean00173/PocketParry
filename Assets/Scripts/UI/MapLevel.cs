@@ -30,6 +30,7 @@ public class MapLevel : MonoBehaviour
         if(!a && ac.GetCurrentAnimatorStateInfo(0).IsName("Hover"))
         {
             ac.SetBool("Hover", a);
+            Debug.Log("GAY");
             onHoverExit.Invoke();
         }
         else if (a)
