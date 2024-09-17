@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour
 
     public Scene currentScene { get; private set; }
 
+    float m_tr_fill;
+    float m_tr_angle;
+    float m_tl_fill;
+    float m_tl_angle;
+    float m_br_fill;
+    float m_br_angle;
+    float m_bl_fill;
+    float m_bl_angle;
+
     private void Awake()
     {
         if (Instance != null)
@@ -76,6 +85,18 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void StoreInputSettings(float tlf, float tla, float trf, float tra, float blf, float bla, float brf, float bra)
+    {
+        m_tl_fill = tlf;
+        m_tl_angle = tla;
+        m_tr_fill = trf;
+        m_tr_angle = tra;
+        m_bl_angle = bla;
+        m_bl_fill = blf;
+        m_br_angle = bra;
+        m_br_fill = brf; 
     }
 
     //public void StoreMixerInfo(Transform main)
