@@ -16,9 +16,10 @@ public class GradientHandle : MonoBehaviour, IDragHandler
     void Start()
     {
         angle = InitialAngleCalculation();
+        //SettingsManager.Instance.StoreAngle(handleType, angle);
         this.gradient = SettingsManager.Instance.ReturnDefaultHandleGradient(handleType);
         this.transform.localPosition = UpdatePosBasedOnGradient();
-        
+        //ResetHandle();
     }
 
     // Update is called once per frame
@@ -33,6 +34,12 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         this.transform.localPosition = CalculateCirclePosition(RecenterPosition(data.position));
         //this.transform.position = CalculateCirclePosition(data.position);
     }
+
+    //public void ResetHandle()
+    //{
+    //    this.transform.localPosition = UpdatePosBasedOnGradient();
+    //    UpdateImage();
+    //}
 
     private Vector2 UpdatePosBasedOnGradient()
     {
@@ -129,13 +136,21 @@ public class GradientHandle : MonoBehaviour, IDragHandler
 
         if (CheckSisterHandleGradient(projectedGradient))
         {
-            if (handleType == HandleType.tl_fill || handleType == HandleType.tl_angle || handleType == HandleType.br_angle || handleType == HandleType.br_fill)
+            if (handleType == HandleType.tl_fill || handleType == HandleType.br_fill)
             {
-                return projectedGradient > -10 && projectedGradient < -.1; ;
+                return projectedGradient > -10 && projectedGradient < -1; ;
             }
-            else if (handleType == HandleType.tr_fill || handleType == HandleType.tr_angle || handleType == HandleType.bl_angle || handleType == HandleType.bl_fill) 
+            else if (handleType == HandleType.tl_angle || handleType == HandleType.br_angle)
             {
-                return projectedGradient > .1 && projectedGradient < 10;
+                return projectedGradient > -1 && projectedGradient < -.1; ;
+            }
+            else if (handleType == HandleType.tr_angle || handleType == HandleType.bl_angle)  
+            {
+                return projectedGradient > 1 && projectedGradient < 10;
+            }
+            else if (handleType == HandleType.tr_fill || handleType == HandleType.bl_fill) 
+            {
+                return projectedGradient > .1 && projectedGradient < 1;
             }
         }
 
@@ -180,12 +195,21 @@ public class GradientHandle : MonoBehaviour, IDragHandler
             if (this.handleType == HandleType.tl_fill || this.handleType == HandleType.br_fill)
             {
                 float range = (90 - minFill) - (90 - maxFill);
+                //float fill = (range / 90) / 4;
+                //if(quadrantImg.fillAmount != fill)
+                //{
+                //    quadrantImg.fillAmount = fill;
+                //}
                 quadrantImg.fillAmount = (range / 90) / 4;
             }
             else
             {
-
                 float range = minFill - maxFill;
+                //float fill = (range / 90) / 4;
+                //if (quadrantImg.fillAmount != fill)
+                //{
+                //    quadrantImg.fillAmount = fill;
+                //}
                 quadrantImg.fillAmount = (range / 90) / 4;
             }
 
@@ -202,12 +226,22 @@ public class GradientHandle : MonoBehaviour, IDragHandler
             {
                 float range = (90 - minFill) - (90 - maxFill);
                 quadrantImg.rectTransform.rotation = Quaternion.Euler(rotation.x, rotation.y, angle);
+                //float fill = (range / 90) / 4;
+                //if (quadrantImg.fillAmount != fill)
+                //{
+                //    quadrantImg.fillAmount = fill;
+                //}
                 quadrantImg.fillAmount = (range / 90) / 4;
             }
             else
             {
                 float range = minFill - maxFill;
                 quadrantImg.rectTransform.rotation = Quaternion.Euler(rotation.x, rotation.y, 90 - angle);
+                //float fill = (range / 90) / 4;
+                //if (quadrantImg.fillAmount != fill)
+                //{
+                //    quadrantImg.fillAmount = fill;
+                //}
                 quadrantImg.fillAmount = (range / 90) / 4;
             }
             

@@ -46,6 +46,8 @@ public class SettingsManager : MonoBehaviour
     float theta_bl_fill;
     float theta_bl_angle;
 
+    public Transform buttonParent;
+
     //public Image tl_img, tr_img, bl_img, br_img;
 
     public static SettingsManager Instance;
@@ -71,9 +73,25 @@ public class SettingsManager : MonoBehaviour
         GameManager.Instance.StoreInputSettings(m_tl_fill, m_tl_angle, m_tr_fill, m_tr_angle, m_bl_fill, m_bl_angle, m_br_fill, m_br_angle);
     }
 
+    //public void Reset()
+    //{
+    //    ResetDefault(true, HandleType.tr_fill);
+    //    foreach(Transform child in buttonParent)
+    //    {
+    //        try
+    //        {
+    //            child.GetComponent<GradientHandle>().ResetHandle();
+    //        }
+    //        catch(System.Exception e)
+    //        {
+    //            Debug.LogWarning($"{e.GetType()} : No component of type GradientHandle");
+    //        }
+    //    }
+    //}
+
     //private void UpdateImages()
     //{
-        
+
     //}
 
     public void StoreGradient(HandleType type, float gradient)
