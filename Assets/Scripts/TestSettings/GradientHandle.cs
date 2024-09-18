@@ -72,17 +72,19 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         float recenteredY;
         float recenteredX;
 
-        if(pos.y == (Screen.height / 2))
+        float offsetCenterY = (Screen.height / 2) + SettingsManager.Instance.buttonParent.parent.localPosition.y;
+
+        if (pos.y == offsetCenterY)
         {
             recenteredY = 0;
         }
-        else if(pos.y > (Screen.height / 2))
+        else if(pos.y > offsetCenterY)
         {
-            recenteredY = pos.y - (Screen.height / 2);
+            recenteredY = pos.y - offsetCenterY;
         }
         else
         {
-            recenteredY = -1 * (Screen.height / 2) - pos.y;
+            recenteredY = -1 * (((Screen.height / 2) - pos.y) + SettingsManager.Instance.buttonParent.parent.localPosition.y);
         }
 
         if (pos.x == Screen.width / 2)
@@ -153,7 +155,7 @@ public class GradientHandle : MonoBehaviour, IDragHandler
 
     private bool CheckNewPosValid(float newX, float newY)
     {
-        return transform.position.x / newX > 0 ? transform.position.y > newY ? true : false : false;
+        return transform.localPosition.x / newX > 0 ? transform.localPosition.y / newY > 0 ? true : false : false;
     }
 
     private bool CheckValidAdjustment(float deltaX, float deltaY)

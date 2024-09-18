@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FinisherTest.unity
     guid: 9fe0da766e98d3b4d9936b8c7d437833
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LoadingScreen.unity
     guid: 17f2a9f845e0387448dbea3b364bb241
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelScene.unity
     guid: ec601c6f08a250e49b258fba0790dfaf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 164b1e5f07d0c3049b22dedc4e949dff
   - enabled: 1
