@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -71,17 +72,17 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         float recenteredY;
         float recenteredX;
 
-        if(pos.y == Screen.height / 2)
+        if(pos.y == (Screen.height / 2))
         {
             recenteredY = 0;
         }
-        else if(pos.y > Screen.height / 2)
+        else if(pos.y > (Screen.height / 2))
         {
-            recenteredY = pos.y - Screen.height / 2;
+            recenteredY = pos.y - (Screen.height / 2);
         }
         else
         {
-            recenteredY = -1 * (Screen.height / 2 - pos.y);
+            recenteredY = -1 * (Screen.height / 2) - pos.y;
         }
 
         if (pos.x == Screen.width / 2)
@@ -132,6 +133,12 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         float intersectX = -1 * distRatio * deltaX;
         float intersectY = -1 * distRatio * deltaY;
 
+        if(!CheckNewPosValid(intersectX, intersectY))
+        {
+            Debug.Log("WAA");
+            return this.transform.localPosition;
+        }
+
         UpdateImage();
 
         Debug.Log(gradient);
@@ -139,7 +146,14 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         SettingsManager.Instance.StoreGradient(handleType, gradient);
         SettingsManager.Instance.StoreAngle(handleType, angle);
 
+        Debug.Log("Movin");
+
         return new Vector2(intersectX, intersectY);
+    }
+
+    private bool CheckNewPosValid(float newX, float newY)
+    {
+        return transform.position.x / newX > 0 ? transform.position.y > newY ? true : false : false;
     }
 
     private bool CheckValidAdjustment(float deltaX, float deltaY)
@@ -156,11 +170,11 @@ public class GradientHandle : MonoBehaviour, IDragHandler
             {
                 return projectedGradient > -1 && projectedGradient < -.1; ;
             }
-            else if (handleType == HandleType.tr_angle || handleType == HandleType.bl_angle)  
+            else if (handleType == HandleType.tr_angle || handleType == HandleType.bl_angle)
             {
                 return projectedGradient > 1 && projectedGradient < 10;
             }
-            else if (handleType == HandleType.tr_fill || handleType == HandleType.bl_fill) 
+            else if (handleType == HandleType.tr_fill || handleType == HandleType.bl_fill)
             {
                 return projectedGradient > .1 && projectedGradient < 1;
             }
