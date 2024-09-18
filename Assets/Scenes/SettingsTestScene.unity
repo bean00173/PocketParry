@@ -3135,9 +3135,10 @@ MonoBehaviour:
   m_tl_angle_default: -0.5
   m_br_fill_default: -2
   m_br_angle_default: -0.5
-  m_bl_fill_default: 2
-  m_bl_angle_default: 0.5
+  m_bl_fill_default: 0.5
+  m_bl_angle_default: 2
   buttonParent: {fileID: 1663795981}
+  resetting: 0
 --- !u!1 &2052001451
 GameObject:
   m_ObjectHideFlags: 0

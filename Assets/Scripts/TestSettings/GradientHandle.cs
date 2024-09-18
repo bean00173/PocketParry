@@ -16,17 +16,24 @@ public class GradientHandle : MonoBehaviour, IDragHandler
     void Start()
     {
         angle = InitialAngleCalculation();
+        SettingsManager.Instance.StoreAngle(handleType, angle);
         //SettingsManager.Instance.StoreAngle(handleType, angle);
         this.gradient = SettingsManager.Instance.ReturnDefaultHandleGradient(handleType);
         this.transform.localPosition = UpdatePosBasedOnGradient();
+
+        this.transform.localPosition = CalculateCirclePosition(this.transform.localPosition);
         //ResetHandle();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SettingsManager.Instance.StoreGradient(handleType, gradient);
-        SettingsManager.Instance.StoreAngle(handleType, angle);
+        //if (!SettingsManager.Instance.resetting)
+        //{
+
+        //} 
+        //SettingsManager.Instance.StoreGradient(handleType, gradient);
+        //SettingsManager.Instance.StoreAngle(handleType, angle);
     }
 
     public void OnDrag(PointerEventData data)
@@ -35,11 +42,11 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         //this.transform.position = CalculateCirclePosition(data.position);
     }
 
-    //public void ResetHandle()
-    //{
-    //    this.transform.localPosition = UpdatePosBasedOnGradient();
-    //    UpdateImage();
-    //}
+    public void ResetHandle()
+    {
+        gradient = SettingsManager.Instance.ReturnDefaultHandleGradient(handleType);
+        this.transform.localPosition = CalculateCirclePosition(UpdatePosBasedOnGradient());
+    }
 
     private Vector2 UpdatePosBasedOnGradient()
     {
@@ -48,7 +55,7 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         float posX = 250 * Mathf.Cos(angle);
         float posY = 250 * Mathf.Sin(angle);
 
-        if(this.handleType == HandleType.tl_fill || this.handleType == HandleType.tl_angle || this.handleType == HandleType.bl_fill || this.handleType == HandleType.bl_angle ? true : false)
+        if(this.handleType == HandleType.tl_fill || this.handleType == HandleType.tl_angle || this.handleType == HandleType.bl_fill || this.handleType == HandleType.bl_angle)
         {
             return new Vector2(-posX, -posY);
         }
@@ -126,6 +133,11 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         float intersectY = -1 * distRatio * deltaY;
 
         UpdateImage();
+
+        Debug.Log(gradient);
+
+        SettingsManager.Instance.StoreGradient(handleType, gradient);
+        SettingsManager.Instance.StoreAngle(handleType, angle);
 
         return new Vector2(intersectX, intersectY);
     }
