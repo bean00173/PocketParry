@@ -240,7 +240,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void ReadyForFinisher()
     {
-        FinisherManager.Instance.StartFinisher();
+        FinisherManager.Instance.StartFinisher(false);
     }
 
     private bool CheckInputMatch(ParryDirection dir) // utility method to check if input direction matches the required direction in current attack info

@@ -18,7 +18,7 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         angle = InitialAngleCalculation();
         SettingsManager.Instance.StoreAngle(handleType, angle);
         //SettingsManager.Instance.StoreAngle(handleType, angle);
-        this.gradient = SettingsManager.Instance.ReturnDefaultHandleGradient(handleType);
+        this.gradient = SettingsManager.Instance.ReturnSavedHandleGradient(handleType);
         this.transform.localPosition = UpdatePosBasedOnGradient();
 
         this.transform.localPosition = CalculateCirclePosition(this.transform.localPosition);
@@ -44,7 +44,7 @@ public class GradientHandle : MonoBehaviour, IDragHandler
 
     public void ResetHandle()
     {
-        gradient = SettingsManager.Instance.ReturnDefaultHandleGradient(handleType);
+        gradient = SettingsManager.Instance.ReturnSavedHandleGradient(handleType);
         this.transform.localPosition = CalculateCirclePosition(UpdatePosBasedOnGradient());
     }
 

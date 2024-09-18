@@ -18,7 +18,9 @@ public class FinisherManager : MonoBehaviour
 
     bool inputPassed = true;
 
-    bool finisherActive;
+    bool testing;
+
+    public bool finisherActive { get; private set; }
 
     private void Awake()
     {
@@ -43,9 +45,15 @@ public class FinisherManager : MonoBehaviour
                 //complete = false;
                 arrowIndex = 0;
                 ResetUI();
-                //GenerateFinisherPuzzle();
-                finisherActive = false;
-                CombatManager.instance.NewEnemy();
+                if (testing)
+                {
+                    GenerateFinisherPuzzle();
+                }
+                else
+                {
+                    finisherActive = false;
+                    CombatManager.instance.NewEnemy();
+                }
             }
 
             if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
@@ -53,8 +61,16 @@ public class FinisherManager : MonoBehaviour
         }   
     }
 
-    public void StartFinisher()
+    public void StopFinisher()
     {
+        finisherActive = false;
+        ResetUI();
+    }
+
+    public void StartFinisher(bool testing)
+    {
+        this.testing = testing;
+
         GenerateFinisherPuzzle();
         finisherActive = true;
     }

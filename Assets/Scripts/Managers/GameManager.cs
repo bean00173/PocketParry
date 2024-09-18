@@ -14,16 +14,18 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onLevelLoad = new UnityEvent();
 
+    private InputSetting[] inputSettings = new InputSetting[8];
+
     public Scene currentScene { get; private set; }
 
-    float m_tr_fill;
-    float m_tr_angle;
-    float m_tl_fill;
-    float m_tl_angle;
-    float m_br_fill;
-    float m_br_angle;
-    float m_bl_fill;
-    float m_bl_angle;
+    //float m_tr_fill;
+    //float m_tr_angle;
+    //float m_tl_fill;
+    //float m_tl_angle;
+    //float m_br_fill;
+    //float m_br_angle;
+    //float m_bl_fill;
+    //float m_bl_angle;
 
     private void Awake()
     {
@@ -87,16 +89,22 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void StoreInputSettings(float tlf, float tla, float trf, float tra, float blf, float bla, float brf, float bra)
+    public void StoreInputSettings(InputSetting tlf, InputSetting tla, InputSetting trf, InputSetting tra, InputSetting blf, InputSetting bla, InputSetting brf, InputSetting bra)
     {
-        m_tl_fill = tlf;
-        m_tl_angle = tla;
-        m_tr_fill = trf;
-        m_tr_angle = tra;
-        m_bl_angle = bla;
-        m_bl_fill = blf;
-        m_br_angle = bra;
-        m_br_fill = brf; 
+        inputSettings = new InputSetting[]{tlf, tla, trf, tra, blf, bla, brf, bra};
+        try
+        {
+            PlayerInput.Instance.LoadSettings(inputSettings);
+        }
+        catch(System.Exception e)
+        {
+            Debug.Log($"{e.GetType()} No Object of Type PlayerInput found"); 
+        }
+    }
+
+    public InputSetting[] ReturnSavedInputSettings()
+    {
+        return inputSettings;
     }
 
     //public void StoreMixerInfo(Transform main)

@@ -20,13 +20,13 @@ public enum ParryDirection
 public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
 
-    [HideInInspector] public UnityEvent<ParryDirection> inputHandled = new UnityEvent<ParryDirection>();
+    [HideInInspector] public UnityEvent<ParryDirection> inputHandled;
     //[HideInInspector] public UnityEvent inputStarted;
     //[HideInInspector] public UnityEvent<ParryDirection> directionPredict;
     //ParryDirection input;
 
     public static PlayerInput Instance;
-    public float parryTime = .5f;
+    public float parryTime;
 
     //float dragStart, dragEnd;
     public float InputTime { get; private set; }
@@ -34,10 +34,26 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     public bool DoingInput { get; private set; }
     public ParryDirection InputDirection { get; private set; }
 
+    private InputSetting[] inputSettings = new InputSetting[8];
+
+    float m_tr_fill;
+    float m_tr_angle;
+    float m_tl_fill;
+    float m_tl_angle;
+    float m_br_fill;
+    float m_br_angle;
+    float m_bl_fill;
+    float m_bl_angle;
+
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -69,6 +85,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
         //Debug.Log($"Player Swiped : {input} | Drag Start : {dragStart}, Drag End : {dragEnd}, Average Input Time : {dragEnd - timeSinceDragMiddle}");
 
         InputDirection = CalculateDirection(eventData);
+        Debug.Log(InputDirection);
         DoingInput = true;
         InputTime = Time.time;
         inputHandled.Invoke(InputDirection);
@@ -79,12 +96,62 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     {
         float gradient = (data.position.y - data.pressPosition.y) / (data.position.x - data.pressPosition.x);
 
-        if (gradient > 2 || gradient < -2) return CheckTop(data) ? ParryDirection.Up : ParryDirection.Down;
-        else if (gradient < 2 && gradient > .5) return CheckRightSide(data) ? ParryDirection.RightUp : ParryDirection.LeftDown;
-        else if (gradient < .5 && gradient > -.5) return CheckRightSide(data) ? ParryDirection.Right : ParryDirection.Left;
-        else if (gradient < -.5 && gradient > -2) return CheckRightSide(data) ? ParryDirection.RightDown : ParryDirection.LeftUp;
-        else return ParryDirection.Up;
+        Debug.Log(gradient);
 
+        //if (gradient > 2 || gradient < -2) return CheckTop(data) ? ParryDirection.Up : ParryDirection.Down;
+        //else if (gradient < 2 && gradient > .5) return CheckRightSide(data) ? ParryDirection.RightUp : ParryDirection.LeftDown;
+        //else if (gradient < .5 && gradient > -.5) return CheckRightSide(data) ? ParryDirection.Right : ParryDirection.Left;
+        //else if (gradient < -.5 && gradient > -2) return CheckRightSide(data) ? ParryDirection.RightDown : ParryDirection.LeftUp;
+        //else return ParryDirection.Up;
+
+
+        if (CheckRightSide(data))
+        {
+            if (gradient < m_tr_angle && gradient > m_tr_fill)
+            {
+                return ParryDirection.RightUp;
+            }
+            else if (gradient < m_tr_fill && gradient > m_br_angle)
+            {
+                return ParryDirection.Right;
+            }
+            else if (gradient < m_br_angle && gradient > m_br_fill)
+            {
+                return ParryDirection.RightDown;
+            }
+            else if (gradient > m_tr_angle)
+            {
+                return ParryDirection.Up;
+            }
+            else
+            {
+                return ParryDirection.Down;
+            }
+        }
+        else
+        {
+
+            if (gradient < m_bl_angle && gradient > m_bl_fill)
+            {
+                return ParryDirection.LeftDown;
+            }
+            else if (gradient < m_bl_fill && gradient > m_tl_angle)
+            {
+                return ParryDirection.Left;
+            }
+            else if (gradient < m_tl_angle && gradient > m_tl_fill)
+            {
+                return ParryDirection.LeftUp;
+            }
+            else if (gradient > m_bl_angle)
+            {
+                return ParryDirection.Down;
+            }
+            else
+            {
+                return ParryDirection.Up;
+            }
+        }
     }
 
     private void InputEnd()
@@ -102,4 +169,18 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
         return data.position.y > data.pressPosition.y;
     }
 
+    public void LoadSettings(InputSetting[] settings)
+    {
+        inputSettings = settings;
+
+        m_tl_fill = inputSettings[0].value;
+        m_tl_angle = inputSettings[1].value;
+        m_tr_fill = inputSettings[2].value;
+        m_tr_angle = inputSettings[3].value;
+        m_bl_fill = inputSettings[4].value;
+        m_bl_angle = inputSettings[5].value;
+        m_br_fill = inputSettings[6].value;
+        m_br_angle = inputSettings[7].value;
+
+    }
 }

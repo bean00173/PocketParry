@@ -1,7 +1,21 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
+
+[System.Serializable]
+public class InputSetting
+{
+    public HandleType type;
+    public float value;
+
+    public InputSetting(HandleType a, float b)
+    {
+        type = a;
+        value = b;
+    }
+}
 
 public enum HandleType
 {
@@ -46,6 +60,8 @@ public class SettingsManager : MonoBehaviour
     float theta_bl_fill;
     float theta_bl_angle;
 
+    public TextMeshProUGUI tlfTxt, tlaTxt, trfTxt, traTxt, blfTxt, blaTxt, brfTxt, braTxt;
+
     public Transform buttonParent;
 
     public bool resetting;
@@ -61,25 +77,49 @@ public class SettingsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- 
+        Apply();
     }
 
     // Update is called once per frame
     void Update()
     {
         //UpdateImages();
-        
+        UpdateText();
     }
 
     public void Apply()
     {
-        GameManager.Instance.StoreInputSettings(m_tl_fill, m_tl_angle, m_tr_fill, m_tr_angle, m_bl_fill, m_bl_angle, m_br_fill, m_br_angle);
+        GameManager.Instance.StoreInputSettings(new InputSetting(HandleType.tl_fill, m_tl_fill), new InputSetting(HandleType.tl_angle, m_tl_angle), new InputSetting(HandleType.tr_fill, m_tr_fill), new InputSetting(HandleType.tr_angle, m_tr_angle), new InputSetting(HandleType.bl_fill, m_bl_fill), new InputSetting(HandleType.bl_angle, m_bl_angle), new InputSetting(HandleType.br_fill, m_br_fill), new InputSetting(HandleType.br_angle, m_br_angle));
     }
 
-    public void Reset()
+    public void ResetSettings()
     {
-        resetting = true;
+        InputSetting[] savedSettings = GameManager.Instance.ReturnSavedInputSettings();
 
+        m_tl_fill = savedSettings[0].value;
+        m_tl_angle = savedSettings[1].value;
+        m_tr_fill = savedSettings[2].value;
+        m_tr_angle = savedSettings[3].value;
+        m_bl_fill = savedSettings[4].value;
+        m_bl_angle = savedSettings[5].value;
+        m_br_fill = savedSettings[6].value;
+        m_br_angle = savedSettings[7].value;
+
+        foreach (Transform child in buttonParent)
+        {
+            try
+            {
+                child.GetComponent<GradientHandle>().ResetHandle();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"{e.GetType()} : No component of type GradientHandle");
+            }
+        }
+    }
+
+    public void Default()
+    {
         ResetDefault(true, HandleType.tr_fill);
         foreach (Transform child in buttonParent)
         {
@@ -92,8 +132,6 @@ public class SettingsManager : MonoBehaviour
                 Debug.LogWarning($"{e.GetType()} : No component of type GradientHandle");
             }
         }
-
-        resetting = false;
     }
 
     //private void UpdateImages()
@@ -153,7 +191,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public float ReturnDefaultHandleGradient(HandleType type)
+    public float ReturnSavedHandleGradient(HandleType type)
     {
         if (type == HandleType.tl_fill) return m_tl_fill;
         else if (type == HandleType.tl_angle) return m_tl_angle;
@@ -187,5 +225,17 @@ public class SettingsManager : MonoBehaviour
         else if (type == HandleType.bl_angle) return theta_bl_fill;
         else if (type == HandleType.br_fill) return theta_br_angle;
         else return theta_br_fill;
+    }
+
+    public void UpdateText()
+    {
+        tlfTxt.text = $" TLF : {m_tl_fill}";
+        tlaTxt.text = $" TLA : {m_tl_angle}";
+        trfTxt.text = $" TRF : {m_tr_fill}";
+        traTxt.text = $" TRA : {m_tr_angle}";
+        blfTxt.text = $" BLF : {m_bl_fill}";
+        blaTxt.text = $" BLA : {m_bl_angle}";
+        brfTxt.text = $" BRF : {m_br_fill}";
+        braTxt.text = $" BRA : {m_br_angle}";
     }
 }
