@@ -19,9 +19,21 @@ public enum LevelStage
     stageThree
 }
 
+[System.Serializable]
+public enum LevelID
+{
+    tutorial,
+    aizu,
+    okawachiyama,
+    shimukappu,
+    kanazawa,
+    himeji
+}
+
 [CreateAssetMenu(fileName = "LevelInformation", menuName = "ScriptableObjects/LevelInformation")]
 public class LevelInformation : ScriptableObject
 {
+    public LevelID levelId;
     public bool endless;
     public List<SelectableEnemy> selectableEnemies = new List<SelectableEnemy>();
 }
