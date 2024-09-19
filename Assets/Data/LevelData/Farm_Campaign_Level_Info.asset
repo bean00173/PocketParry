@@ -15,7 +15,7 @@ MonoBehaviour:
   levelId: 1
   endless: 0
   selectableEnemies:
-  - difficultyType: 0
+  - difficultyType: 1
     stage: 0
     enemyTypes: 0000000001000000
     spawnCount: 4

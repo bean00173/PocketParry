@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
 
     private void Start()
     {
-        
+        LoadSettings(GameManager.Instance.ReturnSavedInputSettings());
     }
 
     public void OnDrag(PointerEventData eventData)

@@ -14,8 +14,19 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onLevelLoad = new UnityEvent();
 
-    private InputSetting[] inputSettings = new InputSetting[8];
+    private InputSetting[] inputSettings = new InputSetting[8]
+    {
+        new InputSetting(HandleType.tl_fill, -2f),
+        new InputSetting(HandleType.tl_angle, -.5f),
+        new InputSetting(HandleType.tr_fill, .5f),
+        new InputSetting(HandleType.tr_angle, 2f),
+        new InputSetting(HandleType.bl_fill, .5f),
+        new InputSetting(HandleType.bl_angle, 2f),
+        new InputSetting(HandleType.br_fill, -2f),
+        new InputSetting(HandleType.br_angle, -.5f)
+    };
 
+    public bool tutorialPlayed;
     public Scene currentScene { get; private set; }
 
     //float m_tr_fill;
@@ -77,6 +88,11 @@ public class GameManager : MonoBehaviour
     private void LoadLevel()
     {
         SceneManager.instance.LoadScene("LevelScene", LoadSceneMode.Single);
+    }
+
+    public void LoadScene(string scene)
+    {
+        SceneManager.instance.LoadScene(scene, LoadSceneMode.Single);
     }
 
     public void UpdateCurrentScene(string name)
