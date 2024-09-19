@@ -27,6 +27,7 @@ public enum EnemyType
 
 public enum DifficultyClass
 {
+    Tutorial,
     Standard,
     Miniboss,
     Boss

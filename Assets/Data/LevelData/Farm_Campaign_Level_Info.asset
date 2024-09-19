@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37f9c95e0267384da43aead2cc5b3e2, type: 3}
   m_Name: Farm_Campaign_Level_Info
   m_EditorClassIdentifier: 
+  levelId: 1
+  endless: 0
   selectableEnemies:
   - difficultyType: 0
     stage: 0

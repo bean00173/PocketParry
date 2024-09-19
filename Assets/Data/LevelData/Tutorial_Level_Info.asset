@@ -10,24 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f37f9c95e0267384da43aead2cc5b3e2, type: 3}
-  m_Name: Farm_Test_Endless_Level_Info
+  m_Name: Tutorial_Level_Info
   m_EditorClassIdentifier: 
-  levelId: 1
-  endless: 1
+  levelId: 0
+  endless: 0
   selectableEnemies:
   - difficultyType: 0
-    stage: 0
-    enemyTypes: 01000000
-    spawnCount: 1
-  - difficultyType: 1
-    stage: 0
-    enemyTypes: 00000000
-    spawnCount: 1
-  - difficultyType: 0
-    stage: 0
-    enemyTypes: 00000000
-    spawnCount: 1
-  - difficultyType: 1
     stage: 0
     enemyTypes: 01000000
     spawnCount: 1
