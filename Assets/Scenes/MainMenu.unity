@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonEnabled: 0
   highlight: {fileID: 183249845}
-  levelInformation: {fileID: 0}
+  levelInformation: {fileID: 11400000, guid: 21105eb1f7ec7ef4c8a6310f84418947, type: 2}
   progress: {fileID: 1424821019}
 --- !u!1 &57783855
 GameObject:
@@ -4931,6 +4931,7 @@ GameObject:
   - component: {fileID: 778000207}
   - component: {fileID: 778000206}
   - component: {fileID: 778000205}
+  - component: {fileID: 778000208}
   m_Layer: 5
   m_Name: speargrey
   m_TagString: Untagged
@@ -5016,6 +5017,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778000202}
   m_CullTransparentMesh: 1
+--- !u!114 &778000208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778000202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d192bbe480b5e43458206928d19eb975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &782390829
 GameObject:
   m_ObjectHideFlags: 0
@@ -11318,10 +11331,10 @@ MonoBehaviour:
   onHoverEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 778000205}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 778000208}
+        m_TargetAssemblyTypeName: GreyedOut, Assembly-CSharp
+        m_MethodName: FadeIn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11357,10 +11370,10 @@ MonoBehaviour:
   onHoverExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 778000205}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 778000208}
+        m_TargetAssemblyTypeName: GreyedOut, Assembly-CSharp
+        m_MethodName: FadeOut
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

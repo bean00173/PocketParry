@@ -160,7 +160,7 @@ public class CombatManager : MonoBehaviour
         //GameObject[] difficultyMatchPrefabs = enemyInfo.enemies.FindAll((x) => x.difficultyClass == (DifficultyClass)System.Enum.Parse(typeof(DifficultyClass), levelInfo.selectableEnemies[levelIndex].difficultyType.ToString()));
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         GameManager.Instance.levelBeaten = true;
         win.SetActive(true);

@@ -59,11 +59,11 @@ public class MapManager : MonoBehaviour
                 closestPos = GetLocalPosition(levels[currentLevel]);
                 closestLevel = levels[currentLevel];
 
+                levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).CampaignBeaten();
+
                 if (levels[currentLevel + 1].isUnlocked)
                 {
                     currentLevel++;
-                    levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).CampaignBeaten();
-
                     targetPos = GetLocalPosition(levels[currentLevel]);
                     targetLevel = levels[currentLevel];
                 }
