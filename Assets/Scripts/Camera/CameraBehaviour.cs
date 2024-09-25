@@ -29,7 +29,7 @@ public class CameraBehaviour : MonoBehaviour
         enemy.onHitTaken.AddListener(TakeHit);
     }
 
-    private void TakeHit(ParryDirection dir)
+    private void TakeHit(ParryDirection dir, bool insta)
     {
         switch (dir)
         {

@@ -162,6 +162,7 @@ public class CombatManager : MonoBehaviour
 
     private void GameOver()
     {
+        GameManager.Instance.levelBeaten = true;
         win.SetActive(true);
     }
 

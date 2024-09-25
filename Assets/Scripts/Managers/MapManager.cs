@@ -39,7 +39,41 @@ public class MapManager : MonoBehaviour
             }
         }
 
+        currentLevel = levels.IndexOf(levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId));
         targetPos = GetLocalPosition(levels[currentLevel]);
+        targetLevel = levels[currentLevel];
+        if (Vector2.Distance(-1 * mapContent.anchoredPosition, targetPos) > 250)
+        {
+            mapContent.anchoredPosition = -1 * targetPos;
+            targetLevel.CenteredOnScreen(true);
+        }
+
+        if (GameManager.Instance.selectedLevel != null)
+        {
+            if (GameManager.Instance.selectedLevel.endless)
+            {
+                levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).StoreEndlessScore(GameManager.Instance.endlessScore);
+            }
+            if (GameManager.Instance.levelBeaten)
+            {
+                closestPos = GetLocalPosition(levels[currentLevel]);
+                closestLevel = levels[currentLevel];
+
+                if (levels[currentLevel + 1].isUnlocked)
+                {
+                    currentLevel++;
+                    levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).CampaignBeaten();
+
+                    targetPos = GetLocalPosition(levels[currentLevel]);
+                    targetLevel = levels[currentLevel];
+                }
+                else
+                {
+                    Debug.Log("Demo Content Expended");
+                }
+
+            }
+        }
     }
 
     // Update is called once per frame

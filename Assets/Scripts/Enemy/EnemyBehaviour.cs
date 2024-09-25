@@ -59,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour
     private bool playerInput;
 
     [HideInInspector] public UnityEvent onParrySuccessful; // slider events
-    [HideInInspector] public UnityEvent<ParryDirection> onHitTaken; // slider events
+    [HideInInspector] public UnityEvent<ParryDirection, bool> onHitTaken; // slider events
 
     private EnemyState currentState;
     public EnemyState CurrentState
@@ -143,7 +143,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         Debug.Log(CurrentState);
     }
-
+    
     public void PlayAttack(int num) // plays an attack with the designated number
     {
 
@@ -203,13 +203,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            onHitTaken.Invoke(currentClipInfo.parryDirection);
+            onHitTaken.Invoke(currentClipInfo.parryDirection, currentClipInfo.isInstaKill);
             soundHandler.PlayRandomSound("hit");
-
-            if (currentClipInfo.isInstaKill)
-            {
-                Debug.Log("DEATH OH GOD");
-            }
         }
     }
 

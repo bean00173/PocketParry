@@ -9,12 +9,14 @@ public class MapLevel : MonoBehaviour
     //public UILevelButton campaignButton, endlessButton;
     private Animator ac;
 
+    public LevelID levelId;
     public UnityEvent onHoverEnter, onHoverExit = new UnityEvent();
+    public UILevelButton campaign, endless;
 
     // Start is called before the first frame update
     void Start()
     {
-        ac = this.GetComponent<Animator>();
+        //ac = this.GetComponent<Animator>();
         //onHoverExit.AddListener(campaignButton.ToggleActive);
         //onHoverExit.AddListener(endlessButton.ToggleActive);
     }
@@ -25,12 +27,31 @@ public class MapLevel : MonoBehaviour
         
     }
 
+    public void CampaignBeaten()
+    {
+        campaign.UpdateProgress(0);
+        if(endless != null)
+        {
+            endless.buttonEnabled = true;
+        }
+    }
+
+    public void StoreEndlessScore(int score)
+    {
+        endless.UpdateProgress(score);
+        // if endless score < score -> update
+    }
+
     public void CenteredOnScreen(bool a)
     {
+        if(ac == null)
+        {
+            ac = this.GetComponent<Animator>();
+        }
+
         if(!a && ac.GetCurrentAnimatorStateInfo(0).IsName("Hover"))
         {
             ac.SetBool("Hover", a);
-            Debug.Log("GAY");
             onHoverExit.Invoke();
         }
         else if (a)

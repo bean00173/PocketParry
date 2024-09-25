@@ -17,17 +17,9 @@ MonoBehaviour:
   selectableEnemies:
   - difficultyType: 1
     stage: 0
-    enemyTypes: 01000000
+    enemyTypes: 0100000000000000
     spawnCount: 1
-  - difficultyType: 1
+  - difficultyType: 2
     stage: 0
-    enemyTypes: 00000000
-    spawnCount: 1
-  - difficultyType: 1
-    stage: 0
-    enemyTypes: 00000000
-    spawnCount: 1
-  - difficultyType: 1
-    stage: 0
-    enemyTypes: 01000000
+    enemyTypes: 0000000001000000
     spawnCount: 1

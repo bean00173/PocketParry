@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public LevelInformation selectedLevel;
+    [HideInInspector] public LevelID selectedLevelId;
+    [HideInInspector] public int endlessScore;
+    [HideInInspector] public bool levelBeaten;
 
     private Button playButton;
 
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public bool tutorialPlayed;
     public Scene currentScene { get; private set; }
+
 
     //float m_tr_fill;
     //float m_tr_angle;
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void UpdateLevelInformation(LevelInformation info)
     {
         this.selectedLevel = info;
+        this.selectedLevelId = info.levelId;
     }
 
     private void ExitLevel()
@@ -117,7 +122,6 @@ public class GameManager : MonoBehaviour
             Debug.Log($"{e.GetType()} No Object of Type PlayerInput found"); 
         }
     }
-
     public InputSetting[] ReturnSavedInputSettings()
     {
         return inputSettings;

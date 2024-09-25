@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class UILevelButton : MonoBehaviour
@@ -9,6 +10,10 @@ public class UILevelButton : MonoBehaviour
     public bool buttonEnabled;
     public Animator highlight;
     public LevelInformation levelInformation;
+
+    public GameObject progress;
+
+    private int endlessScore;
     //public Animator greyedOut;
 
     //public UILevelButton otherButton;
@@ -23,6 +28,22 @@ public class UILevelButton : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateProgress(int score)
+    {
+        if (this.levelInformation.endless)
+        {
+            if(endlessScore < score)
+            {
+                endlessScore = score;
+                progress.GetComponent<TextMeshProUGUI>().text = $"Highscore : {score}";
+            }
+        }
+        else
+        {
+            progress.SetActive(true);
+        }
     }
 
     //public void GreyedOut(string animation)
