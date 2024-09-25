@@ -154,5 +154,7 @@ public class FinisherManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        arrowIndex = 0;
     }
 }
