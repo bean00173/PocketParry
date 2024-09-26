@@ -321,7 +321,7 @@ public class EnemyBehaviour : MonoBehaviour
         string firstName = firstNames[Random.Range(0, firstNames.Count)];
         string lastName = lastNames[Random.Range(0, lastNames.Count)];
 
-        return $"{firstName} {lastName}";
+        return $"{lastName} {firstName}"; // cause japan
     }
 
 }

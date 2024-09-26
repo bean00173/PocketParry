@@ -2161,7 +2161,7 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!114 &802073739
@@ -5962,9 +5962,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedLevel: {fileID: 0}
+  selectedLevelId: 0
+  endlessScore: 0
+  levelBeaten: 0
   onLevelLoad:
     m_PersistentCalls:
       m_Calls: []
+  tutorialPlayed: 0
 --- !u!4 &1856938229
 Transform:
   m_ObjectHideFlags: 0
