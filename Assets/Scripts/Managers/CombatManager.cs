@@ -23,6 +23,8 @@ public class CombatManager : MonoBehaviour
 
     public static CombatManager instance;
 
+    public LevelProgressMarker progressMarker;
+
     CinemachineImpulseSource impulseSource;
 
     [HideInInspector] public UnityEvent defeated;
@@ -105,6 +107,7 @@ public class CombatManager : MonoBehaviour
     public void NewEnemy()
     {
         enemiesBeaten++;
+        progressMarker.UpdateSelectedChild(enemiesBeaten);
 
         if (!levelInfo.endless && enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
         {
