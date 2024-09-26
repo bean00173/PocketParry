@@ -32,7 +32,7 @@ public class MapLevel : MonoBehaviour
         campaign.UpdateProgress(0);
         if(endless != null)
         {
-            endless.buttonEnabled = true;
+            endless.ButtonEnabled = true;
         }
     }
 

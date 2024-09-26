@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
 
@@ -20,6 +21,8 @@ public class MapManager : MonoBehaviour
 
     Vector2 closestPos;
     MapLevel closestLevel;
+
+    public UnityEvent onDemoComplete = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +72,8 @@ public class MapManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Demo Content Expended");
+                    onDemoComplete.Invoke(); // TEMPORARY FOR DEMO PURPOSES
+                    Debug.Log("GAME OVER");
                 }
 
             }
@@ -119,7 +123,6 @@ public class MapManager : MonoBehaviour
 
         if(Vector2.Distance(-1 * mapContent.anchoredPosition, closestPos) < 250)
         {
-            Debug.Log(2);
             closestLevel.CenteredOnScreen(true);
             SnappedToTarget(closestPos == targetPos);
             StartCoroutine(LerpToPos(closestPos, false));

@@ -24,7 +24,7 @@ public class GreyedOut : MonoBehaviour
             ac = this.GetComponent<Animator>();
         }
 
-        if (!this.GetComponentInParent<UILevelButton>().buttonEnabled)
+        if (!this.GetComponentInParent<UILevelButton>().ButtonEnabled)
         {
             ac.Play("FadeIn");
         }
@@ -32,9 +32,11 @@ public class GreyedOut : MonoBehaviour
 
     public void FadeOut()
     {
-        if (!this.GetComponentInParent<UILevelButton>().buttonEnabled)
-        {
-            ac.Play("FadeOut");
-        }
+        //if (!this.GetComponentInParent<UILevelButton>().buttonEnabled)
+        //{
+        //    ac.Play("FadeOut");
+        //}
+
+        ac.Play("FadeOut");
     }
 }

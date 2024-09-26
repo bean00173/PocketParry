@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 1
+  btnEnabled: 1
   highlight: {fileID: 295449725}
   levelInformation: {fileID: 11400000, guid: 3a6f5966cf3d34143b4717c4fa17b26e, type: 2}
   progress: {fileID: 1901434544}
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 183249845}
   levelInformation: {fileID: 11400000, guid: 21105eb1f7ec7ef4c8a6310f84418947, type: 2}
   progress: {fileID: 1424821019}
@@ -3709,7 +3709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 1
+  btnEnabled: 0
   highlight: {fileID: 1142248900}
   levelInformation: {fileID: 11400000, guid: 152a13e221ac199468c4a327efcc98e6, type: 2}
   progress: {fileID: 290021819}
@@ -4291,6 +4291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapContent: {fileID: 306472365}
   recenterButton: {fileID: 1595785025}
+  onDemoComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &661122963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4810,7 +4813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -5219,7 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -5661,7 +5664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -6548,7 +6551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -7404,7 +7407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -7936,7 +7939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -12837,7 +12840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
@@ -15148,7 +15151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c550dc459047da14895232a264c86a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEnabled: 0
+  btnEnabled: 0
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}

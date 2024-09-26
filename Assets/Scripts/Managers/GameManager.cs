@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int endlessScore;
     [HideInInspector] public bool levelBeaten;
 
+    private string playerName;
+
     private Button playButton;
 
     public UnityEvent onLevelLoad = new UnityEvent();
@@ -125,6 +127,11 @@ public class GameManager : MonoBehaviour
     public InputSetting[] ReturnSavedInputSettings()
     {
         return inputSettings;
+    }
+
+    public void StorePlayerName(string name)
+    {
+        playerName = name;
     }
 
     //public void StoreMixerInfo(Transform main)

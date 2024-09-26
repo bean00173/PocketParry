@@ -48,6 +48,10 @@ public class CombatManager : MonoBehaviour
 
         this.levelInfo = GameManager.Instance.selectedLevel;
         GameManager.Instance.UpdateLevelReference(exitButton, quitButton);
+
+        scoreText.gameObject.SetActive(this.levelInfo.endless);
+
+        Invoke(nameof(PlayGame), 2.0f);
     }
 
     // Update is called once per frame
@@ -89,9 +93,7 @@ public class CombatManager : MonoBehaviour
     public void UpdateScore(int x)
     {
         score += x;
-        totalScore += x;
         stanceIndicator.UpdateStanceBar(score);
-        scoreText.text = totalScore.ToString();
 
         if (score >= currentEnemyMax)
         {
@@ -104,10 +106,10 @@ public class CombatManager : MonoBehaviour
     {
         enemiesBeaten++;
 
-        if (enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
+        if (!levelInfo.endless && enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
         {
             levelIndex++;
-            if(levelIndex > levelInfo.selectableEnemies.Count - 1)
+            if (levelIndex > levelInfo.selectableEnemies.Count - 1)
             {
                 Debug.Log("GAME OVER YOU WIN LETS GOOOO");
                 GameOver();
@@ -118,14 +120,16 @@ public class CombatManager : MonoBehaviour
                 Destroy(currentEnemy);
                 SpawnEnemy();
                 score = 0;
-            } 
+            }
         }
         else
         {
             Destroy(currentEnemy);
             SpawnEnemy();
             score = 0;
+            if(levelInfo.endless) scoreText.text = enemiesBeaten.ToString();
         }
+        
     }
 
     public bool RandomChance(float probability)

@@ -1,13 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 
 public class UILevelButton : MonoBehaviour
 {
     Animator ac;
-    public bool buttonEnabled;
+    public UnityEvent onActivated = new UnityEvent();
+
+    public bool btnEnabled;
+    public bool ButtonEnabled
+    {
+        get
+        {
+            return btnEnabled;
+        }
+        set
+        {
+            if (this.levelInformation.endless)
+            {
+                try
+                {
+                    this.GetComponentInChildren<GreyedOut>().FadeOut();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log($"{e.GetType()} : No component of type <GreyedOut> Found");
+                }
+            }
+
+            btnEnabled = value;
+        }
+    }
     public Animator highlight;
     public LevelInformation levelInformation;
 
@@ -59,7 +85,7 @@ public class UILevelButton : MonoBehaviour
 
     public void ToggleActive()
     {
-        if (buttonEnabled && canClick)
+        if (ButtonEnabled && canClick)
         {
             if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
             {
@@ -68,6 +94,7 @@ public class UILevelButton : MonoBehaviour
             }
             else
             {
+                onActivated.Invoke();
                 UIManager.Instance.playBtn.gameObject.SetActive(true);
                 highlight.Play("FadeIn");
                 GameManager.Instance.UpdateLevelInformation(levelInformation);
@@ -91,6 +118,11 @@ public class UILevelButton : MonoBehaviour
         //    }
 
         //}
+    }
+
+    public void Deactivate()
+    {
+        highlight.Play("FadeOut");
     }
 
     //public void OtherActive()
