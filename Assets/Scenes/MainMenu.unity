@@ -476,6 +476,7 @@ MonoBehaviour:
   highlight: {fileID: 295449725}
   levelInformation: {fileID: 11400000, guid: 3a6f5966cf3d34143b4717c4fa17b26e, type: 2}
   progress: {fileID: 1901434544}
+  canClick: 0
 --- !u!224 &38303778 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5983723184067335760, guid: cd195ae44d169f14e8d5300b3045b9c7, type: 3}
@@ -607,6 +608,7 @@ MonoBehaviour:
   highlight: {fileID: 183249845}
   levelInformation: {fileID: 11400000, guid: 21105eb1f7ec7ef4c8a6310f84418947, type: 2}
   progress: {fileID: 1424821019}
+  canClick: 0
 --- !u!1 &57783855
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,6 +3713,7 @@ MonoBehaviour:
   highlight: {fileID: 1142248900}
   levelInformation: {fileID: 11400000, guid: 152a13e221ac199468c4a327efcc98e6, type: 2}
   progress: {fileID: 290021819}
+  canClick: 0
 --- !u!114 &548686215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4811,6 +4814,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &772180515
 Animator:
   serializedVersion: 5
@@ -5219,6 +5223,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &799076479
 Animator:
   serializedVersion: 5
@@ -5660,6 +5665,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &829220699
 Animator:
   serializedVersion: 5
@@ -6546,6 +6552,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &927491749
 Animator:
   serializedVersion: 5
@@ -7401,6 +7408,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &1060793247
 Animator:
   serializedVersion: 5
@@ -7932,6 +7940,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &1159804246
 Animator:
   serializedVersion: 5
@@ -12832,6 +12841,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &1809680691
 Animator:
   serializedVersion: 5
@@ -15142,6 +15152,7 @@ MonoBehaviour:
   highlight: {fileID: 0}
   levelInformation: {fileID: 0}
   progress: {fileID: 0}
+  canClick: 0
 --- !u!95 &2054686882
 Animator:
   serializedVersion: 5

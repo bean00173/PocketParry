@@ -14,6 +14,9 @@ public class UILevelButton : MonoBehaviour
     public GameObject progress;
 
     private int endlessScore;
+
+    public bool canClick;
+
     //public Animator greyedOut;
 
     //public UILevelButton otherButton;
@@ -56,7 +59,7 @@ public class UILevelButton : MonoBehaviour
 
     public void ToggleActive()
     {
-        if (buttonEnabled)
+        if (buttonEnabled && canClick)
         {
             if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
             {

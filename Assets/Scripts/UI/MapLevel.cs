@@ -53,11 +53,30 @@ public class MapLevel : MonoBehaviour
         {
             ac.SetBool("Hover", a);
             onHoverExit.Invoke();
+
+            if (isUnlocked)
+            {
+                campaign.canClick = false;
+                if (endless != null)
+                {
+                    endless.canClick = false;
+                }
+            }  
         }
         else if (a)
         {
             ac.SetBool("Hover", a);
             onHoverEnter.Invoke();
+
+            if (isUnlocked)
+            {
+                campaign.canClick = true;
+                if (endless != null)
+                {
+                    endless.canClick = true;
+
+                }
+            }
         }
 
         //if (a)
