@@ -13,7 +13,11 @@ public class StanceIndicator : MonoBehaviour
     public float followSpeed = 2f;
     public float followMargin = 0.5f;
 
-    public Image image;
+    //public Image image;
+    public Animator imgAnim;
+
+    public GameObject sweatPrefab;
+    ParticleSystem sweatPs;
 
     float time;
 
@@ -53,19 +57,43 @@ public class StanceIndicator : MonoBehaviour
     {
         this.max = max;
         this.gameObject.name = $"{this.gameObject.name} ({originName})";
-        this.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
+        sweatPs = Instantiate(sweatPrefab, headBone.parent).GetComponent<ParticleSystem>();
+        SetPsEmission(0);
+        this.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = name;
         this.transform.SetParent(CombatManager.instance.worldSpaceCanvas);
         enemyHeadBone = headBone;
     }
+
+    private void SetPsEmission(float rate)
+    {
+        var emission = sweatPs.emission;
+        emission.rateOverTime = rate;
+    }
+
+    //public void UpdateStanceBar(float score)
+    //{
+    //    Debug.Log($"UpdateBar! Ratio : {score / max}");
+
+    //    float xScale = score == 0 ? 0 : (score / max);
+    //    xScale = xScale * .025f;
+    //    image.transform.localScale = new Vector3(xScale, .0025f, .01f);
+
+    //    image.color = score / max > .66 ? new Color(255, 0, 0) : score / max > .33 ? new Color(255, 132, 0) : score / max > 0 ? new Color(255, 242, 0) : Color.white;
+    //}
 
     public void UpdateStanceBar(float score)
     {
         Debug.Log($"UpdateBar! Ratio : {score / max}");
 
-        float xScale = score == 0 ? 0 : (score / max);
-        xScale = xScale * .025f;
-        image.transform.localScale = new Vector3(xScale, .0025f, .01f);
+        float scorePercentage = score == 0 ? 0 : (score / max);
+        SetPsEmission(score == 0 ? 0 : 1 + scorePercentage * 3);
+        imgAnim.speed = 1 + (scorePercentage * 3);
 
-        image.color = score / max > .66 ? new Color(255, 0, 0) : score / max > .33 ? new Color(255, 132, 0) : score / max > 0 ? new Color(255, 242, 0) : Color.white;
+        Transform img = imgAnim.transform;
+        foreach(Transform child in img)
+        {
+            child.GetComponent<Image>().color = score / max > .66 ? new Color(255, 0, 0) : score / max > .33 ? new Color(255, 132, 0) : score / max > 0 ? new Color(255, 242, 0) : Color.white;
+        }
+        //image.color = score / max > .66 ? new Color(255, 0, 0) : score / max > .33 ? new Color(255, 132, 0) : score / max > 0 ? new Color(255, 242, 0) : Color.white;
     }
 }
