@@ -324,4 +324,12 @@ public class EnemyBehaviour : MonoBehaviour
         return $"{lastName} {firstName}"; // cause japan
     }
 
+    public void PlayerDefeated()
+    {
+        StopAllCoroutines();
+        ac.SetBool("Combo", false);
+        canAttack = false;
+        this.enabled = false;
+    }
+
 }

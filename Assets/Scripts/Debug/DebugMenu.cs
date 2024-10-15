@@ -18,6 +18,6 @@ public class DebugMenu : MonoBehaviour
 
     public void BeatLevel()
     {
-        CombatManager.instance.GameOver();
+        CombatManager.instance.GameWin();
     }
 }

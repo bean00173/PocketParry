@@ -19,7 +19,6 @@ public class CombatManager : MonoBehaviour
     public Transform spawnPoint;
     public GameObject tempMenuButtons;
 
-    public GameObject win;
     public Button exitButton, quitButton;
 
     public static CombatManager instance;
@@ -28,7 +27,9 @@ public class CombatManager : MonoBehaviour
 
     CinemachineImpulseSource impulseSource;
 
-    [HideInInspector] public UnityEvent defeated;
+    [HideInInspector] public UnityEvent enemyDefeated;
+    public UnityEvent onGameLose = new UnityEvent();
+    public UnityEvent onGameWin = new UnityEvent();
 
     public int score;
     private int totalScore;
@@ -55,6 +56,8 @@ public class CombatManager : MonoBehaviour
         scoreText.gameObject.SetActive(this.levelInfo.endless);
 
         Invoke(nameof(PlayGame), 2.0f);
+
+        playerHealth.onPlayerDefeat.AddListener(GameLose);
     }
 
     // Update is called once per frame
@@ -77,7 +80,7 @@ public class CombatManager : MonoBehaviour
         //timingSlider.SetCurrentEnemy(enemy);
         stanceIndicator = enemy.stanceIndicator;
         currentEnemyMax = enemy.enemyStats.health;
-        defeated.AddListener(enemy.Defeated);
+        enemyDefeated.AddListener(enemy.Defeated);
         playerHealth.SetEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
@@ -102,13 +105,14 @@ public class CombatManager : MonoBehaviour
         if (score >= currentEnemyMax)
         {
             Debug.Log("HES TAPPING HES TAPPING");
-            defeated.Invoke();
+            enemyDefeated.Invoke();
         }
     }
 
     public void NewEnemy()
     {
         enemiesBeaten++;
+        playerHealth.EnemyBeaten();
         progressMarker.UpdateSelectedChild(enemiesBeaten);
 
         if (!levelInfo.endless && enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
@@ -117,7 +121,7 @@ public class CombatManager : MonoBehaviour
             if (levelIndex > levelInfo.selectableEnemies.Count - 1)
             {
                 Debug.Log("GAME OVER YOU WIN LETS GOOOO");
-                GameOver();
+                GameWin();
             }
             else
             {
@@ -169,10 +173,21 @@ public class CombatManager : MonoBehaviour
         //GameObject[] difficultyMatchPrefabs = enemyInfo.enemies.FindAll((x) => x.difficultyClass == (DifficultyClass)System.Enum.Parse(typeof(DifficultyClass), levelInfo.selectableEnemies[levelIndex].difficultyType.ToString()));
     }
 
-    public void GameOver()
+    public void GameWin()
     {
         GameManager.Instance.levelBeaten = true;
-        win.SetActive(true);
+        onGameWin.Invoke();
+    }
+
+    public void GameLose()
+    {
+        if(!this.levelInfo.endless)
+        {
+            GameManager.Instance.levelBeaten = false;
+        }
+        
+        currentEnemy.SendMessage("PlayerDefeated");
+        onGameLose.Invoke();
     }
 
 }

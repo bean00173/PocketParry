@@ -1,17 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [HideInInspector] public UnityEvent onPlayerDefeat;
+
+    public GameObject heartsParent;
+    public DamageVisualiser damageVisualiser;
+
     EnemyBehaviour currentEnemy;
     private int baseHealth = 3;
     private int currentHealth;
 
+    public int CurrentHealth
+    {
+        get
+        {
+            return currentHealth;
+        }
+        set
+        {
+            currentHealth = value;
+            damageVisualiser.UpdateVignette(currentHealth);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = baseHealth;
+        CurrentHealth = baseHealth;
     }
 
     // Update is called once per frame
@@ -28,14 +48,31 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeHit(ParryDirection dir, bool insta)
     {
-        currentHealth = insta ? 0 : currentHealth - 1;
-        if(currentHealth == 0)
+        Image heart = heartsParent.transform.GetChild(baseHealth - (baseHealth - CurrentHealth) - 1).GetComponent<Image>();
+        heart.color = new Color(.2f, .2f, .2f, .2f);
+
+        damageVisualiser.TakeHit(dir);
+
+        CurrentHealth = insta ? 0 : CurrentHealth - 1;
+
+        if (CurrentHealth == 0)
         {
-            Debug.Log("DEAD");
+            onPlayerDefeat.Invoke();
         }
         else
         {
-            Debug.Log(currentHealth);
+            Debug.Log(CurrentHealth);
+        }
+    }
+
+    public void EnemyBeaten()
+    {
+        if(CurrentHealth < 3)
+        {
+            CurrentHealth += 1;
+
+            Image heart = heartsParent.transform.GetChild(baseHealth - (baseHealth - CurrentHealth) - 1).GetComponent<Image>();
+            heart.color = new Color(1, 1, 1, 1);
         }
     }
 }
