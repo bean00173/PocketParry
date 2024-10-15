@@ -249,7 +249,7 @@ public class EnemyBehaviour : MonoBehaviour
         ac.SetBool("Feint", doFeint);
     }
 
-    private IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
+    protected IEnumerator CooldownTimer(float time) // cooldown timer for after an attack has been executed, preventing attacks too soon after
     {
         //currentState = EnemyState.Idle;
         yield return new WaitForSeconds(time); // LOOK AT LATER - Will probably add randomisation

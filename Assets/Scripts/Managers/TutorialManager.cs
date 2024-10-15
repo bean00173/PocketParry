@@ -8,12 +8,14 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager instance;
     private TutorialEnemyBehaviour tutorialEnemy;
 
-    public bool teachingParry;
+    public bool teachingParry, teachingInsta;
 
     private int successfulParries;
 
     public UnityEvent onIntroductionEvent = new UnityEvent();
     public UnityEvent onInstantKillAtk = new UnityEvent();
+    public UnityEvent onInstaFail = new UnityEvent();
+    public UnityEvent onInstaSuccess = new UnityEvent();
     public UnityEvent onParryReady = new UnityEvent();
     public UnityEvent onSuccessfulParry = new UnityEvent();
     public UnityEvent onUnsuccessfulParry = new UnityEvent();
@@ -57,18 +59,16 @@ public class TutorialManager : MonoBehaviour
         tutorialEnemy.PlayAttack(Random.Range(0, 1));
     }
 
+    public void DoInstaAtk()
+    {
+        tutorialEnemy.PlayAttack(2);
+        teachingInsta = true;
+    }
+
     public void SuccessfulParry()
     {
-        if(successfulParries >= 2)
-        {
-            teachingParry = false;
-            tutorialEnemy.PlayAttack(2);
-        }
-        else
-        {
-            onSuccessfulParry.Invoke();
-            successfulParries++;
-        }
+        onSuccessfulParry.Invoke();
+        teachingParry = false;
     }
 
     public void DisplayInstaKill()
@@ -81,6 +81,7 @@ public class TutorialManager : MonoBehaviour
     public void ReadyForInput(ParryDirection dir)
     {
         Time.timeScale = 0;
+        attackDirection = dir;
 
         onParryReady.Invoke();
     }
@@ -89,15 +90,37 @@ public class TutorialManager : MonoBehaviour
     {
         Time.timeScale = 1;
 
-        if(input == attackDirection)
+        if (teachingParry)
         {
-            tutorialEnemy.SuccessfullyParried();
-            SuccessfulParry();
+            if (input == attackDirection)
+            {
+                tutorialEnemy.SuccessfullyParried();
+                SuccessfulParry();
+            }
+            else
+            {
+                tutorialEnemy.IncorrectInput();
+                onUnsuccessfulParry.Invoke();
+            }
         }
-        else
+        else if (teachingInsta)
         {
-            tutorialEnemy.IncorrectInput();
-            onUnsuccessfulParry.Invoke();
+            if (input == attackDirection)
+            {
+                tutorialEnemy.SuccessfullyParried();
+                onInstaSuccess.Invoke();
+            }
+            else
+            {
+                tutorialEnemy.IncorrectInput();
+                onInstaFail.Invoke();
+            }
         }
+        
+    }
+
+    public void TutorialFinished()
+    {
+        onTutorialFinished.Invoke();
     }
 }

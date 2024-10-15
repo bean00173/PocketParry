@@ -87,12 +87,12 @@ public class GameManager : MonoBehaviour
         this.selectedLevelId = info.levelId;
     }
 
-    private void ExitLevel()
+    public void ExitLevel()
     {
         SceneManager.instance.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    private void LoadLevel()
+    public void LoadLevel()
     {
         SceneManager.instance.LoadScene("LevelScene", LoadSceneMode.Single);
     }

@@ -21,7 +21,22 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
 
     public void SignalParryTiming()
     {
+        foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
+        {
+            AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo[0].clip.name == info.clip.name)
+            {
+                currentClipInfo = info;
+            }
+
+        }
+
         TutorialManager.instance.ReadyForInput(currentClipInfo.parryDirection);
+    }
+
+    public void SignalInstaParryTiming()
+    {
+        TutorialManager.instance.DisplayInstaKill();
     }
 
     public void SuccessfullyParried()
@@ -50,5 +65,10 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
     {
         onHitTaken.Invoke(currentClipInfo.parryDirection, currentClipInfo.isInstaKill);
         soundHandler.PlayRandomSound("hit");
+    }
+
+    public void FreePlay()
+    {
+        StartCoroutine(CooldownTimer(2.0f));
     }
 }

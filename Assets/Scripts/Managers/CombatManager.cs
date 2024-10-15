@@ -47,13 +47,11 @@ public class CombatManager : MonoBehaviour
         instance = this;
         impulseSource = this.GetComponent<CinemachineImpulseSource>();
         PlayerInput.Instance.inputHandled.AddListener(playerArmBehaviour.Parry);
-
-        if (levelInfo.levelId == LevelID.tutorial) PlayerInput.Instance.inputHandled.AddListener(TutorialManager.instance.ReceivePlayerInput);
-
         //SpawnEnemy("gay");
 
         this.levelInfo = GameManager.Instance.selectedLevel;
-        GameManager.Instance.UpdateLevelReference(exitButton, quitButton);
+        if (levelInfo.levelId == LevelID.tutorial) PlayerInput.Instance.inputHandled.AddListener(TutorialManager.instance.ReceivePlayerInput);
+        //GameManager.Instance.UpdateLevelReference(exitButton, quitButton);
 
         scoreText.gameObject.SetActive(this.levelInfo.endless);
 
@@ -89,6 +87,7 @@ public class CombatManager : MonoBehaviour
         stanceIndicator = enemy.stanceIndicator;
         currentEnemyMax = enemy.enemyStats.health;
         enemyDefeated.AddListener(enemy.Defeated);
+        enemyDefeated.AddListener(TutorialManager.instance.TutorialFinished);
         playerHealth.SetEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
@@ -196,6 +195,16 @@ public class CombatManager : MonoBehaviour
         
         currentEnemy.SendMessage("PlayerDefeated");
         onGameLose.Invoke();
+    }
+
+    public void LeaveLevel()
+    {
+        GameManager.Instance.ExitLevel();
+    }
+
+    public void Quit()
+    {
+        GameManager.Instance.Quit();
     }
 
 }

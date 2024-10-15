@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         CurrentHealth = baseHealth;
-        if(CombatManager.instance.levelInfo.levelId == LevelID.tutorial)
+        if(GameManager.Instance.selectedLevelId == LevelID.tutorial)
         {
             heartsParent.SetActive(false);
         }
@@ -75,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void TutorialReturnHealth()
     {
-        CurrentHealth += 1;
+        CurrentHealth = baseHealth;
     }
 
     public void EnemyBeaten()
