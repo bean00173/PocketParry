@@ -35,7 +35,7 @@ public class DirectionalInputRegion : MonoBehaviour
 
     private IEnumerator DoColorSwap()
     {
-        this.image.color = Color.green;
+        this.image.color = new Color(0, 1, 0, 1);
         yield return new WaitForSeconds(colorChangeDuration);
         this.image.color = startColor;
     }

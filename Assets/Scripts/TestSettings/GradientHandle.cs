@@ -10,6 +10,7 @@ public class GradientHandle : MonoBehaviour, IDragHandler
     public float gradient;
     public float angle;
     public HandleType handleType;
+    public GameObject bladeImage;
 
     public Image quadrantImg;
 
@@ -148,9 +149,34 @@ public class GradientHandle : MonoBehaviour, IDragHandler
         SettingsManager.Instance.StoreGradient(handleType, gradient);
         SettingsManager.Instance.StoreAngle(handleType, angle);
 
+        HandleRotation(angle);
+
         Debug.Log("Movin");
 
         return new Vector2(intersectX, intersectY);
+    }
+
+    private void HandleRotation(float angle)
+    {
+        if(this.handleType == HandleType.tl_fill || this.handleType == HandleType.tl_angle || this.handleType == HandleType.br_fill || this.handleType == HandleType.br_angle)
+        {
+            this.transform.localRotation = Quaternion.Euler(new Vector3(this.transform.localRotation.x, this.transform.localRotation.y, angle));
+            
+        }
+        else
+        {
+            this.transform.localRotation = Quaternion.Euler(new Vector3(this.transform.localRotation.x, this.transform.localRotation.y, -1 * angle));
+        }
+
+        if(this.handleType == HandleType.bl_fill || this.handleType == HandleType.bl_angle || this.handleType == HandleType.br_fill || this.handleType == HandleType.br_angle)
+        {
+            bladeImage.transform.localRotation = Quaternion.Euler(new Vector3(this.transform.localRotation.x, this.transform.localRotation.y, this.transform.localEulerAngles.z - 180));
+        }
+        else
+        {
+            bladeImage.transform.localRotation = this.transform.localRotation;
+        }
+        
     }
 
     private bool CheckNewPosValid(float newX, float newY)

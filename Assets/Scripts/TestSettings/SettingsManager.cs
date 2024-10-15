@@ -66,6 +66,8 @@ public class SettingsManager : MonoBehaviour
 
     public bool resetting;
 
+    public Image top, bottom, left, right;
+
     //public Image tl_img, tr_img, bl_img, br_img;
 
     public static SettingsManager Instance;
@@ -85,6 +87,7 @@ public class SettingsManager : MonoBehaviour
     {
         //UpdateImages();
         UpdateText();
+        UpdateImage();
     }
 
     public void Apply()
@@ -138,6 +141,81 @@ public class SettingsManager : MonoBehaviour
     //{
 
     //}
+
+    private void UpdateImage()
+    {
+        top.rectTransform.rotation = Quaternion.Euler(top.rectTransform.rotation.x, top.rectTransform.rotation.y, theta_tl_fill);
+        top.fillAmount = ((theta_tr_angle + theta_tl_fill) / 90) / 4;
+
+        bottom.rectTransform.rotation = Quaternion.Euler(top.rectTransform.rotation.x, top.rectTransform.rotation.y, theta_br_fill);
+        bottom.fillAmount = ((theta_bl_angle + theta_br_fill) / 90) / 4;
+
+        left.rectTransform.rotation = Quaternion.Euler(top.rectTransform.rotation.x, top.rectTransform.rotation.y, theta_bl_fill);
+        left.fillAmount = ((theta_tl_angle + theta_bl_fill) / 90) / 4;
+
+        right.rectTransform.rotation = Quaternion.Euler(top.rectTransform.rotation.x, top.rectTransform.rotation.y, theta_tr_fill);
+        right.fillAmount = ((theta_br_angle + theta_tr_fill) / 90) / 4;
+    }
+
+        //if (CheckIfFillType())
+        //{
+        //    float maxFill = SettingsManager.Instance.ReturnSisterAngle(handleType);
+        //    float minFill = angle;
+        //    // check direction then depending on direction keep angle same or 90 - angle 
+        //    if (this.handleType == HandleType.tl_fill || this.handleType == HandleType.br_fill)
+        //    {
+        //        float range = (90 - minFill) - (90 - maxFill);
+        //        //float fill = (range / 90) / 4;
+        //        //if(quadrantImg.fillAmount != fill)
+        //        //{
+        //        //    quadrantImg.fillAmount = fill;
+        //        //}
+        //        quadrantImg.fillAmount = (range / 90) / 4;
+        //    }
+        //    else
+        //    {
+        //        float range = minFill - maxFill;
+        //        //float fill = (range / 90) / 4;
+        //        //if (quadrantImg.fillAmount != fill)
+        //        //{
+        //        //    quadrantImg.fillAmount = fill;
+        //        //}
+        //        quadrantImg.fillAmount = (range / 90) / 4;
+        //    }
+
+
+        //}
+        //else
+        //{
+        //    float maxFill = angle;
+        //    float minFill = SettingsManager.Instance.ReturnSisterAngle(handleType);
+
+        //    Vector3 rotation = quadrantImg.rectTransform.eulerAngles;
+
+        //    if (this.handleType == HandleType.tl_angle || this.handleType == HandleType.br_angle)
+        //    {
+        //        float range = (90 - minFill) - (90 - maxFill);
+        //        quadrantImg.rectTransform.rotation = Quaternion.Euler(rotation.x, rotation.y, angle);
+        //        //float fill = (range / 90) / 4;
+        //        //if (quadrantImg.fillAmount != fill)
+        //        //{
+        //        //    quadrantImg.fillAmount = fill;
+        //        //}
+        //        quadrantImg.fillAmount = (range / 90) / 4;
+        //    }
+        //    else
+        //    {
+        //        float range = minFill - maxFill;
+        //        quadrantImg.rectTransform.rotation = Quaternion.Euler(rotation.x, rotation.y, 90 - angle);
+        //        //float fill = (range / 90) / 4;
+        //        //if (quadrantImg.fillAmount != fill)
+        //        //{
+        //        //    quadrantImg.fillAmount = fill;
+        //        //}
+        //        quadrantImg.fillAmount = (range / 90) / 4;
+        //    }
+
+        //}
 
     public void StoreGradient(HandleType type, float gradient)
     {
