@@ -13,6 +13,7 @@ public class CombatManager : MonoBehaviour
     public Transform worldSpaceCanvas;
     public CameraBehaviour cameraBehaviour;
     public PlayerArmBehaviour playerArmBehaviour;
+    public PlayerHealth playerHealth;
     StanceIndicator stanceIndicator;
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
@@ -77,6 +78,7 @@ public class CombatManager : MonoBehaviour
         stanceIndicator = enemy.stanceIndicator;
         currentEnemyMax = enemy.enemyStats.health;
         defeated.AddListener(enemy.Defeated);
+        playerHealth.SetEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
         currentEnemy = enemy.gameObject;
