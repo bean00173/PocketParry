@@ -96,7 +96,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (canAttack) // if the enemy can attack
         {
-
             canAttack = false; // prevent from doing so again
 
             doCombo = DoChanceCalculation(this.enemyStats.comboChance); // check if the attack can combo

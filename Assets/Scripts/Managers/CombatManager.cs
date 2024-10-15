@@ -50,13 +50,18 @@ public class CombatManager : MonoBehaviour
         //SpawnEnemy("gay");
 
         this.levelInfo = GameManager.Instance.selectedLevel;
-        if (levelInfo.levelId == LevelID.tutorial) PlayerInput.Instance.inputHandled.AddListener(TutorialManager.instance.ReceivePlayerInput);
+        if (levelInfo.levelId == LevelID.tutorial)
+        {
+            PlayerInput.Instance.inputHandled.AddListener(TutorialManager.instance.ReceivePlayerInput);
+            PlayGame();
+        }
+        else
+        {
+            Invoke(nameof(PlayGame), 2.0f);
+        }
         //GameManager.Instance.UpdateLevelReference(exitButton, quitButton);
 
         scoreText.gameObject.SetActive(this.levelInfo.endless);
-
-        Invoke(nameof(PlayGame), 2.0f);
-
         playerHealth.onPlayerDefeat.AddListener(GameLose);
     }
 
@@ -87,7 +92,7 @@ public class CombatManager : MonoBehaviour
         stanceIndicator = enemy.stanceIndicator;
         currentEnemyMax = enemy.enemyStats.health;
         enemyDefeated.AddListener(enemy.Defeated);
-        enemyDefeated.AddListener(TutorialManager.instance.TutorialFinished);
+        //enemyDefeated.AddListener(TutorialManager.instance.TutorialFinished);
         playerHealth.SetEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
         cameraBehaviour.UpdateCurrentEnemy(enemy);
@@ -122,7 +127,11 @@ public class CombatManager : MonoBehaviour
         playerHealth.EnemyBeaten();
         progressMarker.UpdateSelectedChild(enemiesBeaten);
 
-        if (!levelInfo.endless && enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
+        if (GameManager.Instance.selectedLevelId == LevelID.tutorial)
+        {
+            TutorialManager.instance.TutorialFinished();
+        }
+        else if (!levelInfo.endless && enemiesBeaten >= levelInfo.selectableEnemies[levelIndex].spawnCount)
         {
             levelIndex++;
             if (levelIndex > levelInfo.selectableEnemies.Count - 1)
@@ -200,6 +209,11 @@ public class CombatManager : MonoBehaviour
     public void LeaveLevel()
     {
         GameManager.Instance.ExitLevel();
+    }
+
+    public void ReplayLevel()
+    {
+        GameManager.Instance.LoadLevel();
     }
 
     public void Quit()

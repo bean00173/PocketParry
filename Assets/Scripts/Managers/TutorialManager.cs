@@ -32,7 +32,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameManager.Instance.selectedLevelId != LevelID.tutorial)
+        if (GameManager.Instance.selectedLevelId != LevelID.tutorial)
         {
             Destroy(this.gameObject);
         }
@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetEnemy(TutorialEnemyBehaviour enemy)
@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
 
     public void BeginEnemyAttacks()
     {
-        tutorialEnemy.PlayAttack(Random.Range(0, 1));
+        tutorialEnemy.PlayAttack(0);
     }
 
     public void DoInstaAtk()
@@ -67,23 +67,51 @@ public class TutorialManager : MonoBehaviour
 
     public void SuccessfulParry()
     {
-        onSuccessfulParry.Invoke();
-        teachingParry = false;
+        if (teachingParry)
+        {
+            onSuccessfulParry.Invoke();
+            teachingParry = false;
+        }
+    }
+
+    public void SuccessfulInstaParry()
+    {
+        if(teachingInsta)
+        {
+            onInstaSuccess.Invoke();
+            teachingInsta = false;
+        }
     }
 
     public void DisplayInstaKill()
     {
-        Time.timeScale = 0;
+        if (teachingInsta)
+        {
+            Time.timeScale = 0;
 
-        onInstantKillAtk.Invoke();
+            onInstantKillAtk.Invoke();
+        }
+
+    }
+
+    public void DisplayParryReady()
+    {
+        if (teachingParry)
+        {
+            Time.timeScale = 0;
+
+            onParryReady.Invoke();
+        }
+    }
+
+    public void ReadyForFreePlay()
+    {
+        tutorialEnemy.FreePlay();
     }
 
     public void ReadyForInput(ParryDirection dir)
     {
-        Time.timeScale = 0;
         attackDirection = dir;
-
-        onParryReady.Invoke();
     }
 
     public void ReceivePlayerInput(ParryDirection input)
@@ -108,7 +136,7 @@ public class TutorialManager : MonoBehaviour
             if (input == attackDirection)
             {
                 tutorialEnemy.SuccessfullyParried();
-                onInstaSuccess.Invoke();
+                SuccessfulInstaParry();
             }
             else
             {

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class TutorialEnemyBehaviour : EnemyBehaviour
 {
+    bool freeplay;
     // Start is called before the first frame update
-     public override void Start()
+    public override void Start()
     {
         this.enemyStats.name = SetName();
         ac = this.GetComponent<Animator>();
@@ -13,10 +14,12 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
         soundHandler = this.GetComponent<SoundHandler>();
     }
 
-    // Update is called once per frame
     public override void Update()
     {
-        
+        if (freeplay)
+        {
+            base.Update();
+        }
     }
 
     public void SignalParryTiming()
@@ -32,10 +35,22 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
         }
 
         TutorialManager.instance.ReadyForInput(currentClipInfo.parryDirection);
+        TutorialManager.instance.DisplayParryReady();
     }
 
     public void SignalInstaParryTiming()
     {
+        foreach (AttackInfo info in attackInformation.attackInfo) // for each potential attack, cross reference to check with current attack to retrieve attack data
+        {
+            AnimatorClipInfo[] clipInfo = ac.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo[0].clip.name == info.clip.name)
+            {
+                currentClipInfo = info;
+            }
+
+        }
+
+        TutorialManager.instance.ReadyForInput(currentClipInfo.parryDirection);
         TutorialManager.instance.DisplayInstaKill();
     }
 
@@ -43,10 +58,12 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
     {
         int y = CalculateScore(Time.time - PlayerInput.Instance.InputTime);
 
-        if (!TutorialManager.instance.teachingParry) CombatManager.instance.UpdateScore(y);
-
-        composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
-        ac.SetFloat("Composure", composurePercentage);
+        if (!TutorialManager.instance.teachingParry && !TutorialManager.instance.teachingInsta)
+        {
+            CombatManager.instance.UpdateScore(y);
+            composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
+            ac.SetFloat("Composure", composurePercentage);
+        }
 
         onParrySuccessful.Invoke();
 
@@ -70,5 +87,6 @@ public class TutorialEnemyBehaviour : EnemyBehaviour
     public void FreePlay()
     {
         StartCoroutine(CooldownTimer(2.0f));
+        freeplay = true;
     }
 }
