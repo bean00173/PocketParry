@@ -343,7 +343,7 @@ PrefabInstance:
       addedObject: {fileID: 1541487884773802718}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8457387748993324433}
+      addedObject: {fileID: 5327118551295368062}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4976544080686104071}
@@ -387,7 +387,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8457387748993324433
+--- !u!114 &5327118551295368062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5461624875583235312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
+  m_Script: {fileID: 11500000, guid: 666211ca14faeea4dbcd988ea2a3ea63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: fd7d60db6084739439e5086812b5c42c, type: 2}

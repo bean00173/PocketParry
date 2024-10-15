@@ -38,11 +38,11 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject parryVfx;
     public GameObject blockVfx;
 
-    AttackInfo currentClipInfo;
-    Animator ac;
-    SoundHandler soundHandler;
+    protected AttackInfo currentClipInfo;
+    protected Animator ac;
+    protected SoundHandler soundHandler;
 
-    float composurePercentage;
+    protected float composurePercentage;
     int comboProgress;
     int comboLength;
     bool canAttack;
@@ -52,7 +52,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool doingInput;
 
-    GameObject lastFx;
+    protected GameObject lastFx;
 
     // NEW SYSTEM VARIABLES
 
@@ -72,14 +72,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if(value == EnemyState.Idle && CurrentState != value)
             {
-                StartCoroutine(CooldownTimer(/*2.0f - ((this.enemyStats.atkSpeed - 1) * 2) + 1)*/0));
+                StartCoroutine(CooldownTimer(2.0f - ((this.enemyStats.atkSpeed - 1) * 2) + 1));
             }
             currentState = value;
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         this.enemyStats.name = SetName();
         ac = this.GetComponent<Animator>();
@@ -90,7 +90,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         CurrentState = ac.GetCurrentAnimatorStateInfo(0).IsName("Idle") ? EnemyState.Idle : EnemyState.Attacking;
 
@@ -208,7 +208,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private int CalculateScore(float time)
+    protected int CalculateScore(float time)
     {
         if(time < .15)
         {
@@ -313,7 +313,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private string SetName()
+    protected string SetName()
     {
         List<string> firstNames = Resources.Load<NameLibrary>("Data/NameLibrary").firstNames;
         List<string> lastNames = Resources.Load<NameLibrary>("Data/NameLibrary").lastNames;

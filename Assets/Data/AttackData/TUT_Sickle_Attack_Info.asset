@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: TUT_Sickle_Attack_Info
   m_EditorClassIdentifier: 
   attackInfo:
-  - clip: {fileID: 7400000, guid: cbac09c4f49e74a418c33ae286cd3e38, type: 2}
+  - clip: {fileID: 7400000, guid: 997d3580d9ecba84784a15e80e1051bf, type: 2}
     parryDirection: 1
     canCombo: 0
     isInstaKill: 0
-  - clip: {fileID: 7400000, guid: 50d0a624c569167419da041e9378371d, type: 2}
+  - clip: {fileID: 7400000, guid: 59a84d65764d3c24db606b3cf9e4efea, type: 2}
     parryDirection: 2
     canCombo: 0
     isInstaKill: 0
-  - clip: {fileID: 7400000, guid: 12fbca1aa5b58d24dbf73443851ded3a, type: 2}
+  - clip: {fileID: 7400000, guid: ed8820bae7165234d84c60f2fb92bd55, type: 2}
     parryDirection: 0
     canCombo: 0
     isInstaKill: 1

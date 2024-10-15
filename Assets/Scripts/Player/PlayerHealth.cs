@@ -32,6 +32,10 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         CurrentHealth = baseHealth;
+        if(CombatManager.instance.levelInfo.levelId == LevelID.tutorial)
+        {
+            heartsParent.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -55,14 +59,23 @@ public class PlayerHealth : MonoBehaviour
 
         CurrentHealth = insta ? 0 : CurrentHealth - 1;
 
-        if (CurrentHealth == 0)
+        if (CurrentHealth == 0 && CombatManager.instance.levelInfo.levelId != LevelID.tutorial)
         {
             onPlayerDefeat.Invoke();
+        }
+        else if(CombatManager.instance.levelInfo.levelId == LevelID.tutorial)
+        {
+            Invoke(nameof(TutorialReturnHealth), 1f);
         }
         else
         {
             Debug.Log(CurrentHealth);
         }
+    }
+
+    private void TutorialReturnHealth()
+    {
+        CurrentHealth += 1;
     }
 
     public void EnemyBeaten()

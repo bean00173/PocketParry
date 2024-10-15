@@ -48,6 +48,8 @@ public class CombatManager : MonoBehaviour
         impulseSource = this.GetComponent<CinemachineImpulseSource>();
         PlayerInput.Instance.inputHandled.AddListener(playerArmBehaviour.Parry);
 
+        if (levelInfo.levelId == LevelID.tutorial) PlayerInput.Instance.inputHandled.AddListener(TutorialManager.instance.ReceivePlayerInput);
+
         //SpawnEnemy("gay");
 
         this.levelInfo = GameManager.Instance.selectedLevel;
@@ -76,6 +78,12 @@ public class CombatManager : MonoBehaviour
     public void SpawnEnemy()
     {
         EnemyBehaviour enemy = Instantiate(SelectEnemyToSpawn(), spawnPoint).GetComponent<EnemyBehaviour>();
+
+        if (levelInfo.levelId == LevelID.tutorial)
+        {
+            if(enemy is TutorialEnemyBehaviour tutorialEnemy) TutorialManager.instance.SetEnemy(tutorialEnemy);
+        }
+
         //EnemyBehaviour enemy = Instantiate(SelectEnemyToSpawn(), spawnPoint).GetComponent<EnemyBehaviour>();
         //timingSlider.SetCurrentEnemy(enemy);
         stanceIndicator = enemy.stanceIndicator;
