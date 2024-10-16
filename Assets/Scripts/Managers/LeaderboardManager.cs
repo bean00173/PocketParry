@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 // NOTE: Make sure to include the following namespace wherever you want to access Leaderboard Creator methods
 using Dan.Main;
-using static UnityEditor.Progress;
 
 
 public class LeaderboardManager : MonoBehaviour
