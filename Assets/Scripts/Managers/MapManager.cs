@@ -58,6 +58,7 @@ public class MapManager : MonoBehaviour
             if (GameManager.Instance.selectedLevel.endless)
             {
                 //levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).StoreEndlessScore(GameManager.Instance.endlessScore);
+                levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).CampaignBeaten();
             }
             else if (GameManager.Instance.levelBeaten)
             {
