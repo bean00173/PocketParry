@@ -31,7 +31,6 @@ public class DemoUserManager : MonoBehaviour
         if(value != "")
         {
             enterButton.interactable = true;
-            GameManager.Instance.StorePlayerName(value);
         }
         else
         {

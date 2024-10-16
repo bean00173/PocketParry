@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public Transform spawnPoint;
     public GameObject tempMenuButtons;
+    public TMP_InputField playerNameInput;
 
     public Button exitButton, quitButton;
 
@@ -219,6 +220,11 @@ public class CombatManager : MonoBehaviour
     public void Quit()
     {
         GameManager.Instance.Quit();
+    }
+
+    public void UploadHighScore()
+    {
+        LeaderboardManager.instance.UploadEntry(playerNameInput.text, enemiesBeaten);
     }
 
 }

@@ -27,6 +27,7 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update
@@ -150,5 +151,6 @@ public class TutorialManager : MonoBehaviour
     public void TutorialFinished()
     {
         onTutorialFinished.Invoke();
+        GameManager.Instance.levelBeaten = true;
     }
 }

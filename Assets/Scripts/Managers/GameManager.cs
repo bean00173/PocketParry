@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int endlessScore;
     [HideInInspector] public bool levelBeaten;
 
-    private string playerName;
+    public string playerName;
 
     private Button playButton;
 
@@ -129,10 +129,10 @@ public class GameManager : MonoBehaviour
         return inputSettings;
     }
 
-    public void StorePlayerName(string name)
-    {
-        playerName = name;
-    }
+    //public void StorePlayerName(string name)
+    //{
+    //    playerName = name;
+    //}
 
     //public void StoreMixerInfo(Transform main)
     //{

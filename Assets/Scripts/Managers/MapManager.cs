@@ -22,6 +22,8 @@ public class MapManager : MonoBehaviour
     Vector2 closestPos;
     MapLevel closestLevel;
 
+    bool newLevelAlert;
+
     public UnityEvent onDemoComplete = new UnityEvent();
 
     // Start is called before the first frame update
@@ -55,9 +57,9 @@ public class MapManager : MonoBehaviour
         {
             if (GameManager.Instance.selectedLevel.endless)
             {
-                levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).StoreEndlessScore(GameManager.Instance.endlessScore);
+                //levels.Find((x) => x.levelId == GameManager.Instance.selectedLevelId).StoreEndlessScore(GameManager.Instance.endlessScore);
             }
-            if (GameManager.Instance.levelBeaten)
+            else if (GameManager.Instance.levelBeaten)
             {
                 closestPos = GetLocalPosition(levels[currentLevel]);
                 closestLevel = levels[currentLevel];
@@ -69,6 +71,9 @@ public class MapManager : MonoBehaviour
                     currentLevel++;
                     targetPos = GetLocalPosition(levels[currentLevel]);
                     targetLevel = levels[currentLevel];
+
+                    recenterButton.transform.GetChild(2).gameObject.SetActive(true);
+                    newLevelAlert = true;
                 }
                 else
                 {
@@ -165,6 +170,11 @@ public class MapManager : MonoBehaviour
 
     private void SnappedToTarget(bool snapped)
     {
+        if (newLevelAlert)
+        {
+            newLevelAlert = false;
+            recenterButton.transform.GetChild(2).gameObject.SetActive(false);
+        }
         recenterButton.transform.GetChild(0).gameObject.SetActive(snapped);
         recenterButton.transform.GetChild(1).gameObject.SetActive(snapped);
     }

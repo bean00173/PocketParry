@@ -9,6 +9,7 @@ public class UILevelButton : MonoBehaviour
 {
     Animator ac;
     public UnityEvent onActivated = new UnityEvent();
+    public UnityEvent onDeactivated = new UnityEvent();
 
     public bool btnEnabled;
     public bool ButtonEnabled
@@ -63,11 +64,13 @@ public class UILevelButton : MonoBehaviour
     {
         if (this.levelInformation.endless)
         {
-            if(endlessScore < score)
-            {
-                endlessScore = score;
-                progress.GetComponent<TextMeshProUGUI>().text = $"Highscore : {score}";
-            }
+            //if(endlessScore < score)
+            //{
+                
+            //    progress.GetComponent<TextMeshProUGUI>().text = $"Highscore : {score}";
+            //}
+
+            //LeaderboardManager.instance.UploadEntry(GameManager.Instance.playerName, score);
         }
         else
         {
@@ -83,12 +86,24 @@ public class UILevelButton : MonoBehaviour
     //    }
     //}
 
+    public void ManualDisable()
+    {
+        if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
+        {
+            onDeactivated.Invoke();
+            UIManager.Instance.playBtn.gameObject.SetActive(false);
+            highlight.Play("FadeOut");
+        }
+            
+    }
+
     public void ToggleActive()
     {
         if (ButtonEnabled && canClick)
         {
             if (highlight.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
             {
+                onDeactivated.Invoke();
                 UIManager.Instance.playBtn.gameObject.SetActive(false);
                 highlight.Play("FadeOut");
             }
