@@ -224,12 +224,12 @@ MonoBehaviour:
   enemyStats:
     health: 10
     name: Gustav
-    feintChance: 0
+    feintChance: 0.05
     comboChance: 0.4
     comboLengthMin: 2
     comboLengthMax: 4
     damage: 1
-    atkSpeed: 1
+    atkSpeed: 1.15
   stanceIndicator: {fileID: 7077833382153162576}
   headBone: {fileID: 3211935038587220930}
   slashVfx: {fileID: 7366753286834169263}

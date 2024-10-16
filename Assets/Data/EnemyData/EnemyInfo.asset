@@ -33,3 +33,35 @@ MonoBehaviour:
     enemyType: 0
     difficultyClass: 2
     appearanceStage: 0
+  - prefab: {fileID: 5461624875583235312, guid: 0afd06e856c12ff4680686a2d5ffba98, type: 3}
+    enemyType: 1
+    difficultyClass: 1
+    appearanceStage: 1
+  - prefab: {fileID: 393353412375717385, guid: a458081fab772364aa1f1bf1bda7ac5b, type: 3}
+    enemyType: 0
+    difficultyClass: 1
+    appearanceStage: 1
+  - prefab: {fileID: 5461624875583235312, guid: 0a4948d6fed5e7542aba49482de6324b, type: 3}
+    enemyType: 1
+    difficultyClass: 2
+    appearanceStage: 1
+  - prefab: {fileID: 393353412375717385, guid: 05915dd66527ca045bf83ea055474e3e, type: 3}
+    enemyType: 0
+    difficultyClass: 2
+    appearanceStage: 1
+  - prefab: {fileID: 5461624875583235312, guid: c5b4e2c816a6eb64394f26bfa2e77349, type: 3}
+    enemyType: 1
+    difficultyClass: 1
+    appearanceStage: 2
+  - prefab: {fileID: 393353412375717385, guid: 53a045834cacc3b4aa72f12cefecfead, type: 3}
+    enemyType: 0
+    difficultyClass: 1
+    appearanceStage: 2
+  - prefab: {fileID: 5461624875583235312, guid: 8780372ce3ea1244e955ebfb74c06739, type: 3}
+    enemyType: 1
+    difficultyClass: 3
+    appearanceStage: 2
+  - prefab: {fileID: 393353412375717385, guid: e05622d3e74c62d429afce6d29538c43, type: 3}
+    enemyType: 0
+    difficultyClass: 3
+    appearanceStage: 2

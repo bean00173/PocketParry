@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class LevelProgressMarker : MonoBehaviour
 {
     LevelInformation levelInfo;
-    List<GameObject> icons = new List<GameObject>();
+    //List<GameObject> icons = new List<GameObject>();
+    List<ProgressIcon> icons = new List<ProgressIcon>();
     public DynamicLayoutGroupBackground dlgb;
 
     // Start is called before the first frame update
@@ -21,8 +22,16 @@ public class LevelProgressMarker : MonoBehaviour
                 for(int i = 0; i < selectable.spawnCount; i++)
                 {
                     GameObject prefab = Resources.Load<GameObject>($"UI/{selectable.difficultyType}");
-                    icons.Add(Instantiate(prefab, this.transform));
+                    icons.Add(Instantiate(prefab, this.transform).GetComponent<ProgressIcon>());
                     
+                    if(i > 0)
+                    {
+                        icons[i].status = enemyStatus.next;
+                    }
+                    else
+                    {
+                        icons[i].status = enemyStatus.current;
+                    }
                 }
             }
         }
@@ -42,19 +51,23 @@ public class LevelProgressMarker : MonoBehaviour
 
     public void UpdateSelectedChild(int enemiesBeaten)
     {
-        foreach(GameObject gameObject in icons)
+        foreach(ProgressIcon icon in icons)
         {
-            if (icons.IndexOf(gameObject) < enemiesBeaten)
+            if (icons.IndexOf(icon) < enemiesBeaten)
             {
                 // do x mark
+                icon.status = enemyStatus.defeated;
             }
-            else if (icons.IndexOf(gameObject) > enemiesBeaten)
+            else if (icons.IndexOf(icon) > enemiesBeaten)
             {
-                gameObject.GetComponent<Image>().color = new Color(gameObject.GetComponent<Image>().color.r, gameObject.GetComponent<Image>().color.g, gameObject.GetComponent<Image>().color.b, .5f);
+                //gameObject.GetComponent<Image>().color = new Color(gameObject.GetComponent<Image>().color.r, gameObject.GetComponent<Image>().color.g, gameObject.GetComponent<Image>().color.b, .5f);
+
+                icon.status = enemyStatus.next;
             }
             else
             {
                 // do swords logo
+                icon.status = enemyStatus.current;
             }
         }
     }

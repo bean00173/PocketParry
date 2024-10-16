@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5d181926baf916d42a1ca858c26d650a, type: 2}
     - target: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       propertyPath: m_Name
-      value: STG1_MB_Sickle_Farmer_Enemy
+      value: STG3_BOSS_Sickle_Farmer_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       propertyPath: m_IsActive
@@ -288,14 +288,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: b3c52a24efd0a9142926bbf018b67faf, type: 2}
   enemyStats:
-    health: 10
+    health: 20
     name: Gustav
-    feintChance: 0
-    comboChance: 0.4
-    comboLengthMin: 2
-    comboLengthMax: 4
+    feintChance: 0.15
+    comboChance: 0.75
+    comboLengthMin: 4
+    comboLengthMax: 8
     damage: 1
-    atkSpeed: 1
+    atkSpeed: 1.5
   stanceIndicator: {fileID: 2461530684821391408}
   headBone: {fileID: 7074587518068060475}
   slashVfx: {fileID: 2464007028371133372}
