@@ -63,6 +63,9 @@ public class FinisherManager : MonoBehaviour
 
     public void StopFinisher()
     {
+        CombatManager.instance.playerArmBehaviour.finish = true;
+        CombatManager.instance.playerArmBehaviour.attacking = false;
+
         finisherActive = false;
         ResetUI();
     }
@@ -70,6 +73,8 @@ public class FinisherManager : MonoBehaviour
     public void StartFinisher(bool testing)
     {
         this.testing = testing;
+
+        CombatManager.instance.playerArmBehaviour.attacking = true;
 
         GenerateFinisherPuzzle();
         finisherActive = true;
