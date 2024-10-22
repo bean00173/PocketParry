@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &330596650526093454
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3165478602690341573}
+    m_Modifications:
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082447236515874774, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+      propertyPath: m_Name
+      value: vfx_Slash
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+--- !u!4 &2238929965363450141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1982926434246451603, guid: bec0202adeb5cc849964bb81ac5e988e, type: 3}
+  m_PrefabInstance: {fileID: 330596650526093454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &581738034078842200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,6 +359,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -2639638324218457063, guid: 609d6bb3c0b98744db963ff8aad45ebf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2238929965363450141}
     - targetCorrespondingSourceObject: {fileID: 2744113252798780427, guid: 609d6bb3c0b98744db963ff8aad45ebf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1123655621462661811}
@@ -314,6 +379,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 508945390663381142}
   m_SourcePrefab: {fileID: 100100000, guid: 609d6bb3c0b98744db963ff8aad45ebf, type: 3}
+--- !u!4 &3165478602690341573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2639638324218457063, guid: 609d6bb3c0b98744db963ff8aad45ebf, type: 3}
+  m_PrefabInstance: {fileID: 8120013121189756636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6243423532089731799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2744113252798780427, guid: 609d6bb3c0b98744db963ff8aad45ebf, type: 3}
@@ -373,7 +443,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   attacking: 0
-  finish: 0
 --- !u!82 &653805390379059156
 AudioSource:
   m_ObjectHideFlags: 0
