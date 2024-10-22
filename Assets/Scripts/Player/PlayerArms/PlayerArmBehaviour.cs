@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerArmBehaviour : MonoBehaviour
 {
+    public UnityEvent onFinisherComplete = new UnityEvent();
+
     Animator ac;
     SoundHandler soundHandler;
     float x, y;
@@ -48,6 +51,11 @@ public class PlayerArmBehaviour : MonoBehaviour
     public void ResetFinish()
     {
         finish = false;
+    }
+
+    public void InvokeFinisherComplete()
+    {
+        onFinisherComplete.Invoke();
     }
 
 }

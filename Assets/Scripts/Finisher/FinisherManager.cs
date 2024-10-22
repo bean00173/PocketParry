@@ -49,10 +49,12 @@ public class FinisherManager : MonoBehaviour
                 {
                     GenerateFinisherPuzzle();
                 }
-                else
+                else if(CombatManager.instance.playerArmBehaviour.attacking == true)
                 {
-                    finisherActive = false;
-                    CombatManager.instance.NewEnemy();
+                    //CombatManager.instance.playerArmBehaviour.finish = true;
+                    CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
+                    CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
+                    CombatManager.instance.playerArmBehaviour.attacking = false;
                 }
             }
 
@@ -61,10 +63,18 @@ public class FinisherManager : MonoBehaviour
         }   
     }
 
+    public void FinisherComplete()
+    {
+        finisherActive = false;
+        CombatManager.instance.NewEnemy();
+        CombatManager.instance.playerArmBehaviour.finish = false;
+    }
+
     public void StopFinisher()
     {
         CombatManager.instance.playerArmBehaviour.finish = true;
         CombatManager.instance.playerArmBehaviour.attacking = false;
+
 
         finisherActive = false;
         ResetUI();
