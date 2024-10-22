@@ -42,6 +42,9 @@ public class CombatManager : MonoBehaviour
     int enemiesBeaten;
     int levelIndex;
 
+    List<GameObject> bodyParts = new List<GameObject>();
+    List<GameObject> corpses = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +96,10 @@ public class CombatManager : MonoBehaviour
         stanceIndicator = enemy.stanceIndicator;
         currentEnemyMax = enemy.enemyStats.health;
         enemyDefeated.AddListener(enemy.Defeated);
+
+        FinisherManager.Instance.onLameDeath.AddListener(enemy.Ragdoll);
+        FinisherManager.Instance.onExplode.AddListener(enemy.Explode);
+
         //enemyDefeated.AddListener(TutorialManager.instance.TutorialFinished);
         playerHealth.SetEnemy(enemy);
         enemy.onParrySuccessful.AddListener(ParryImpulse);
@@ -125,7 +132,6 @@ public class CombatManager : MonoBehaviour
     public void NewEnemy()
     {
         enemiesBeaten++;
-        playerHealth.EnemyBeaten();
         progressMarker.UpdateSelectedChild(enemiesBeaten);
 
         if (GameManager.Instance.selectedLevelId == LevelID.tutorial)
@@ -225,6 +231,34 @@ public class CombatManager : MonoBehaviour
     public void UploadHighScore()
     {
         LeaderboardManager.instance.UploadEntry(playerNameInput.text, enemiesBeaten);
+    }
+
+    public void UpdateBodyParts(GameObject part)
+    {
+        if (bodyParts.Count >  20)
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                Destroy(bodyParts[i]);
+                bodyParts.RemoveAt(i);
+            }
+        }
+
+        bodyParts.Add(part);
+    }
+
+    public void UpdateCorpses(GameObject corpse)
+    {
+        if (corpses.Count > 5)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Destroy(corpses[i]);
+                corpses.RemoveAt(i);
+            }
+        }
+
+        corpses.Add(corpse);
     }
 
 }

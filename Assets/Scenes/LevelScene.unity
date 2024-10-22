@@ -3640,10 +3640,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39fe152c6a3bca42b92a3c4d03171e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onLameDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onExplode:
+    m_PersistentCalls:
+      m_Calls: []
   timerStatus: {fileID: 1478837068}
   minLength: 5
   maxLength: 7
-  finisherTime: 10
+  finisherTime: 3
   arrowPrefab: {fileID: 3802713728844313001, guid: ae300e3dd7152c946b36a0f2db875cee, type: 3}
 --- !u!114 &491902568
 MonoBehaviour:

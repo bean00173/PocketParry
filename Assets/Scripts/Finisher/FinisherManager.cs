@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FinisherManager : MonoBehaviour
 {
+    [HideInInspector] public UnityEvent onLameDeath, onExplode;
     public static FinisherManager Instance;
     public Image timerStatus;
     public float minLength, maxLength;
     private float length;
 
-    public float finisherTime = 10f;
+    public float finisherTime = 5f;
 
     public GameObject arrowPrefab;
 
@@ -80,23 +82,25 @@ public class FinisherManager : MonoBehaviour
     {
         if (timerEnded)
         {
-            // lame death
-
+            onLameDeath.Invoke();
         }
         else
         {
-            // blood explosion
+            onExplode.Invoke();
         }
+        ResetUI();
         finisherActive = false;
         timerEnded = false;
-        CombatManager.instance.NewEnemy();
-        CombatManager.instance.playerArmBehaviour.finish = false;
+        CombatManager.instance.playerArmBehaviour.attacking = false;
+        CombatManager.instance.Invoke(nameof(CombatManager.instance.NewEnemy), 2f);
+        // Invoke(nameof(CombatManager.instance.NewEnemy), 2f);
+        //CombatManager.instance.playerArmBehaviour.finish = false;
     }
 
     public void StopFinisher()
     {
-        CombatManager.instance.playerArmBehaviour.finish = true;
-        CombatManager.instance.playerArmBehaviour.attacking = false;
+        //CombatManager.instance.playerArmBehaviour.finish = true;
+        //CombatManager.instance.playerArmBehaviour.attacking = false;
 
 
         finisherActive = false;

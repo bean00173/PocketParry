@@ -12,7 +12,6 @@ public class PlayerArmBehaviour : MonoBehaviour
     float x, y;
 
     public bool attacking;
-    public bool finish;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +26,6 @@ public class PlayerArmBehaviour : MonoBehaviour
         ac.SetFloat("x", x);
         ac.SetFloat("y", y);
         ac.SetBool("Attacking", attacking);
-        ac.SetBool("Finish", finish);
     }
 
     public void Parry(ParryDirection dir)
@@ -48,10 +46,10 @@ public class PlayerArmBehaviour : MonoBehaviour
         soundHandler.PlayRandomSound("player_swing");
     }
 
-    public void ResetFinish()
-    {
-        finish = false;
-    }
+    //public void ResetFinish()
+    //{
+    //    finish = false;
+    //}
 
     public void InvokeFinisherComplete()
     {

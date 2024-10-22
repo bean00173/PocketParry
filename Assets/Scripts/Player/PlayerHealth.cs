@@ -36,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
         {
             heartsParent.SetActive(false);
         }
+
+        FinisherManager.Instance.onExplode.AddListener(EnemyBeaten);
     }
 
     // Update is called once per frame

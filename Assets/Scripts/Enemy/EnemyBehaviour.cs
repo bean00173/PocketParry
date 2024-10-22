@@ -37,6 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
     public VisualEffect slashVfx;
     public GameObject parryVfx;
     public GameObject blockVfx;
+    public GameObject ragdoll, explode;
 
     protected AttackInfo currentClipInfo;
     protected Animator ac;
@@ -334,11 +335,25 @@ public class EnemyBehaviour : MonoBehaviour
     public void Explode()
     {
         // do explosion
+        GameObject explodeFx = Instantiate(explode, transform.parent);
+        foreach(Transform child in explodeFx.transform)
+        {
+            if (!child.GetComponent<ParticleSystem>())
+            {
+                child.SetParent(null);
+                CombatManager.instance.UpdateBodyParts(child.gameObject);
+            }
+        }
+        this.gameObject.SetActive(false);
     }
 
     public void Ragdoll()
     {
         // keel over
+        GameObject lameFx = Instantiate(ragdoll, transform.parent);
+        lameFx.transform.SetParent(null);
+        CombatManager.instance.UpdateCorpses(lameFx);
+        this.gameObject.SetActive(false);
     }
 
 }
