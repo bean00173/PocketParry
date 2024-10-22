@@ -69,6 +69,7 @@ public class FinisherManager : MonoBehaviour
                     //CombatManager.instance.playerArmBehaviour.finish = true;
                     CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
                     CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
+                    CombatManager.instance.playerArmBehaviour.GetComponent<SoundHandler>().PlaySound("sword_sheathing");
                     CombatManager.instance.playerArmBehaviour.attacking = false;
                 }
             }

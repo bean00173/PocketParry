@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 
 public class PlayerArmBehaviour : MonoBehaviour
 {
     public UnityEvent onFinisherComplete = new UnityEvent();
-
+    public VisualEffect slashFx;
     Animator ac;
     SoundHandler soundHandler;
     float x, y;
@@ -44,6 +45,8 @@ public class PlayerArmBehaviour : MonoBehaviour
 
         ac.SetTrigger("Parry");
         soundHandler.PlayRandomSound("player_swing");
+
+        if (attacking) slashFx.Play();
     }
 
     //public void ResetFinish()
