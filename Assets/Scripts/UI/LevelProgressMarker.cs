@@ -34,13 +34,15 @@ public class LevelProgressMarker : MonoBehaviour
                     }
                 }
             }
+
+            dlgb.SetSize();
         }
         else
         {
             this.transform.parent.gameObject.SetActive(false);
         }
 
-        dlgb.SetSize();
+        
     }
 
     // Update is called once per frame

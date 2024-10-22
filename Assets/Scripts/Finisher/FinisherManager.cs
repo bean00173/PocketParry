@@ -16,6 +16,8 @@ public class FinisherManager : MonoBehaviour
 
     public GameObject arrowPrefab;
 
+    public bool autoFinisher;
+
     FinisherArrow lastArrow;
     int arrowIndex;
     bool complete;
@@ -64,19 +66,32 @@ public class FinisherManager : MonoBehaviour
                 }
                 else if(CombatManager.instance.playerArmBehaviour.attacking == true)
                 {
-                    StopAllCoroutines();
-                    timerStatus.gameObject.SetActive(false);
-                    //CombatManager.instance.playerArmBehaviour.finish = true;
-                    CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
-                    CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
-                    CombatManager.instance.playerArmBehaviour.GetComponent<SoundHandler>().PlaySound("sword_sheathing");
-                    CombatManager.instance.playerArmBehaviour.attacking = false;
+                    //StopAllCoroutines();
+                    //timerStatus.gameObject.SetActive(false);
+                    ////CombatManager.instance.playerArmBehaviour.finish = true;
+                    //CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
+                    //CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
+                    //CombatManager.instance.playerArmBehaviour.GetComponent<SoundHandler>().PlaySound("sword_sheathing");
+                    //CombatManager.instance.playerArmBehaviour.attacking = false;
+
+                    TriggerEndFinisher();
                 }
             }
 
             if (PlayerInput.Instance.DoingInput && inputPassed) InputCheck(PlayerInput.Instance.InputDirection);
             else inputPassed = !PlayerInput.Instance.DoingInput;
         }   
+    }
+
+    private void TriggerEndFinisher()
+    {
+        StopAllCoroutines();
+        timerStatus.gameObject.SetActive(false);
+        //CombatManager.instance.playerArmBehaviour.finish = true;
+        CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
+        CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
+        CombatManager.instance.playerArmBehaviour.GetComponent<SoundHandler>().PlaySound("sword_sheathing");
+        CombatManager.instance.playerArmBehaviour.attacking = false;
     }
 
     public void FinisherComplete()
@@ -110,14 +125,21 @@ public class FinisherManager : MonoBehaviour
 
     public void StartFinisher(bool testing)
     {
-        this.testing = testing;
+        if (autoFinisher)
+        {
+            TriggerEndFinisher();
+        }
+        else
+        {
+            this.testing = testing;
 
-        CombatManager.instance.playerArmBehaviour.attacking = true;
+            CombatManager.instance.playerArmBehaviour.attacking = true;
 
-        GenerateFinisherPuzzle();
-        finisherActive = true;
+            GenerateFinisherPuzzle();
+            finisherActive = true;
 
-        StartCoroutine(FinisherTimer());
+            StartCoroutine(FinisherTimer());
+        }
     }
 
     private void GenerateFinisherPuzzle()
@@ -218,5 +240,10 @@ public class FinisherManager : MonoBehaviour
 
         timerEnded = true;
         timerStatus.gameObject.SetActive(false);
+    }
+
+    public void AutoFinisher(bool value)
+    {
+        autoFinisher = value;
     }
 }

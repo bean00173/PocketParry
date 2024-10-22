@@ -90,4 +90,13 @@ public class PlayerHealth : MonoBehaviour
             heart.color = new Color(1, 1, 1, 1);
         }
     }
+
+    public void RestoreHealth()
+    {
+        CurrentHealth = 3;
+        foreach(Transform child in heartsParent.transform)
+        {
+            child.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+    }
 }

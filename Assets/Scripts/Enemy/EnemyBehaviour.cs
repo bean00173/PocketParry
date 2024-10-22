@@ -182,9 +182,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
 
-        if (PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection))
+        if ((PlayerInput.Instance.DoingInput && CheckInputMatch(PlayerInput.Instance.InputDirection)) || CombatManager.instance.autoParry)
         {
-            int y = CalculateScore(Time.time - PlayerInput.Instance.InputTime);
+            int y = CombatManager.instance.autoParry ? CalculateScore(.1f) : CalculateScore(Time.time - PlayerInput.Instance.InputTime);
             CombatManager.instance.UpdateScore(y);
             composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
             ac.SetFloat("Composure", composurePercentage);
@@ -196,7 +196,8 @@ public class EnemyBehaviour : MonoBehaviour
                 lastFx.GetComponent<SoundHandler>().FadeOut();
             }
 
-            GameObject fxPrefab = y == 1 ? parryVfx : blockVfx;
+
+            GameObject fxPrefab = CombatManager.instance.autoParry ? parryVfx : y == 1 ? parryVfx : blockVfx;
             Transform fx = Instantiate(fxPrefab, slashVfx.transform.parent).transform;
             lastFx = fx.gameObject;
             fx.SetParent(null);

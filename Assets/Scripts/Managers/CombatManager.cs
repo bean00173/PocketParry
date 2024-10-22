@@ -35,6 +35,8 @@ public class CombatManager : MonoBehaviour
     public int score;
     private int totalScore;
 
+    public bool autoParry;
+
     int currentEnemyMax;
 
     GameObject currentEnemy;
@@ -79,6 +81,11 @@ public class CombatManager : MonoBehaviour
     {
         SpawnEnemy();
         SetupGameUI();
+    }
+
+    public void AutoParry(bool val) // inspector event debug method
+    {
+        autoParry = val;
     }
 
 
@@ -164,6 +171,11 @@ public class CombatManager : MonoBehaviour
         
     }
 
+    public void DefeatCurrentEnemy() // inspector event debug method
+    {
+        currentEnemy.GetComponent<EnemyBehaviour>().Defeated();
+    }
+
     public bool RandomChance(float probability)
     {
         return Random.value <= probability;
@@ -198,6 +210,7 @@ public class CombatManager : MonoBehaviour
 
     public void GameWin()
     {
+        currentEnemy.GetComponent<EnemyBehaviour>().enabled = false;
         GameManager.Instance.levelBeaten = true;
         onGameWin.Invoke();
     }
