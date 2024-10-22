@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class FinisherManager : MonoBehaviour
 {
     public static FinisherManager Instance;
-
+    public Image timerStatus;
     public float minLength, maxLength;
     private float length;
+
+    public float finisherTime = 10f;
 
     public GameObject arrowPrefab;
 
@@ -19,6 +21,8 @@ public class FinisherManager : MonoBehaviour
     bool inputPassed = true;
 
     bool testing;
+
+    bool timerEnded;
 
     public bool finisherActive { get; private set; }
 
@@ -39,6 +43,13 @@ public class FinisherManager : MonoBehaviour
     {
         if (finisherActive)
         {
+            if (timerEnded)
+            {
+                finisherActive = false;
+                FinisherComplete();
+                return;
+            }
+
             if (arrowIndex >= this.transform.childCount)
             {
                 lastArrow = null;
@@ -51,6 +62,8 @@ public class FinisherManager : MonoBehaviour
                 }
                 else if(CombatManager.instance.playerArmBehaviour.attacking == true)
                 {
+                    StopAllCoroutines();
+                    timerStatus.gameObject.SetActive(false);
                     //CombatManager.instance.playerArmBehaviour.finish = true;
                     CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().SetTrigger("finisher");
                     CombatManager.instance.playerArmBehaviour.GetComponent<Animator>().ResetTrigger("Parry");
@@ -65,7 +78,17 @@ public class FinisherManager : MonoBehaviour
 
     public void FinisherComplete()
     {
+        if (timerEnded)
+        {
+            // lame death
+
+        }
+        else
+        {
+            // blood explosion
+        }
         finisherActive = false;
+        timerEnded = false;
         CombatManager.instance.NewEnemy();
         CombatManager.instance.playerArmBehaviour.finish = false;
     }
@@ -88,6 +111,8 @@ public class FinisherManager : MonoBehaviour
 
         GenerateFinisherPuzzle();
         finisherActive = true;
+
+        StartCoroutine(FinisherTimer());
     }
 
     private void GenerateFinisherPuzzle()
@@ -171,5 +196,22 @@ public class FinisherManager : MonoBehaviour
         }
 
         arrowIndex = 0;
+    }
+
+    private IEnumerator FinisherTimer()
+    {
+        timerStatus.gameObject.SetActive(true);
+        float time = 0;
+        timerEnded = false;
+
+        while(time < finisherTime)
+        {
+            timerStatus.rectTransform.sizeDelta = new Vector2((Screen.width - (Screen.width * (time / finisherTime))), timerStatus.rectTransform.sizeDelta.y);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        timerEnded = true;
+        timerStatus.gameObject.SetActive(false);
     }
 }

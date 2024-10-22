@@ -331,4 +331,14 @@ public class EnemyBehaviour : MonoBehaviour
         this.enabled = false;
     }
 
+    public void Explode()
+    {
+        // do explosion
+    }
+
+    public void Ragdoll()
+    {
+        // keel over
+    }
+
 }
