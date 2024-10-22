@@ -42,6 +42,7 @@ public class CombatManager : MonoBehaviour
     GameObject currentEnemy;
 
     int enemiesBeaten;
+    int totalEnemiesBeaten;
     int levelIndex;
 
     List<GameObject> bodyParts = new List<GameObject>();
@@ -139,7 +140,8 @@ public class CombatManager : MonoBehaviour
     public void NewEnemy()
     {
         enemiesBeaten++;
-        progressMarker.UpdateSelectedChild(enemiesBeaten);
+        totalEnemiesBeaten++;
+        progressMarker.UpdateSelectedChild(totalEnemiesBeaten);
 
         if (GameManager.Instance.selectedLevelId == LevelID.tutorial)
         {

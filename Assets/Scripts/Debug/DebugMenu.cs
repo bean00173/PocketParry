@@ -14,11 +14,11 @@ public class DebugMenu : MonoBehaviour
         else if (GameManager.Instance.selectedLevel.endless)
         {
             this.transform.GetChild(1).GetChild(0).GetChild(2).gameObject.SetActive(false);
-            this.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            this.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
         }
         else
         {
-            this.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+            this.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
     }
 
