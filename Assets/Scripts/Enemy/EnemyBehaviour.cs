@@ -38,6 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject parryVfx;
     public GameObject blockVfx;
     public GameObject ragdoll, explode;
+    public ParticleSystem glowPs;
 
     protected AttackInfo currentClipInfo;
     protected Animator ac;
@@ -146,6 +147,7 @@ public class EnemyBehaviour : MonoBehaviour
     
     public void PlayAttack(int num) // plays an attack with the designated number
     {
+        soundHandler.PlayRandomSound("Grunt");
 
         ac.speed = 1f + (Random.value * (enemyStats.atkSpeed - 1));
 

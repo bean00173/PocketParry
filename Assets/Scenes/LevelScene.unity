@@ -4026,7 +4026,7 @@ MonoBehaviour:
   timerStatus: {fileID: 1478837068}
   minLength: 5
   maxLength: 7
-  finisherTime: 3
+  finisherTime: 5
   arrowPrefab: {fileID: 3802713728844313001, guid: ae300e3dd7152c946b36a0f2db875cee, type: 3}
   autoFinisher: 0
 --- !u!114 &491902568
@@ -24939,7 +24939,7 @@ MonoBehaviour:
   inputHandled:
     m_PersistentCalls:
       m_Calls: []
-  parryTime: 0.5
+  parryTime: 0.55
 --- !u!114 &2079475399
 MonoBehaviour:
   m_ObjectHideFlags: 0
