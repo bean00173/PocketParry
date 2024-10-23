@@ -28,6 +28,8 @@ public class FinisherManager : MonoBehaviour
 
     bool timerEnded;
 
+    float adjustedScreenWidth;
+
     public bool finisherActive { get; private set; }
 
     private void Awake()
@@ -39,6 +41,15 @@ public class FinisherManager : MonoBehaviour
     void Start()
     {
         PlayerInput.Instance.inputHandled.AddListener(InputCheck);
+        if(Screen.width > Screen.height)
+        {
+            adjustedScreenWidth = (this.GetComponentInParent<CanvasScaler>().referenceResolution.y / 9) * 16;
+        }
+        else
+        {
+            adjustedScreenWidth = Screen.width;
+        }
+        timerStatus.rectTransform.sizeDelta = new Vector2(adjustedScreenWidth, 10);
         //GenerateFinisherPuzzle();
     }
 
@@ -233,7 +244,7 @@ public class FinisherManager : MonoBehaviour
 
         while(time < finisherTime)
         {
-            timerStatus.rectTransform.sizeDelta = new Vector2((Screen.width - (Screen.width * (time / finisherTime))), timerStatus.rectTransform.sizeDelta.y);
+            timerStatus.rectTransform.sizeDelta = new Vector2((adjustedScreenWidth - (adjustedScreenWidth * (time / finisherTime))), timerStatus.rectTransform.sizeDelta.y);
             time += Time.deltaTime;
             yield return null;
         }

@@ -249,6 +249,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FeintFinished()
     {
+        soundHandler.PlaySound("Taunt");
         doFeint = false;
         ac.SetBool("Feint", doFeint);
     }
