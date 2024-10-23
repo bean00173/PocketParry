@@ -43,7 +43,9 @@ public class CombatManager : MonoBehaviour
 
     int enemiesBeaten;
     int totalEnemiesBeaten;
+    int parriesMade;
     int levelIndex;
+    int scoreBeforeNewEnemy;
 
     List<GameObject> bodyParts = new List<GameObject>();
     List<GameObject> corpses = new List<GameObject>();
@@ -139,6 +141,8 @@ public class CombatManager : MonoBehaviour
 
     public void NewEnemy()
     {
+        scoreBeforeNewEnemy = parriesMade;
+
         enemiesBeaten++;
         totalEnemiesBeaten++;
         progressMarker.UpdateSelectedChild(totalEnemiesBeaten);
@@ -168,7 +172,7 @@ public class CombatManager : MonoBehaviour
             Destroy(currentEnemy);
             SpawnEnemy();
             score = 0;
-            if(levelInfo.endless) scoreText.text = enemiesBeaten.ToString();
+            //if(levelInfo.endless) scoreText.text = enemiesBeaten.ToString();
         }
         
     }
@@ -245,7 +249,7 @@ public class CombatManager : MonoBehaviour
 
     public void UploadHighScore()
     {
-        LeaderboardManager.instance.UploadEntry(playerNameInput.text, enemiesBeaten);
+        LeaderboardManager.instance.UploadEntry(playerNameInput.text, parriesMade);
     }
 
     public void UpdateBodyParts(GameObject part)
@@ -274,6 +278,12 @@ public class CombatManager : MonoBehaviour
         }
 
         corpses.Add(corpse);
+    }
+
+    public void ParryMade()
+    {
+        parriesMade++;
+        if (levelInfo.endless) scoreText.text = parriesMade.ToString();
     }
 
 }

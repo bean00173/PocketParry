@@ -216,6 +216,7 @@ public class EnemyBehaviour : MonoBehaviour
         if(time < .15)
         {
             Debug.Log("Nice ;p");
+            CombatManager.instance.ParryMade();
             return 1;
         }
         else

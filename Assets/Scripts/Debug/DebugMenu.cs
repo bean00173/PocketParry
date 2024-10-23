@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DebugMenu : MonoBehaviour
 {
+    public GameObject beatLevelButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,7 @@ public class DebugMenu : MonoBehaviour
         }
         else if (GameManager.Instance.selectedLevel.endless)
         {
-            this.transform.GetChild(1).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            beatLevelButton.SetActive(false);
             this.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
         }
         else
