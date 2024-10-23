@@ -469,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: b3c52a24efd0a9142926bbf018b67faf, type: 2}
   enemyStats:
-    health: 5
+    health: 3
     name: Gustav
     feintChance: 0
     comboChance: 0

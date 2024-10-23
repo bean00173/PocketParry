@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: f5c82031219cc634eaf2ff6af59fc3f4, type: 2}
   enemyStats:
-    health: 5
+    health: 3
     name: General Grevious
     feintChance: 0
     comboChance: 0

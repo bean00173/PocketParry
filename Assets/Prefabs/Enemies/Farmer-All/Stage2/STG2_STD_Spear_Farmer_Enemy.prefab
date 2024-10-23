@@ -225,14 +225,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackInformation: {fileID: 11400000, guid: f5c82031219cc634eaf2ff6af59fc3f4, type: 2}
   enemyStats:
-    health: 8
+    health: 5
     name: Gustav
     feintChance: 0.05
-    comboChance: 0.4
-    comboLengthMin: 2
+    comboChance: 0.3
+    comboLengthMin: 1
     comboLengthMax: 4
     damage: 1
-    atkSpeed: 1.15
+    atkSpeed: 1.05
   stanceIndicator: {fileID: 7923683285080608337}
   headBone: {fileID: 3211935038587220930}
   slashVfx: {fileID: 7366753286834169263}
