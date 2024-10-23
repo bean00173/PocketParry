@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
     public GameObject heartsParent;
     public DamageVisualiser damageVisualiser;
 
+    public bool invincible;
+
     EnemyBehaviour currentEnemy;
     private int baseHealth = 3;
     private int currentHealth;
@@ -59,7 +61,10 @@ public class PlayerHealth : MonoBehaviour
 
         damageVisualiser.TakeHit(dir);
 
-        CurrentHealth = insta ? 0 : CurrentHealth - 1;
+        if (!invincible)
+        {
+            CurrentHealth = insta ? 0 : CurrentHealth - 1;
+        }
 
         if (CurrentHealth == 0 && CombatManager.instance.levelInfo.levelId != LevelID.tutorial)
         {
@@ -73,6 +78,11 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log(CurrentHealth);
         }
+    }
+
+    public void IsInvincible(bool val)
+    {
+        invincible = val;
     }
 
     private void TutorialReturnHealth()
