@@ -328,8 +328,8 @@ MonoBehaviour:
   slashVfx: {fileID: 7421031238509262317}
   parryVfx: {fileID: 2552852810340718283, guid: 87dcc7c5073ef6f469957f4fc2f52a35, type: 3}
   blockVfx: {fileID: 2552852810340718283, guid: eb03cf18f4e1ad14aab1392a06add8ae, type: 3}
-  ragdoll: {fileID: 1891147554525295876, guid: b6027acc5e126e94eb626961ddcc1430, type: 3}
-  explode: {fileID: 3771044149722912630, guid: 5f9a1c8e6ccc54648a71766058a93a8c, type: 3}
+  ragdoll: {fileID: 993405009746701705, guid: 0a96fae937555d94094ae26d3debef5b, type: 3}
+  explode: {fileID: 3957210740142495193, guid: 50ac90c427af59446a67dc5f0ab15c1d, type: 3}
   glowPs: {fileID: 0}
   onParrySuccessful:
     m_PersistentCalls:
@@ -635,10 +635,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_SpawnEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5890616441312671898, guid: 07128bfaf3bfe484196accbb8e1277b6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5d181926baf916d42a1ca858c26d650a, type: 2}
     - target: {fileID: 8092084535201700068, guid: 07128bfaf3bfe484196accbb8e1277b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
