@@ -49,7 +49,7 @@ MonoBehaviour:
     enemyType: 0
     difficultyClass: 2
     appearanceStage: 1
-  - prefab: {fileID: 5461624875583235312, guid: c5b4e2c816a6eb64394f26bfa2e77349, type: 3}
+  - prefab: {fileID: 5025079671593363548, guid: 16ccbb57d600fb140aeb633c5c85cacc, type: 3}
     enemyType: 1
     difficultyClass: 1
     appearanceStage: 2
@@ -57,7 +57,7 @@ MonoBehaviour:
     enemyType: 0
     difficultyClass: 1
     appearanceStage: 2
-  - prefab: {fileID: 5461624875583235312, guid: 8780372ce3ea1244e955ebfb74c06739, type: 3}
+  - prefab: {fileID: 4503260431943007365, guid: 4dfe5e4053dd1dd4c95a7c838694149d, type: 3}
     enemyType: 1
     difficultyClass: 3
     appearanceStage: 2
