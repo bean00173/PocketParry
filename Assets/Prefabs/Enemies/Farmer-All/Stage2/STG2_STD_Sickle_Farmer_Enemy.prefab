@@ -405,13 +405,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackInformation: {fileID: 11400000, guid: b3c52a24efd0a9142926bbf018b67faf, type: 2}
+  attackInformation: {fileID: 11400000, guid: 342cf8a1b3299d04ebbbe4365fcb9b08, type: 2}
   enemyStats:
     health: 5
     name: Gustav
-    feintChance: 0.05
+    feintChance: 0
     comboChance: 0.3
-    comboLengthMin: 1
+    comboLengthMin: 2
     comboLengthMax: 4
     damage: 1
     atkSpeed: 1.05
@@ -422,7 +422,7 @@ MonoBehaviour:
   blockVfx: {fileID: 2552852810340718283, guid: eb03cf18f4e1ad14aab1392a06add8ae, type: 3}
   ragdoll: {fileID: 3861295047556292795, guid: a49e5eea91320094bbbc24af09f6818c, type: 3}
   explode: {fileID: 791997280684158168, guid: 208187f2d5af7924bb8e8a7347348db7, type: 3}
-  glowPS: {fileID: 7213118172245936914}
+  glowPs: {fileID: 0}
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []
@@ -609,11 +609,6 @@ PrefabInstance:
 --- !u!4 &5845909412053314760 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1980794331112957721, guid: 5fd9092cbce31194bac294a01f24beb0, type: 3}
-  m_PrefabInstance: {fileID: 5358692363610131409}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7213118172245936914 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3334847985207394499, guid: 5fd9092cbce31194bac294a01f24beb0, type: 3}
   m_PrefabInstance: {fileID: 5358692363610131409}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7993615540554739548
