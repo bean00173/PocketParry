@@ -160,8 +160,9 @@ public class EnemyBehaviour : MonoBehaviour
     private void GetBaited()
     {
         doFeint = false;
+        soundHandler.PlaySound("Taunt");
 
-        if(CombatManager.instance.score > 0)
+        if (CombatManager.instance.score > 0)
         {
             CombatManager.instance.UpdateScore(-1);
             composurePercentage = 1f - ((float)CombatManager.instance.score / (float)this.enemyStats.health);
@@ -249,7 +250,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FeintFinished()
     {
-        soundHandler.PlaySound("Taunt");
         doFeint = false;
         ac.SetBool("Feint", doFeint);
     }
@@ -316,6 +316,11 @@ public class EnemyBehaviour : MonoBehaviour
             acNum--;
             ac.SetFloat("AttackNumber", acNum); // if not move back to the previous attack 
         }
+    }
+
+    public void PlayGlowPs()
+    {
+        glowPs.Play();
     }
 
     protected string SetName()
