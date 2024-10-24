@@ -204,6 +204,7 @@ public class EnemyBehaviour : MonoBehaviour
             Transform fx = Instantiate(fxPrefab, slashVfx.transform.parent).transform;
             lastFx = fx.gameObject;
             fx.SetParent(null);
+            fx.localScale = Vector3.one * .5f;
         }
         else
         {
