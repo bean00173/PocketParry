@@ -9,6 +9,7 @@ public class FinisherManager : MonoBehaviour
     [HideInInspector] public UnityEvent onLameDeath, onExplode;
     public static FinisherManager Instance;
     public Image timerStatus;
+    public GameObject finisherText;
     public float minLength, maxLength;
     private float length;
 
@@ -144,6 +145,8 @@ public class FinisherManager : MonoBehaviour
         {
             this.testing = testing;
 
+            finisherText.SetActive(true);
+
             CombatManager.instance.playerArmBehaviour.attacking = true;
 
             GenerateFinisherPuzzle();
@@ -233,6 +236,7 @@ public class FinisherManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        finisherText.SetActive(false);
         arrowIndex = 0;
     }
 

@@ -448,8 +448,8 @@ MonoBehaviour:
   slashVfx: {fileID: 201901509137336172}
   parryVfx: {fileID: 2552852810340718283, guid: 87dcc7c5073ef6f469957f4fc2f52a35, type: 3}
   blockVfx: {fileID: 2552852810340718283, guid: eb03cf18f4e1ad14aab1392a06add8ae, type: 3}
-  ragdoll: {fileID: 3861295047556292795, guid: a49e5eea91320094bbbc24af09f6818c, type: 3}
-  explode: {fileID: 791997280684158168, guid: 208187f2d5af7924bb8e8a7347348db7, type: 3}
+  ragdoll: {fileID: 1359676395074811013, guid: 2eca4bf609f3f524785c3b6df9066ef6, type: 3}
+  explode: {fileID: 3778488774203752582, guid: 7e8324f5a8c67e24c841467659a1cf19, type: 3}
   glowPs: {fileID: 1471667847578240422}
   onParrySuccessful:
     m_PersistentCalls:

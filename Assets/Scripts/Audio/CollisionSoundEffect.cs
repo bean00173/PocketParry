@@ -5,13 +5,15 @@ using UnityEngine.Events;
 
 public class CollisionEvent : MonoBehaviour
 {
-    public UnityEvent onCollide = new UnityEvent();
     private bool canDoSound;
 
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<AudioSource>().volume = .05f;
+
+        this.GetComponent<SoundHandler>().source = this.GetComponent<AudioSource>();
+
         Invoke(nameof(DoSound), .5f);
         Invoke(nameof(ForceDisable), 2f);
     }
@@ -36,7 +38,7 @@ public class CollisionEvent : MonoBehaviour
     {
         if (canDoSound)
         {
-            onCollide.Invoke();
+            this.GetComponent<SoundHandler>().PlayRandomSound("Blood_Impact");
             Destroy(this);
         }
     }
