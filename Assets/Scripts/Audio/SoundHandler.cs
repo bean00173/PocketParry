@@ -93,6 +93,33 @@ public class SoundHandler : MonoBehaviour
         source.volume = vol;
     }
 
+    public void FadeIn(float vol)
+    {
+        StartCoroutine(FadeVolUp(vol));
+    }
+
+    private IEnumerator FadeVolUp(float vol)
+    {
+        float time = 0;
+        float duration = 5f;
+
+        while (time < duration)
+        {
+            Debug.Log(source.volume);
+            this.source.volume += (time / duration);
+
+            if(this.source.volume >= .5f)
+            {
+                break;
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        this.source.volume = vol;
+    }
+
     public void FadeOut()
     {
         StartCoroutine(FadeVolDown());
@@ -110,6 +137,8 @@ public class SoundHandler : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
+        this.source.volume = 0;
     }
 
     private void StopPlaying()

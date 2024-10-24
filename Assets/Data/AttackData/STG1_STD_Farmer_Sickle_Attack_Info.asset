@@ -17,7 +17,7 @@ MonoBehaviour:
     parryDirection: 1
     canCombo: 1
     isInstaKill: 0
-  - clip: {fileID: 7400000, guid: 50d0a624c569167419da041e9378371d, type: 2}
-    parryDirection: 2
+  - clip: {fileID: 7400000, guid: 5d1db74a5d44ea64c9decb0aa8ad38ae, type: 2}
+    parryDirection: 5
     canCombo: 1
     isInstaKill: 0
