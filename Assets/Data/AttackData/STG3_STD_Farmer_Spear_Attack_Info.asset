@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: STG3_STD_Farmer_Spear_Attack_Info
   m_EditorClassIdentifier: 
   attackInfo:
-  - clip: {fileID: 7400000, guid: 4aaec9316f3524f4a99d1b2c2562f73e, type: 2}
-    parryDirection: 0
-    canCombo: 1
-    isInstaKill: 0
-  - clip: {fileID: 7400000, guid: df5e7d24f61f00847ac99f0aa608e0b0, type: 2}
-    parryDirection: 3
-    canCombo: 1
-    isInstaKill: 0
   - clip: {fileID: 7400000, guid: fbbcb1fb10f21df4dafcb5f09ffb198f, type: 2}
     parryDirection: 7
     canCombo: 1
     isInstaKill: 0
   - clip: {fileID: 7400000, guid: 8a430fbbe1f17614693609f47c94cce3, type: 2}
     parryDirection: 6
+    canCombo: 1
+    isInstaKill: 0
+  - clip: {fileID: 7400000, guid: 4aaec9316f3524f4a99d1b2c2562f73e, type: 2}
+    parryDirection: 0
+    canCombo: 1
+    isInstaKill: 0
+  - clip: {fileID: 7400000, guid: df5e7d24f61f00847ac99f0aa608e0b0, type: 2}
+    parryDirection: 3
     canCombo: 1
     isInstaKill: 0
