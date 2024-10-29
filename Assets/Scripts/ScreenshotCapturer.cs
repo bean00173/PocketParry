@@ -34,15 +34,15 @@ public class ScreenshotCapturer : MonoBehaviour
             Debug.Log($"Capturing Screen... Existing Files : {totalScreenshots}");
             if (totalScreenshots < 100)
             {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_{totalScreenshots}.png", 4);
+                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_{totalScreenshots}.jpg", 4);
             }
             else if(totalScreenshots < 10)
             {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_0{totalScreenshots}.png", 4);
+                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_0{totalScreenshots}.jpg", 4);
             }
             else
             {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_00{totalScreenshots}.png", 4);
+                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_00{totalScreenshots}.jpg", 4);
             }
 
             totalScreenshots++;
