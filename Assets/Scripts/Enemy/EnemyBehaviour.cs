@@ -29,6 +29,8 @@ public enum EnemyState
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public EnemyType enemyType;
+
     public AttackInformation attackInformation;
     public Enemy enemyStats;
 
@@ -39,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject blockVfx;
     public GameObject ragdoll, explode;
     public ParticleSystem glowPs;
+    public Transform parrySpawn;
 
     protected AttackInfo currentClipInfo;
     protected Animator ac;
@@ -197,14 +200,16 @@ public class EnemyBehaviour : MonoBehaviour
             if (lastFx != null)
             {
                 lastFx.GetComponent<SoundHandler>().FadeOut();
-            }
-
+            }            
 
             GameObject fxPrefab = CombatManager.instance.autoParry ? parryVfx : y == 1 ? parryVfx : blockVfx;
-            Transform fx = Instantiate(fxPrefab, slashVfx.transform.parent).transform;
+            Transform fx = Instantiate(fxPrefab, parrySpawn).transform;
+
             lastFx = fx.gameObject;
             fx.SetParent(null);
             fx.localScale = Vector3.one * .5f;
+
+            //ScreenshotCapturer.instance.TakeScreenshot("Parry_Auto_Capture");
         }
         else
         {

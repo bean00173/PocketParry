@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
   attackInformation: {fileID: 11400000, guid: 8634aaa0d13befb44892a9e308572588, type: 2}
   enemyStats:
     health: 10

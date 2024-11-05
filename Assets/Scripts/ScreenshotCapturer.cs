@@ -5,8 +5,14 @@ using System.IO;
 
 public class ScreenshotCapturer : MonoBehaviour
 {
+    public static ScreenshotCapturer instance;
     int totalScreenshots;
     public KeyCode screenshotKey = KeyCode.P;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,21 +37,26 @@ public class ScreenshotCapturer : MonoBehaviour
     {
         if (Input.GetKey(screenshotKey))
         {
-            Debug.Log($"Capturing Screen... Existing Files : {totalScreenshots}");
-            if (totalScreenshots < 100)
-            {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_{totalScreenshots}.jpg", 4);
-            }
-            else if(totalScreenshots < 10)
-            {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_0{totalScreenshots}.jpg", 4);
-            }
-            else
-            {
-                ScreenCapture.CaptureScreenshot($"Assets/Screenshots/Screenshot_00{totalScreenshots}.jpg", 4);
-            }
-
-            totalScreenshots++;
+            TakeScreenshot("Manual_Capture");
         }
+    }
+
+    public void TakeScreenshot(string prefix)
+    {
+        Debug.Log($"Capturing Screen... Existing Files : {totalScreenshots}");
+        if (totalScreenshots < 10)
+        {
+            ScreenCapture.CaptureScreenshot($"Assets/Screenshots/{prefix}_00{totalScreenshots}.jpg", 4);
+        }
+        else if (totalScreenshots < 100)
+        {
+            ScreenCapture.CaptureScreenshot($"Assets/Screenshots/{prefix}_0{totalScreenshots}.jpg", 4);
+        }
+        else
+        {
+            ScreenCapture.CaptureScreenshot($"Assets/Screenshots/{prefix}_{totalScreenshots}.jpg", 4);
+        }
+
+        totalScreenshots++;
     }
 }

@@ -179,10 +179,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: STG2_STD_Ronin_Spear_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 710341920454407905, guid: 80002b97da44aec469444371240cb424, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2853359414362330444, guid: 80002b97da44aec469444371240cb424, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: df1a3ecf49fab33408684f46f10e0d1a, type: 2}
+    - target: {fileID: 6182999807121945145, guid: 80002b97da44aec469444371240cb424, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2617,6 +2625,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: STG3_STD_Samurai_Sword_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5025079671593363548, guid: 16ccbb57d600fb140aeb633c5c85cacc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5690152971164955366, guid: 16ccbb57d600fb140aeb633c5c85cacc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.05
@@ -2655,6 +2667,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5690152971164955366, guid: 16ccbb57d600fb140aeb633c5c85cacc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134054137379872454, guid: 16ccbb57d600fb140aeb633c5c85cacc, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10747,6 +10763,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069218371}
   m_CullTransparentMesh: 1
+--- !u!1 &1071026383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071026385}
+  - component: {fileID: 1071026384}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1071026384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071026383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2adc78b395e5b438145cd56a5f3b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1071026385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071026383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3084846, y: -1.4941572, z: -7.771873}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077308915
 GameObject:
   m_ObjectHideFlags: 0
@@ -14198,6 +14258,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1225903038343189608, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1541487884773802718, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
       propertyPath: m_Controller
       value: 
@@ -14245,6 +14309,10 @@ PrefabInstance:
     - target: {fileID: 5461624875583235312, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
       propertyPath: m_Name
       value: STG1_STD_Sickle_Farmer_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461624875583235312, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457387748993324433, guid: 8e961a94c7d27cb4d8c0226481791e55, type: 3}
       propertyPath: m_Enabled
@@ -26501,3 +26569,4 @@ SceneRoots:
   - {fileID: 1418001430}
   - {fileID: 4533614}
   - {fileID: 315517978}
+  - {fileID: 1071026385}

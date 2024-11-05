@@ -84,6 +84,8 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
 
         //Debug.Log($"Player Swiped : {input} | Drag Start : {dragStart}, Drag End : {dragEnd}, Average Input Time : {dragEnd - timeSinceDragMiddle}");
 
+        //ScreenshotCapturer.instance.TakeScreenshot("Input_Auto_Capture");
+
         InputDirection = CalculateDirection(eventData);
         Debug.Log(InputDirection);
         DoingInput = true;

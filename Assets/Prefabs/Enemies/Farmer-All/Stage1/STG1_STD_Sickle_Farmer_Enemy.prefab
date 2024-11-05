@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4892348642960978692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6718118839934135544}
+  m_Layer: 0
+  m_Name: ParryFxSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6718118839934135544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892348642960978692}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.70432925, y: 0.06213323, z: -0.06922301, w: 0.7037529}
+  m_LocalPosition: {x: -0.00006, y: -0.00604, z: 0.00152}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3791238100553841501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &395722327375454526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232,11 +263,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fd9092cbce31194bac294a01f24beb0, type: 3}
---- !u!198 &1468282516315844295 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3334847985207394499, guid: 5fd9092cbce31194bac294a01f24beb0, type: 3}
-  m_PrefabInstance: {fileID: 4190495797266804228}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2403392001807649053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1980794331112957721, guid: 5fd9092cbce31194bac294a01f24beb0, type: 3}
@@ -472,6 +498,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8329356684110488316, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2403392001807649053}
+    - targetCorrespondingSourceObject: {fileID: 8329356684110488316, guid: 628caec600a1730438c063c26415ae2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6718118839934135544}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 628caec600a1730438c063c26415ae2e, type: 3}
       insertIndex: -1
@@ -537,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
   attackInformation: {fileID: 11400000, guid: b3c52a24efd0a9142926bbf018b67faf, type: 2}
   enemyStats:
     health: 3
@@ -554,7 +584,8 @@ MonoBehaviour:
   blockVfx: {fileID: 2552852810340718283, guid: eb03cf18f4e1ad14aab1392a06add8ae, type: 3}
   ragdoll: {fileID: 3861295047556292795, guid: a49e5eea91320094bbbc24af09f6818c, type: 3}
   explode: {fileID: 791997280684158168, guid: 208187f2d5af7924bb8e8a7347348db7, type: 3}
-  glowPS: {fileID: 1468282516315844295}
+  glowPs: {fileID: 0}
+  parrySpawn: {fileID: 6718118839934135544}
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []

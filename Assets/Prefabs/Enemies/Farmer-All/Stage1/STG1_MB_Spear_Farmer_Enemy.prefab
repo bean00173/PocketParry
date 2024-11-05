@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6956366093422527935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 283682867945448356}
+  m_Layer: 0
+  m_Name: ParryFxSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &283682867945448356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956366093422527935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000020896545, y: 0.000000029569485, z: -0.00000003364402, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.018120013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7039773643270172791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &388031026287695518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +229,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7495781834674678575, guid: f24d1f10977c81f40b7b73acac4e9fff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7309862935274158695}
+    - targetCorrespondingSourceObject: {fileID: 7495781834674678575, guid: f24d1f10977c81f40b7b73acac4e9fff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 283682867945448356}
     - targetCorrespondingSourceObject: {fileID: -7575985979138996442, guid: f24d1f10977c81f40b7b73acac4e9fff, type: 3}
       insertIndex: 1
       addedObject: {fileID: 4691114572708023933}
@@ -232,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d47af5edb570243a4b59b6f6cc554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   attackInformation: {fileID: 11400000, guid: 8cf65dcd559f5394897e91fc9f269320, type: 2}
   enemyStats:
     health: 6
@@ -250,6 +285,7 @@ MonoBehaviour:
   ragdoll: {fileID: 1891147554525295876, guid: b6027acc5e126e94eb626961ddcc1430, type: 3}
   explode: {fileID: 3771044149722912630, guid: 5f9a1c8e6ccc54648a71766058a93a8c, type: 3}
   glowPs: {fileID: 0}
+  parrySpawn: {fileID: 283682867945448356}
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []
