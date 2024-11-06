@@ -53,7 +53,19 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
 
     private void Start()
     {
-        LoadSettings(GameManager.Instance.ReturnSavedInputSettings());
+        //LoadSettings(GameManager.Instance.ReturnSavedInputSettings());
+
+        m_tr_fill =  (.25f * Screen.height) / (.5f * Screen.width);
+        m_tr_angle =  (.5f * Screen.height) / (.25f * Screen.width);
+        m_tl_fill =  (.5f * Screen.height) / (-.25f * Screen.width);
+        m_tl_angle =  (.25f * Screen.height) / (-.5f * Screen.width);
+        m_br_fill =  (-.5f * Screen.height) / (.25f * Screen.width);
+        m_br_angle =  (-.25f * Screen.height) / (.5f * Screen.width);
+        m_bl_fill =  (-.25f * Screen.height) / (-.5f * Screen.width);
+        m_bl_angle =  (-.5f * Screen.height) / (-.25f * Screen.width);
+
+        Debug.Log("Check");
+
     }
 
     public void OnDrag(PointerEventData eventData)
