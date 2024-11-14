@@ -530,7 +530,7 @@ MonoBehaviour:
       m_Calls: []
   btnEnabled: 1
   highlight: {fileID: 295449725}
-  levelInformation: {fileID: 11400000, guid: 3a6f5966cf3d34143b4717c4fa17b26e, type: 2}
+  levelInformation: {fileID: 11400000, guid: 1b9153c3ccf0caf4fbaf0f185e29f955, type: 2}
   progress: {fileID: 1901434544}
   canClick: 0
 --- !u!224 &38303778 stripped

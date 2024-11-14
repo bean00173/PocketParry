@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2387155442927192572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5834052026199087610}
+  m_Layer: 0
+  m_Name: ParryFxSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5834052026199087610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387155442927192572}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.9696342, y: -0.04856965, z: -0.027123593, w: -0.23814896}
+  m_LocalPosition: {x: 0.00001, y: 0.01114, z: -0.00788}
+  m_LocalScale: {x: 1.0327063, y: 1.032706, z: 1.0327063}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8729501853047559870}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2891387116917416087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -328,6 +359,9 @@ PrefabInstance:
       addedObject: {fileID: 4841005035173907537}
     - targetCorrespondingSourceObject: {fileID: -3775483243965032598, guid: 9dbc6ee61290d154282097bf641941c8, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5834052026199087610}
+    - targetCorrespondingSourceObject: {fileID: -3775483243965032598, guid: 9dbc6ee61290d154282097bf641941c8, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2402276217147187836}
     - targetCorrespondingSourceObject: {fileID: -3775483243965032598, guid: 9dbc6ee61290d154282097bf641941c8, type: 3}
       insertIndex: -1
@@ -452,6 +486,7 @@ MonoBehaviour:
   ragdoll: {fileID: 1359676395074811013, guid: 2eca4bf609f3f524785c3b6df9066ef6, type: 3}
   explode: {fileID: 3778488774203752582, guid: 7e8324f5a8c67e24c841467659a1cf19, type: 3}
   glowPs: {fileID: 1471667847578240422}
+  parrySpawn: {fileID: 5834052026199087610}
   onParrySuccessful:
     m_PersistentCalls:
       m_Calls: []
@@ -845,6 +880,10 @@ PrefabInstance:
     - target: {fileID: 4989081511674071475, guid: 91cf23225f5c1494d9fa9b0c102d7919, type: 3}
       propertyPath: m_Name
       value: PS_EvilEyes
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989081511674071475, guid: 91cf23225f5c1494d9fa9b0c102d7919, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7636598525974033270, guid: 91cf23225f5c1494d9fa9b0c102d7919, type: 3}
       propertyPath: m_LocalPosition.x
