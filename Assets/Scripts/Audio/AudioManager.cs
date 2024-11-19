@@ -43,6 +43,8 @@ public class AudioManager : MonoBehaviour
 
     public bool interrupt;
 
+    float musicVol, sfxVol, playerVol, enemyVol, ambientVol;
+
     public void Awake()
     {
         if (instance != null)
@@ -65,7 +67,11 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        masterMixer.GetFloat("musicVol", out musicVol);
+        masterMixer.GetFloat("fxVol", out sfxVol);
+        masterMixer.GetFloat("playerVol", out playerVol);
+        masterMixer.GetFloat("enemyVol", out enemyVol);
+        masterMixer.GetFloat("ambientVol", out ambientVol);
     }
 
     // Update is called once per frame
@@ -193,6 +199,41 @@ public class AudioManager : MonoBehaviour
     public void SetState(GameState state)
     {
         currentState = state;
+    }
+
+    public void MuteMusic(bool mute)
+    {
+        if (!mute)
+        {
+            SetMusicVol(musicVol);
+        }
+        else
+        {
+            masterMixer.GetFloat("musicVol", out musicVol);
+            SetMusicVol(-80);
+        }
+    }
+
+    public void MuteSfx(bool mute)
+    {
+        if (!mute)
+        {
+            SetSfxVol(sfxVol);
+            SetEnemyVol(enemyVol);
+            SetPlayerVol(playerVol);
+            SetAmbienceVol(ambientVol);
+        }
+        else
+        {
+            masterMixer.GetFloat("fxVol", out sfxVol);
+            SetSfxVol(-80);
+            masterMixer.GetFloat("playerVol", out playerVol);
+            SetPlayerVol(-80);
+            masterMixer.GetFloat("enemyVol", out enemyVol);
+            SetEnemyVol(-80);
+            masterMixer.GetFloat("ambientVol", out ambientVol);
+            SetAmbienceVol(-80);
+        }
     }
 
 
