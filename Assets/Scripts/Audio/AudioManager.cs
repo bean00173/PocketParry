@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public enum AudioType
 {
@@ -43,6 +44,8 @@ public class AudioManager : MonoBehaviour
 
     public bool interrupt;
 
+    public Toggle musicToggle, sfxToggle;
+
     float musicVol, sfxVol, playerVol, enemyVol, ambientVol;
 
     public void Awake()
@@ -72,6 +75,23 @@ public class AudioManager : MonoBehaviour
         masterMixer.GetFloat("playerVol", out playerVol);
         masterMixer.GetFloat("enemyVol", out enemyVol);
         masterMixer.GetFloat("ambientVol", out ambientVol);
+
+        if(musicVol == -80)
+        {
+            musicToggle.isOn = true;
+
+            musicVol = 0;
+        }
+        
+        if(sfxVol == -80)
+        {
+            sfxToggle.isOn = true;
+
+            sfxVol = 0;
+            playerVol = 0;
+            enemyVol = 0;
+            ambientVol = 0;
+        }
     }
 
     // Update is called once per frame

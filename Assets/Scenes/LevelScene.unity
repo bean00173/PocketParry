@@ -15670,6 +15670,8 @@ MonoBehaviour:
   masterMixer: {fileID: 24100000, guid: 4ad62662d1b72d84ca279f4be6857a66, type: 2}
   loaded: 0
   interrupt: 0
+  musicToggle: {fileID: 1605352939}
+  sfxToggle: {fileID: 545977711}
 --- !u!4 &1382169060
 Transform:
   m_ObjectHideFlags: 0
